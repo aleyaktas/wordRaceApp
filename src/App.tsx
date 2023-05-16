@@ -1,10 +1,11 @@
 import React from 'react';
 import {SafeAreaView, Text} from 'react-native';
+import Login from './screens/Login';
 
 function App(): JSX.Element {
   return (
     <SafeAreaView>
-      <Text className="text-red-500">Word Race App</Text>
+      <Login />
     </SafeAreaView>
   );
 }

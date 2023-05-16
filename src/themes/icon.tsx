@@ -1,6 +1,5 @@
 import React from 'react';
-import {Svg, SvgProps, SvgXml} from 'react-native-svg';
-
+import {SvgProps, SvgXml} from 'react-native-svg';
 import User from '../assets/icons/User.svg';
 import Mail from '../assets/icons/Mail.svg';
 import Lock from '../assets/icons/Lock.svg';
