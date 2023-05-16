@@ -51,6 +51,7 @@ import DropDown from '../assets/icons/DropDown.svg';
 import Logo from '../assets/icons/Logo.svg';
 import Notification from '../assets/icons/Notification.svg';
 import Trash from '../assets/icons/Trash.svg';
+import Tick from '../assets/icons/Tick.svg';
 
 const icons: {[key: string]: React.FC<SvgProps>} = {
   User,
@@ -104,6 +105,7 @@ const icons: {[key: string]: React.FC<SvgProps>} = {
   Logo,
   Notification,
   Trash,
+  Tick,
 };
 
 interface IconProps {
