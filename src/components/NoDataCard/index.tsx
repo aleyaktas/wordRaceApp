@@ -1,0 +1,29 @@
+import React from 'react';
+import {Text, TouchableOpacity, View} from 'react-native';
+import Icon from '../../themes/icon';
+import LinearGradient from 'react-native-linear-gradient';
+import {NoDataCardProps} from './types';
+
+const NoDataCard = ({image, description, buttonLabel}: NoDataCardProps) => {
+  return (
+    <View className="flex h-full justify-center items-center">
+      <Icon name={image} width={320} height={224} />
+      <Text className="text-xs text-gray-900 mt-6 mb-4">{description}</Text>
+      <LinearGradient
+        start={{x: 0, y: 0}}
+        end={{x: 1, y: 0}}
+        className="rounded-xl"
+        colors={['#5BB9CA', '#1D7483']}>
+        <TouchableOpacity
+          className="w-fit px-5 h-12 flex justify-center items-center"
+          activeOpacity={0.9}>
+          <Text className="text-white text-base font-medium shadow">
+            {buttonLabel}
+          </Text>
+        </TouchableOpacity>
+      </LinearGradient>
+    </View>
+  );
+};
+
+export default NoDataCard;
