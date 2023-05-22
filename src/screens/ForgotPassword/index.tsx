@@ -1,12 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {
-  Animated,
-  StyleSheet,
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-} from 'react-native';
+import {Animated, StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import {
   CodeField,
   Cursor,
@@ -19,10 +12,6 @@ import LinearGradient from 'react-native-linear-gradient';
 
 const CELL_SIZE = 70;
 const CELL_BORDER_RADIUS = 6;
-export const DEFAULT_CELL_BG_COLOR = '#f5f5f5';
-export const NOT_EMPTY_CELL_BG_COLOR = '#075765';
-export const ACTIVE_CELL_BG_COLOR = '#f5f5f5';
-export const DARK_TEXT = '#25282B';
 
 const ForgotPassword = () => {
   const CELL_COUNT = 5;
