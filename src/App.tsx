@@ -1,12 +1,11 @@
 import React from 'react';
 import {SafeAreaView, Text} from 'react-native';
-import Login from './screens/Login';
-import Register from './screens/Register';
+import ForgotPassword from './screens/ForgotPassword';
 
 function App(): JSX.Element {
   return (
     <SafeAreaView>
-      <Register />
+      <ForgotPassword />
     </SafeAreaView>
   );
 }
