@@ -52,6 +52,8 @@ import Logo from '../assets/icons/Logo.svg';
 import Notification from '../assets/icons/Notification.svg';
 import Trash from '../assets/icons/Trash.svg';
 import Tick from '../assets/icons/Tick.svg';
+import ToastError from '../assets/icons/ToastError.svg';
+import ToastSuccess from '../assets/icons/ToastSuccess.svg';
 
 const icons: {[key: string]: React.FC<SvgProps>} = {
   User,
@@ -106,6 +108,8 @@ const icons: {[key: string]: React.FC<SvgProps>} = {
   Notification,
   Trash,
   Tick,
+  ToastError,
+  ToastSuccess,
 };
 
 interface IconProps {

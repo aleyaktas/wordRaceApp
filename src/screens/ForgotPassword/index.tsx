@@ -23,7 +23,7 @@ const ForgotPassword = () => {
     setValue,
   });
 
-  const [time, setTime] = useState<number>(10);
+  const [time, setTime] = useState<number>(180);
 
   useEffect(() => {
     const timer = setTimeout(() => {
