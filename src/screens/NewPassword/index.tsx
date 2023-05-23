@@ -17,9 +17,9 @@ const NewPassword = () => {
       <Text className="font-normal text-sm text-textSecondary px-10 text-center mb-6 mt-1">
         Please enter the information for change password
       </Text>
-      <View className="flex flex-row justify-between items-center bg-textInput rounded-xl w-full h-12 px-3">
+      <View className="flex-row justify-between items-center bg-textInput rounded-xl w-full h-12 px-3">
         <TextInput
-          className="w-[90%]"
+          className="flex-1"
           placeholder="New Password"
           secureTextEntry
         />

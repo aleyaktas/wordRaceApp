@@ -2,9 +2,12 @@ import React, {useState} from 'react';
 import {Text, TextInput, TouchableOpacity, View} from 'react-native';
 import Icon from '../../themes/icon';
 import LinearGradient from 'react-native-linear-gradient';
+import {useNavigation} from '@react-navigation/native';
+import {ScreenProp} from '../../navigation/types';
 
 const Register = () => {
   const [isChecked, setIsChecked] = useState(false);
+  const navigation = useNavigation<ScreenProp>();
 
   const toggleCheckbox = () => {
     setIsChecked(!isChecked);
@@ -20,17 +23,17 @@ const Register = () => {
         Welcome to the Word Race app, please enter the information below to
         create an account for you
       </Text>
-      <View className="flex flex-row justify-between items-center bg-textInput rounded-xl w-full h-12 px-3">
-        <TextInput className="w-[90%]" placeholder="Your Username" />
+      <View className="flex-row justify-between items-center bg-textInput rounded-xl w-full h-12 px-3">
+        <TextInput className="flex-1" placeholder="Your Username" />
         <Icon name="User" width={24} height={24} color="#BCBCBC" />
       </View>
-      <View className="flex flex-row justify-between items-center bg-textInput rounded-xl w-full h-12 px-3 mt-4">
-        <TextInput className="w-[90%]" placeholder="Your Email" />
+      <View className="flex-row justify-between items-center bg-textInput rounded-xl w-full h-12 px-3 mt-4">
+        <TextInput className="flex-1" placeholder="Your Email" />
         <Icon name="Mail" width={24} height={24} color="#BCBCBC" />
       </View>
-      <View className="flex flex-row justify-between items-center bg-textInput rounded-xl w-full h-12 px-3 my-4">
+      <View className="flex-row justify-between items-center bg-textInput rounded-xl w-full h-12 px-3 my-4">
         <TextInput
-          className="w-[90%]"
+          className="flex-1"
           placeholder="Your Password"
           secureTextEntry
         />
@@ -67,7 +70,9 @@ const Register = () => {
         <Text className="text-gray-900 text-sm font-medium">
           Already have an account?
         </Text>
-        <TouchableOpacity activeOpacity={0.9}>
+        <TouchableOpacity
+          activeOpacity={0.9}
+          onPress={() => navigation.navigate('Login')}>
           <Text className="text-darkGreen text-sm font-bold">Login</Text>
         </TouchableOpacity>
       </View>

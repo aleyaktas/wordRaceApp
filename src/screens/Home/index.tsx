@@ -7,10 +7,23 @@ import Icon from '../../themes/icon';
 import {TextInput} from 'react-native-gesture-handler';
 import RNPickerSelect from 'react-native-picker-select';
 import LinearGradient from 'react-native-linear-gradient';
-import RoomCard from '../../components/RoomCard';
+import RoomCardList from '../../components/RoomCardList';
 
 const Home = () => {
-  const [rooms, setRooms] = useState(['ee']);
+  const [rooms, setRooms] = useState([
+    {
+      roomName: 'test',
+      iconName: 'Bird',
+    },
+    {
+      roomName: 'test',
+      iconName: 'Bird',
+    },
+    {
+      roomName: 'test',
+      iconName: 'Bird',
+    },
+  ]);
   const [showAlert, setShowAlert] = useState(false);
   const [selectedTimer, setSelectedTimer] = useState({
     label: '20sn',
@@ -28,8 +41,8 @@ const Home = () => {
       <View className="bg-textInput rounded-xl h-12 px-3 w-full">
         <TextInput className="w-full" placeholder="Room Name" />
       </View>
-      <View className="flex-row justify-between w-full">
-        <View className="flex w-[48%] text-black placeholder:text-black  bg-textInput rounded-xl h-12 mt-4">
+      <View className="flex-row justify-between w-full gap-x-2">
+        <View className="flex-1 text-black placeholder:text-black  bg-textInput rounded-xl h-12 mt-4">
           <RNPickerSelect
             onValueChange={value => setSelectedTimer(value)}
             items={[
@@ -41,7 +54,7 @@ const Home = () => {
             placeholder={{}}
           />
         </View>
-        <View className="flex w-[48%] text-black placeholder:text-black  bg-textInput rounded-xl h-12 mt-4">
+        <View className="flex-1 text-black placeholder:text-black  bg-textInput rounded-xl h-12 mt-4">
           <RNPickerSelect
             onValueChange={value => setSelectedRoomStatus(value)}
             items={[
@@ -82,20 +95,31 @@ const Home = () => {
 
   return (
     <HomePageTemplate setShowAlert={setShowAlert}>
-      <View>
-        {rooms.length === 0 ? (
-          <NoDataCard
-            image="EmptyRoom"
-            description="There are no online room. You can create room to play"
-            buttonLabel="Create Room"
-            buttonAction={() => setShowAlert(true)}
-          />
-        ) : (
-          <View>
-            <RoomCard roomName="test" iconName="Bird" />
+      {rooms.length === 0 ? (
+        <NoDataCard
+          image="EmptyRoom"
+          description="There are no online room. You can create room to play"
+          buttonLabel="Create Room"
+          buttonAction={() => setShowAlert(true)}
+        />
+      ) : (
+        <View>
+          <View className="flex-row justify-between items-center bg-white rounded-xl h-12 px-2 m-5 mb-0">
+            <TextInput
+              className="flex-1 px-3 text-black"
+              placeholder="Search room..."
+            />
+            <LinearGradient
+              start={{x: 0, y: 0}}
+              end={{x: 1, y: 0}}
+              className="w-10 h-10 flex justify-center items-center rounded-xl"
+              colors={['#5BB9CA', '#1D7483']}>
+              <Icon name="Search" width={24} height={24} color="white" />
+            </LinearGradient>
           </View>
-        )}
-      </View>
+          <RoomCardList rooms={rooms} />
+        </View>
+      )}
       <AwesomeAlert
         show={showAlert}
         showProgress={false}
