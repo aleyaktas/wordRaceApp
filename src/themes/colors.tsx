@@ -10,4 +10,5 @@ export default {
   aeroBlue: '#C5FFDC',
   palePink: '#FFDCDC',
   background: '#F5F5F5',
+  iconBorder: '#E1E1E1',
 };
