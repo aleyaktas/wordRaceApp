@@ -7,6 +7,7 @@ import {BottomNavigatorList, ScreenProp} from './types';
 import Intro from '../screens/Intro';
 import Icon from '../themes/icon';
 import Home from '../screens/Home';
+import Friends from '../screens/Friends';
 
 const BottomTabNavigator = ({}: {navigation: ScreenProp; route: any}) => {
   const BottomTab = createBottomTabNavigator<BottomNavigatorList>();
@@ -67,12 +68,24 @@ const BottomTabNavigator = ({}: {navigation: ScreenProp; route: any}) => {
         name="Home"
         component={Home}
         options={{
-          tabBarLabel: 'Ana sayfa',
+          tabBarLabel: 'Home',
           tabBarLabelStyle: {
             fontFamily: 'Poppins-Medium',
             fontWeight: '500',
           },
           tabBarIcon: ({focused}) => renderIcon({focused, icon: 'Home'}),
+        }}
+      />
+      <BottomTab.Screen
+        name="Friends"
+        component={Friends}
+        options={{
+          tabBarLabel: 'Friends',
+          tabBarLabelStyle: {
+            fontFamily: 'Poppins-Medium',
+            fontWeight: '500',
+          },
+          tabBarIcon: ({focused}) => renderIcon({focused, icon: 'Friends'}),
         }}
       />
     </BottomTab.Navigator>

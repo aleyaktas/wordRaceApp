@@ -22,7 +22,7 @@ const DefaultTemplate = ({
   rightIconName,
   leftIconAction,
   rightIconAction,
-  title = 'Title',
+  title,
   backIcon = false,
 }: DefaultTemplateProps) => {
   const Container = scroll ? ScrollView : View;
