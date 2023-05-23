@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   ActivityIndicator,
+  Dimensions,
   Image,
   SafeAreaView,
   ScrollView,
@@ -15,14 +16,28 @@ import {HomePageTemplateProps} from './types';
 import {useNavigation} from '@react-navigation/native';
 import {ScreenProp} from '../../navigation/types';
 import LinearGradient from 'react-native-linear-gradient';
+import AwesomeAlert from 'react-native-awesome-alerts';
+import {TextInput} from 'react-native-gesture-handler';
 
 const HomePageTemplate = ({
   children,
   loading,
   scroll,
+  setShowAlert,
 }: HomePageTemplateProps) => {
   const Container = scroll ? ScrollView : View;
   const navigation = useNavigation<ScreenProp>();
+  const AlertStatusComponent = () => (
+    <View className="flex flex-col justify-center items-center mx-5">
+      <TextInput
+        className="w-full h-12 bg-textInput rounded-xl px-3"
+        placeholder="Enter your code"
+      />
+      <Text className="text-sm text-gray-900 mt-6 mb-4">
+        Please enter the code you received via email
+      </Text>
+    </View>
+  );
 
   return (
     <SafeAreaView style={styles.container}>
@@ -40,7 +55,9 @@ const HomePageTemplate = ({
             <Text className="text-base text-black font-bold">Aleyna Aktas</Text>
           </View>
         </View>
-        <TouchableOpacity className="flex justify-center items-center border !border-iconBorder rounded-md p-[6px]">
+        <TouchableOpacity
+          onPress={() => setShowAlert && setShowAlert(true)}
+          className="flex justify-center items-center border !border-iconBorder rounded-md p-[6px]">
           <Icon name="Add" width={24} height={24} color="black" />
         </TouchableOpacity>
       </View>
@@ -84,6 +101,41 @@ const styles = StyleSheet.create({
   },
   loading: {
     marginTop: 63,
+  },
+  cancelButton: {
+    width: (Dimensions.get('window').width - 56) / 2,
+    height: 52,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 12,
+    backgroundColor: colors.background,
+  },
+  cancelText: {
+    color: colors.primary,
+    fontSize: 14,
+    fontWeight: '600',
+  },
+  confirmText: {
+    color: colors.white,
+    fontSize: 14,
+    fontWeight: '600',
+  },
+  confirmButton: {
+    width: (Dimensions.get('window').width - 56) / 2,
+    height: 52,
+    justifyContent: 'center',
+    borderRadius: 12,
+    alignItems: 'center',
+    fontWeight: 'bold',
+  },
+  alertContainer: {
+    width: '100%',
+    maxWidth: '100%',
+  },
+  alertContentContainer: {
+    width: '100%',
+    maxWidth: '96%',
+    position: 'absolute',
   },
 });
 

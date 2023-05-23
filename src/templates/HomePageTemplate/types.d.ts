@@ -10,4 +10,5 @@ export interface HomePageTemplateProps {
   indicatorLoading?: boolean;
   backIconColor?: string;
   customBackPress?(): void | undefined;
+  setShowAlert?(value: boolean): void | undefined;
 }
