@@ -9,6 +9,8 @@ import {
 import colors from '../../themes/colors';
 import Icon from '../../themes/icon';
 import LinearGradient from 'react-native-linear-gradient';
+import {useNavigation} from '@react-navigation/native';
+import {ScreenProp} from '../../navigation/types';
 
 const CELL_SIZE = 70;
 const CELL_BORDER_RADIUS = 6;
@@ -24,6 +26,7 @@ const ForgotPassword = () => {
   });
 
   const [time, setTime] = useState<number>(180);
+  const navigation = useNavigation<ScreenProp>();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -138,7 +141,8 @@ const ForgotPassword = () => {
           colors={['#5BB9CA', '#1D7483']}>
           <TouchableOpacity
             className="w-full h-12 flex justify-center items-center"
-            activeOpacity={0.9}>
+            activeOpacity={0.9}
+            onPress={() => navigation.navigate('NewPassword')}>
             <Text className="text-white text-base font-medium shadow">
               Verify
             </Text>

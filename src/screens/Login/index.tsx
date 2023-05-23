@@ -2,8 +2,11 @@ import React from 'react';
 import {Text, TextInput, TouchableOpacity, View} from 'react-native';
 import Icon from '../../themes/icon';
 import LinearGradient from 'react-native-linear-gradient';
+import {useNavigation} from '@react-navigation/native';
+import {ScreenProp} from '../../navigation/types';
 
 const Login = () => {
+  const navigation = useNavigation<ScreenProp>();
   return (
     <View className="flex w-full h-full mt-24 items-center px-5">
       <Icon name="Logo" width={100} height={100} />
@@ -23,7 +26,10 @@ const Login = () => {
         />
         <Icon name="Lock" width={24} height={24} color="#BCBCBC" />
       </View>
-      <TouchableOpacity className="w-fit mr-auto" activeOpacity={0.9}>
+      <TouchableOpacity
+        className="w-fit mr-auto"
+        activeOpacity={0.9}
+        onPress={() => navigation.navigate('ForgotPassword')}>
         <Text className="text-darkGreen font-normal text-sm underline underline-offset-6">
           Forgot Password?
         </Text>
@@ -34,6 +40,7 @@ const Login = () => {
         className="w-full rounded-xl mt-6 mb-7"
         colors={['#5BB9CA', '#1D7483']}>
         <TouchableOpacity
+          onPress={() => navigation.navigate('BottomTab')}
           className="w-full h-12 flex justify-center items-center"
           activeOpacity={0.9}>
           <Text className="text-white text-base font-medium shadow">Login</Text>
@@ -43,7 +50,9 @@ const Login = () => {
         <Text className="text-gray-900 text-sm font-medium">
           Don’t have an account?
         </Text>
-        <TouchableOpacity activeOpacity={0.9}>
+        <TouchableOpacity
+          activeOpacity={0.9}
+          onPress={() => navigation.navigate('Register')}>
           <Text className="text-darkGreen text-sm font-bold">
             Create New Account
           </Text>

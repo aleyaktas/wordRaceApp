@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
 import IntroStep from '../../components/IntroStep';
+import {useNavigation} from '@react-navigation/native';
+import {ScreenProp} from '../../navigation/types';
 
 const Intro = () => {
   const [step, setStep] = useState(1);
@@ -31,6 +33,7 @@ const Intro = () => {
     },
   ];
   const [introShow, setIntroShow] = useState(introInfo[0]);
+  const navigation = useNavigation<ScreenProp>();
 
   return (
     <View>
@@ -45,7 +48,7 @@ const Intro = () => {
             await setStep(step + 1);
             setIntroShow(introInfo[step]);
           } else {
-            console.log('Join Us');
+            navigation.navigate('Login');
           }
         }}
       />

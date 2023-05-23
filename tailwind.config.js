@@ -5,6 +5,7 @@ module.exports = {
     './src/screens/**/*.{js,jsx,ts,tsx}',
     './src/components/**/*.{js,jsx,ts,tsx}',
     './src/themes/**/*.{js,jsx,ts,tsx}',
+    './src/templates/**/*.{js,jsx,ts,tsx}',
   ],
   theme: {
     extend: {
@@ -13,6 +14,7 @@ module.exports = {
         textSecondary: '#6C6C6C',
         textInput: '#F5F5F5',
         darkGreen: '#075765',
+        iconBorder: '#E1E1E1',
       },
       fontFamily: {
         default: ['Poppins'],

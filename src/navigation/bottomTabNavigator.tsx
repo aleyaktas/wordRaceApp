@@ -6,6 +6,7 @@ import colors from '../themes/colors';
 import {BottomNavigatorList, ScreenProp} from './types';
 import Intro from '../screens/Intro';
 import Icon from '../themes/icon';
+import Home from '../screens/Home';
 
 const BottomTabNavigator = ({}: {navigation: ScreenProp; route: any}) => {
   const BottomTab = createBottomTabNavigator<BottomNavigatorList>();
@@ -64,7 +65,7 @@ const BottomTabNavigator = ({}: {navigation: ScreenProp; route: any}) => {
       }}>
       <BottomTab.Screen
         name="Home"
-        component={Intro}
+        component={Home}
         options={{
           tabBarLabel: 'Ana sayfa',
           tabBarLabelStyle: {

@@ -8,7 +8,7 @@ export type StackNavigatorList = {
   Intro: undefined;
   Login: undefined;
   Register: undefined;
-  BottomTab: {data: any};
+  BottomTab: undefined;
   ForgotPassword: undefined;
   NewPassword: undefined;
 };
