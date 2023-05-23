@@ -117,12 +117,21 @@ interface IconProps {
   color?: string;
   width?: string | number;
   height?: string | number;
+  className?: string;
 }
 
-const icon = ({name, color, width = 24, height = 24, ...props}: IconProps) => {
+const icon = ({
+  name,
+  className,
+  color,
+  width = 24,
+  height = 24,
+  ...props
+}: IconProps) => {
   const Icon = icons[name];
   return (
     <SvgXml
+      className={className}
       xml={Icon.toString()}
       width={width}
       height={height}

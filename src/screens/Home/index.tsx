@@ -7,9 +7,10 @@ import Icon from '../../themes/icon';
 import {TextInput} from 'react-native-gesture-handler';
 import RNPickerSelect from 'react-native-picker-select';
 import LinearGradient from 'react-native-linear-gradient';
+import RoomCard from '../../components/RoomCard';
 
 const Home = () => {
-  const [rooms, setRooms] = useState([]);
+  const [rooms, setRooms] = useState(['ee']);
   const [showAlert, setShowAlert] = useState(false);
   const [selectedTimer, setSelectedTimer] = useState({
     label: '20sn',
@@ -91,7 +92,7 @@ const Home = () => {
           />
         ) : (
           <View>
-            <Text>Home</Text>
+            <RoomCard roomName="test" iconName="Bird" />
           </View>
         )}
       </View>
@@ -101,6 +102,7 @@ const Home = () => {
         customView={<CustomComponent />}
         contentContainerStyle={{
           width: Dimensions.get('window').width - 50,
+          borderRadius: 12,
         }}
         closeOnTouchOutside={true}
         closeOnHardwareBackPress={false}

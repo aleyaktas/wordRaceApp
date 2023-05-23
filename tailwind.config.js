@@ -15,6 +15,7 @@ module.exports = {
         textInput: '#F5F5F5',
         darkGreen: '#075765',
         iconBorder: '#E1E1E1',
+        roomCardFooter: '#0DBB7E',
       },
       fontFamily: {
         default: ['Poppins'],
