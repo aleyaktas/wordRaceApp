@@ -23,6 +23,7 @@ const FriendCardList = ({
       keyExtractor={item => item.id}
       contentContainerStyle={{
         padding: 20,
+        paddingBottom: 60,
       }}
       ItemSeparatorComponent={() => <View style={{height: 20}} />}
     />
