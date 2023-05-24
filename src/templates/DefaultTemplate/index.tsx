@@ -13,6 +13,8 @@ import colors from '../../themes/colors';
 import Icon from '../../themes/icon';
 import {DefaultTemplateProps} from './types';
 import LinearGradient from 'react-native-linear-gradient';
+import {useNavigation} from '@react-navigation/native';
+import {ScreenProp} from '../../navigation/types';
 
 const DefaultTemplate = ({
   children,
@@ -26,12 +28,14 @@ const DefaultTemplate = ({
   backIcon = false,
 }: DefaultTemplateProps) => {
   const Container = scroll ? ScrollView : View;
+  const navigation = useNavigation<ScreenProp>();
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.top}>
         {leftIconName && (
           <TouchableOpacity
+            activeOpacity={0.9}
             style={[styles.button, styles.backButton]}
             onPress={leftIconAction}>
             <Icon name={leftIconName} width={24} height={24} color="black" />
@@ -39,8 +43,9 @@ const DefaultTemplate = ({
         )}
         {backIcon && (
           <TouchableOpacity
+            activeOpacity={0.9}
             style={[styles.button, styles.backButton]}
-            onPress={leftIconAction}>
+            onPress={() => navigation.goBack()}>
             <Icon name="Back" width={24} height={24} color="black" />
           </TouchableOpacity>
         )}
@@ -49,6 +54,7 @@ const DefaultTemplate = ({
         </Text>
         {rightIconName && (
           <TouchableOpacity
+            activeOpacity={0.9}
             style={[styles.button, styles.rightButton]}
             onPress={rightIconAction}>
             <Icon name={rightIconName} width={24} height={24} color="black" />
@@ -76,7 +82,6 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    height: 80,
     paddingVertical: 16,
     paddingHorizontal: 20,
     width: '100%',
@@ -100,6 +105,7 @@ const styles = StyleSheet.create({
   backButton: {
     position: 'absolute',
     left: 20,
+    zIndex: 44,
   },
   rightButton: {
     position: 'absolute',

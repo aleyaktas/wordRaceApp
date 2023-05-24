@@ -4,10 +4,10 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {View} from 'react-native';
 import colors from '../themes/colors';
 import {BottomNavigatorList, ScreenProp} from './types';
-import Intro from '../screens/Intro';
 import Icon from '../themes/icon';
 import Home from '../screens/Home';
 import Friends from '../screens/Friends';
+import Scores from '../screens/Scores';
 
 const BottomTabNavigator = ({}: {navigation: ScreenProp; route: any}) => {
   const BottomTab = createBottomTabNavigator<BottomNavigatorList>();
@@ -22,22 +22,11 @@ const BottomTabNavigator = ({}: {navigation: ScreenProp; route: any}) => {
         justifyContent: 'center',
       }}>
       <Icon
-        name={icon}
-        width={focused ? 26 : 22}
-        height={focused ? 26 : 22}
-        color={focused ? 'blue' : colors.primary}
+        name={focused ? `${icon}Active` : icon}
+        width={26}
+        height={26}
+        color={colors.text}
       />
-      {focused && (
-        <View
-          style={{
-            position: 'absolute',
-            bottom: -20,
-            height: 2,
-            width: '50%',
-            backgroundColor: colors.white,
-          }}
-        />
-      )}
     </View>
   );
 
@@ -45,20 +34,18 @@ const BottomTabNavigator = ({}: {navigation: ScreenProp; route: any}) => {
     <BottomTab.Navigator
       screenOptions={{
         header: () => null,
-        tabBarActiveTintColor: colors.white,
-        tabBarInactiveTintColor: colors.white,
         tabBarLabelStyle: {fontSize: 13},
         tabBarStyle: {
           borderTopWidth: 1,
           borderTopColor: colors.white,
-          backgroundColor: colors.primary,
+          backgroundColor: colors.white,
           position: 'absolute',
           height: 63 + insets.bottom,
-          shadowColor: colors.text,
+          shadowColor: 'black',
           shadowRadius: 10,
           shadowOpacity: 0.15,
-          borderTopLeftRadius: 30,
-          borderTopRightRadius: 30,
+          borderTopLeftRadius: 12,
+          borderTopRightRadius: 12,
           shadowOffset: {width: 0, height: 0},
           elevation: 10,
         },
@@ -69,10 +56,7 @@ const BottomTabNavigator = ({}: {navigation: ScreenProp; route: any}) => {
         component={Home}
         options={{
           tabBarLabel: 'Home',
-          tabBarLabelStyle: {
-            fontFamily: 'Poppins-Medium',
-            fontWeight: '500',
-          },
+          tabBarActiveTintColor: colors.primary,
           tabBarIcon: ({focused}) => renderIcon({focused, icon: 'Home'}),
         }}
       />
@@ -81,11 +65,17 @@ const BottomTabNavigator = ({}: {navigation: ScreenProp; route: any}) => {
         component={Friends}
         options={{
           tabBarLabel: 'Friends',
-          tabBarLabelStyle: {
-            fontFamily: 'Poppins-Medium',
-            fontWeight: '500',
-          },
+          tabBarActiveTintColor: colors.primary,
           tabBarIcon: ({focused}) => renderIcon({focused, icon: 'Friends'}),
+        }}
+      />
+      <BottomTab.Screen
+        name="Scores"
+        component={Scores}
+        options={{
+          tabBarLabel: 'Scores',
+          tabBarActiveTintColor: colors.primary,
+          tabBarIcon: ({focused}) => renderIcon({focused, icon: 'Scores'}),
         }}
       />
     </BottomTab.Navigator>

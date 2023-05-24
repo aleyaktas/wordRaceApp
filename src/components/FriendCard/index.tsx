@@ -29,6 +29,7 @@ const FriendCard = ({name, image, isOnline, deleteFriend}: FriendCardProps) => {
       </View>
       <Text className="text-sm text-gray-600 ">{name}</Text>
       <TouchableOpacity
+        activeOpacity={0.9}
         style={styles.button}
         onPress={() => deleteFriend && deleteFriend()}>
         <Icon name="Trash" width={24} height={24} color="black" />

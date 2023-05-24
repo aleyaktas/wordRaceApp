@@ -1,5 +1,5 @@
 import React from 'react';
-import {SvgProps, SvgXml} from 'react-native-svg';
+import {SvgProps, SvgXml, LinearGradient} from 'react-native-svg';
 import User from '../assets/icons/User.svg';
 import Mail from '../assets/icons/Mail.svg';
 import Lock from '../assets/icons/Lock.svg';
@@ -57,6 +57,10 @@ import ToastSuccess from '../assets/icons/ToastSuccess.svg';
 import TestUser from '../assets/icons/TestUser.svg';
 import EmptyRequest from '../assets/icons/EmptyRequest.svg';
 import Reject from '../assets/icons/Reject.svg';
+import HomeActive from '../assets/icons/HomeActive.svg';
+import FriendsActive from '../assets/icons/FriendsActive.svg';
+import ProfileActive from '../assets/icons/ProfileActive.svg';
+import ScoresActive from '../assets/icons/ScoresActive.svg';
 
 const icons: {[key: string]: React.FC<SvgProps>} = {
   User,
@@ -116,6 +120,10 @@ const icons: {[key: string]: React.FC<SvgProps>} = {
   ToastSuccess,
   TestUser,
   Reject,
+  HomeActive,
+  FriendsActive,
+  ProfileActive,
+  ScoresActive,
 };
 
 interface IconProps {

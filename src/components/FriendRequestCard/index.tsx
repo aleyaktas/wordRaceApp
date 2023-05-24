@@ -27,11 +27,17 @@ const FriendRequestCard = ({
       </View>
       <Text className="text-sm text-gray-600 ">{name}</Text>
       <View className="flex-row gap-2">
-        <TouchableOpacity style={styles.button} onPress={() => onAccept()}>
-          <Icon name="Accept" width={24} height={24} color="black" />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={() => onDecline()}>
+        <TouchableOpacity
+          activeOpacity={0.9}
+          style={styles.button}
+          onPress={() => onDecline()}>
           <Icon name="Reject" width={24} height={24} color="black" />
+        </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.9}
+          style={styles.button}
+          onPress={() => onAccept()}>
+          <Icon name="Accept" width={24} height={24} color="black" />
         </TouchableOpacity>
       </View>
     </View>

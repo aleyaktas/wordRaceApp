@@ -41,6 +41,7 @@ const Register = () => {
       </View>
       <View className="flex-row gap-2 mr-auto w-fit">
         <TouchableOpacity
+          activeOpacity={0.9}
           onPress={toggleCheckbox}
           className="flex justify-center items-center w-6 h-5 bg-gray-300 rounded-md">
           {isChecked && (

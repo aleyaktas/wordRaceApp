@@ -38,6 +38,7 @@ const HomePageTemplate = ({
           </View>
         </View>
         <TouchableOpacity
+          activeOpacity={0.9}
           onPress={() => setShowAlert && setShowAlert(true)}
           className="flex justify-center items-center border !border-iconBorder rounded-md p-[6px]">
           <Icon name="Add" width={24} height={24} color="black" />
@@ -65,7 +66,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingVertical: 16,
-    height: 80,
     paddingHorizontal: 20,
     width: '100%',
     backgroundColor: colors.white,
