@@ -8,6 +8,7 @@ import Icon from '../themes/icon';
 import Home from '../screens/Home';
 import Friends from '../screens/Friends';
 import Scores from '../screens/Scores';
+import Profile from '../screens/Profile';
 
 const BottomTabNavigator = ({}: {navigation: ScreenProp; route: any}) => {
   const BottomTab = createBottomTabNavigator<BottomNavigatorList>();
@@ -76,6 +77,15 @@ const BottomTabNavigator = ({}: {navigation: ScreenProp; route: any}) => {
           tabBarLabel: 'Scores',
           tabBarActiveTintColor: colors.primary,
           tabBarIcon: ({focused}) => renderIcon({focused, icon: 'Scores'}),
+        }}
+      />
+      <BottomTab.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          tabBarLabel: 'Profile',
+          tabBarActiveTintColor: colors.primary,
+          tabBarIcon: ({focused}) => renderIcon({focused, icon: 'Profile'}),
         }}
       />
     </BottomTab.Navigator>
