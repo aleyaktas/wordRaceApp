@@ -11,6 +11,7 @@ import ForgotPassword from '../screens/ForgotPassword';
 import NewPassword from '../screens/NewPassword';
 import Intro from '../screens/Intro';
 import PendingRequests from '../screens/PendingRequests';
+import ChangePassword from '../screens/ChangePassword';
 
 const stackNavigator = () => {
   const Stack = createStackNavigator<StackNavigatorList>();
@@ -44,6 +45,7 @@ const stackNavigator = () => {
       <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
       <Stack.Screen name="NewPassword" component={NewPassword} />
       <Stack.Screen name="PendingRequests" component={PendingRequests} />
+      <Stack.Screen name="ChangePassword" component={ChangePassword} />
     </Stack.Navigator>
   );
 };

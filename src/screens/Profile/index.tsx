@@ -3,8 +3,11 @@ import DefaultTemplate from '../../templates/DefaultTemplate';
 import {TextInput, Image, View, TouchableOpacity, Text} from 'react-native';
 import Icon from '../../themes/icon';
 import LinearGradient from 'react-native-linear-gradient';
+import {useNavigation} from '@react-navigation/native';
+import {ScreenProp} from '../../navigation/types';
 
 const Profile = () => {
+  const navigation = useNavigation<ScreenProp>();
   return (
     <DefaultTemplate title="Profile">
       <View className="justify-center items-center">
@@ -41,9 +44,13 @@ const Profile = () => {
           <TextInput className="flex-1" placeholder="test@gmail.com" />
           <Icon name="Mail" width={24} height={24} color="#BCBCBC" />
         </View>
-        <Text className="text-sm text-darkGreen underline mt-7">
-          Change Your Password
-        </Text>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('ChangePassword')}
+          activeOpacity={0.9}>
+          <Text className="text-sm text-darkGreen underline mt-7">
+            Change Your Password
+          </Text>
+        </TouchableOpacity>
         <LinearGradient
           start={{x: 0, y: 0}}
           end={{x: 1, y: 0}}
