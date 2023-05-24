@@ -10,17 +10,22 @@ const Login = () => {
   return (
     <View className="flex w-full h-full mt-24 items-center px-5">
       <Icon name="Logo" width={100} height={100} />
-      <Text className="font-bold text-2xl text-gray-900 my-3">Welcome</Text>
-      <Text className="font-normal text-sm text-textSecondary px-10 text-center mb-6 mt-1">
+      <Text className="font-poppinsBold text-2xl text-gray-900 my-3">
+        Welcome
+      </Text>
+      <Text className="font-poppinsRegular text-sm text-textSecondary px-10 text-center mb-6 mt-1">
         Please enter the information below to login Word Race App
       </Text>
       <View className="flex-row justify-between items-center bg-textInput rounded-xl w-full h-12 px-3">
-        <TextInput className="flex-1" placeholder="Your Username" />
+        <TextInput
+          className="flex-1 font-poppinsLight"
+          placeholder="Your Username"
+        />
         <Icon name="User" width={24} height={24} color="#BCBCBC" />
       </View>
       <View className="flex-row justify-between items-center bg-textInput rounded-xl w-full h-12 px-3 my-4">
         <TextInput
-          className="flex-1"
+          className="flex-1 font-poppinsLight"
           placeholder="Your Password"
           secureTextEntry
         />
@@ -30,7 +35,7 @@ const Login = () => {
         className="w-fit mr-auto"
         activeOpacity={0.9}
         onPress={() => navigation.navigate('ForgotPassword')}>
-        <Text className="text-darkGreen font-normal text-sm underline underline-offset-6">
+        <Text className="text-darkGreen font-poppinsRegular text-sm underline underline-offset-6">
           Forgot Password?
         </Text>
       </TouchableOpacity>
@@ -43,17 +48,19 @@ const Login = () => {
           onPress={() => navigation.navigate('BottomTab')}
           className="w-full h-12 flex justify-center items-center"
           activeOpacity={0.9}>
-          <Text className="text-white text-base font-medium shadow">Login</Text>
+          <Text className="text-white text-base font-poppinsMedium shadow">
+            Login
+          </Text>
         </TouchableOpacity>
       </LinearGradient>
       <View className="flex-row gap-1">
-        <Text className="text-gray-900 text-sm font-medium">
+        <Text className="text-gray-900 text-sm font-poppinsMedium">
           Don’t have an account?
         </Text>
         <TouchableOpacity
           activeOpacity={0.9}
           onPress={() => navigation.navigate('Register')}>
-          <Text className="text-darkGreen text-sm font-bold">
+          <Text className="text-darkGreen text-sm font-poppinsBold">
             Create New Account
           </Text>
         </TouchableOpacity>

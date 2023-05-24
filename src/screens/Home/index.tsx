@@ -37,9 +37,14 @@ const Home = () => {
   const CustomComponent = () => (
     <View className="flex flex-col justify-center items-center w-full">
       <Icon name="CreateRoom" width={100} height={100} />
-      <Text className="text-base font-bold text-black my-3">Create Room</Text>
+      <Text className="text-base font-poppinsBold text-black my-3">
+        Create Room
+      </Text>
       <View className="bg-textInput rounded-xl h-12 px-3 w-full">
-        <TextInput className="w-full" placeholder="Room Name" />
+        <TextInput
+          className="w-full font-poppinsLight"
+          placeholder="Room Name"
+        />
       </View>
       <View className="flex-row justify-between w-full gap-x-2">
         <View className="flex-1 text-black placeholder:text-black  bg-textInput rounded-xl h-12 mt-4">
@@ -71,7 +76,7 @@ const Home = () => {
           onPress={() => setShowAlert(false)}
           className="w-[48%] h-12 flex justify-center items-center"
           activeOpacity={0.9}>
-          <Text className="text-black text-base font-medium shadow">
+          <Text className="text-black text-base font-poppinsMedium shadow">
             Cancel
           </Text>
         </TouchableOpacity>
@@ -84,7 +89,7 @@ const Home = () => {
             onPress={() => setShowAlert(false)}
             className="w-full h-12 flex justify-center items-center"
             activeOpacity={0.9}>
-            <Text className="text-white text-base font-medium shadow">
+            <Text className="text-white text-base font-poppinsMedium shadow">
               Create
             </Text>
           </TouchableOpacity>
@@ -106,7 +111,7 @@ const Home = () => {
         <View>
           <View className="flex-row justify-between items-center bg-white rounded-xl h-12 px-2 m-5 mb-0">
             <TextInput
-              className="flex-1 px-3 text-black"
+              className="flex-1 px-3 text-black font-poppinsLight"
               placeholder="Search room..."
             />
             <LinearGradient

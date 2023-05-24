@@ -114,10 +114,10 @@ const ForgotPassword = () => {
     <View>
       <View className="flex w-full h-full mt-24 items-center px-5">
         <Icon name="Logo" width={100} height={100} />
-        <Text className="font-bold text-2xl text-gray-900 my-3">
+        <Text className="font-poppinsBold text-2xl text-gray-900 my-3">
           Forgot Password
         </Text>
-        <Text className="font-normal text-sm text-textSecondary px-10 text-center mb-6 mt-1">
+        <Text className="font-poppinsRegular text-sm text-textSecondary px-10 text-center mb-6 mt-1">
           Please enter the 5-digit verification code sent to the your email
           address.
         </Text>
@@ -143,7 +143,7 @@ const ForgotPassword = () => {
             className="w-full h-12 flex justify-center items-center"
             activeOpacity={0.9}
             onPress={() => navigation.navigate('NewPassword')}>
-            <Text className="text-white text-base font-medium shadow">
+            <Text className="text-white text-base font-poppinsMedium shadow">
               Verify
             </Text>
           </TouchableOpacity>
@@ -167,7 +167,7 @@ const ForgotPassword = () => {
             <Text
               className={`${
                 time > 0 ? 'text-gray-400' : 'text-gray-900'
-              } text-sm font-bold underline`}>
+              } text-sm font-poppinsBold underline`}>
               Resend Code
             </Text>
           </TouchableOpacity>

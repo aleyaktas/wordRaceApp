@@ -30,11 +30,13 @@ const HomePageTemplate = ({
             start={{x: 0, y: 0}}
             end={{x: 1, y: 0}}
             colors={['#5BB9CA', '#1D7483']}>
-            <Text className="text-white font-bold">AA</Text>
+            <Text className="text-white font-poppinsBold">AA</Text>
           </LinearGradient>
           <View className="flex">
-            <Text className="text-xs">Hello,</Text>
-            <Text className="text-base text-black font-bold">Aleyna Aktas</Text>
+            <Text className="text-xs text-black font-poppinsLight">Hello,</Text>
+            <Text className="text-base text-black font-poppinsBold">
+              Aleyna Aktas
+            </Text>
           </View>
         </View>
         <TouchableOpacity

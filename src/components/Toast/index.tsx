@@ -106,7 +106,9 @@ const ToastRoot = forwardRef((props, ref: any) => {
           height="17"
           color={colors.white}
         />
-        <Text className="text-white text-center text-xs" style={styles.header}>
+        <Text
+          className="text-white text-center text-xs font-poppinsRegular"
+          style={styles.header}>
           {title}
         </Text>
         <Animated.View style={styles.animatedTime({animatedTime, type})} />

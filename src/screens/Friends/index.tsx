@@ -30,16 +30,21 @@ const Friends = () => {
   const CustomAddComponent = () => (
     <View className="flex flex-col justify-center items-center w-full">
       <Icon name="AddFriend" width={100} height={100} />
-      <Text className="text-base font-bold text-black my-3">Add Friend</Text>
+      <Text className="text-base font-poppinsBold text-black my-3">
+        Add Friend
+      </Text>
       <View className="bg-textInput rounded-xl h-12 px-3 w-full">
-        <TextInput className="w-full" placeholder="Friend username" />
+        <TextInput
+          className="w-full font-poppinsLight"
+          placeholder="Friend username"
+        />
       </View>
       <View className="flex-row mt-6">
         <TouchableOpacity
           onPress={() => setShowAddFriendModal(false)}
           className="w-[48%] h-12 flex justify-center items-center"
           activeOpacity={0.9}>
-          <Text className="text-black text-base font-medium shadow">
+          <Text className="text-black text-base font-poppinsMedium shadow">
             Cancel
           </Text>
         </TouchableOpacity>
@@ -52,7 +57,9 @@ const Friends = () => {
             onPress={() => setShowAddFriendModal(false)}
             className="w-full h-12 flex justify-center items-center"
             activeOpacity={0.9}>
-            <Text className="text-white text-base font-medium shadow">Add</Text>
+            <Text className="text-white text-base font-poppinsMedium shadow">
+              Add
+            </Text>
           </TouchableOpacity>
         </LinearGradient>
       </View>
@@ -62,10 +69,10 @@ const Friends = () => {
   const CustomDeleteComponent = () => (
     <View className="flex flex-col justify-center items-center w-full">
       <Icon name="DeleteFriend" width={100} height={100} />
-      <Text className="text-base font-bold text-black my-3">
+      <Text className="text-base font-poppinsBold text-black my-3">
         Delete Your Friend
       </Text>
-      <Text className="text-center">
+      <Text className="text-center font-poppinsRegular">
         Do you want to delete your friend? You can then send a friend request
         again
       </Text>
@@ -74,7 +81,7 @@ const Friends = () => {
           onPress={() => setShowDeleteFriendModal(false)}
           className="w-[48%] h-12 flex justify-center items-center"
           activeOpacity={0.9}>
-          <Text className="text-black text-base font-medium shadow">
+          <Text className="text-black text-base font-poppinsMedium shadow">
             Cancel
           </Text>
         </TouchableOpacity>
@@ -87,7 +94,7 @@ const Friends = () => {
             onPress={() => setShowDeleteFriendModal(false)}
             className="w-full h-12 flex justify-center items-center"
             activeOpacity={0.9}>
-            <Text className="text-white text-base font-medium shadow">
+            <Text className="text-white text-base font-poppinsMedium shadow">
               Delete
             </Text>
           </TouchableOpacity>

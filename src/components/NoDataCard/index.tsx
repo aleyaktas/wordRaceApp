@@ -13,7 +13,9 @@ const NoDataCard = ({
   return (
     <View className="flex h-full justify-center items-center">
       <Icon name={image} width={320} height={224} />
-      <Text className="text-sm text-gray-900 mt-6 mb-4">{description}</Text>
+      <Text className="text-sm font-poppinsRegular text-gray-900 mt-6 mb-4">
+        {description}
+      </Text>
       {buttonLabel && (
         <LinearGradient
           start={{x: 0, y: 0}}
@@ -24,7 +26,7 @@ const NoDataCard = ({
             className="w-fit px-5 h-12 flex justify-center items-center"
             activeOpacity={0.9}
             onPress={() => buttonAction && buttonAction()}>
-            <Text className="text-white text-base font-medium shadow">
+            <Text className="text-white text-base font-poppinsMedium shadow">
               {buttonLabel}
             </Text>
           </TouchableOpacity>

@@ -31,23 +31,24 @@ const Profile = () => {
             />
           </TouchableOpacity>
         </View>
-        <Text className="text-base font-medium text-gray-800 mb-4">
-          Your Score : <Text className="text-darkGreen font-bold">100p</Text>
+        <Text className="text-base font-poppinsMedium text-gray-800 mb-4">
+          Your Score :
+          <Text className="text-darkGreen font-poppinsBold"> 100p</Text>
         </Text>
       </View>
       <View className="w-full px-5">
         <View className="flex-row justify-between items-center bg-white rounded-xl w-full h-12 px-3 mb-4">
-          <TextInput className="flex-1" placeholder="Test User" />
+          <Text className="flex-1 font-poppinsLight">Test User </Text>
           <Icon name="User" width={24} height={24} color="#BCBCBC" />
         </View>
         <View className="flex-row justify-between items-center bg-white rounded-xl w-full h-12 px-3">
-          <TextInput className="flex-1" placeholder="test@gmail.com" />
+          <Text className="flex-1 font-poppinsLight">test@gmail.com</Text>
           <Icon name="Mail" width={24} height={24} color="#BCBCBC" />
         </View>
         <TouchableOpacity
           onPress={() => navigation.navigate('ChangePassword')}
           activeOpacity={0.9}>
-          <Text className="text-sm text-darkGreen underline mt-7">
+          <Text className="text-sm text-darkGreen font-poppinsMedium underline mt-7">
             Change Your Password
           </Text>
         </TouchableOpacity>
@@ -59,7 +60,7 @@ const Profile = () => {
           <TouchableOpacity
             className="w-full h-12 flex justify-center items-center"
             activeOpacity={0.9}>
-            <Text className="text-white text-base font-medium shadow">
+            <Text className="text-white text-base font-poppinsMedium shadow">
               Save Changes
             </Text>
           </TouchableOpacity>

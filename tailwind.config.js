@@ -18,7 +18,11 @@ module.exports = {
         roomCardFooter: '#0DBB7E',
       },
       fontFamily: {
-        default: ['Poppins'],
+        poppinsRegular: ['Poppins-Regular'],
+        poppinsBold: ['Poppins-Bold'],
+        poppinsSemiBold: ['Poppins-SemiBold'],
+        poppinsMedium: ['Poppins-Medium'],
+        poppinsLight: ['Poppins-Light'],
       },
     },
   },

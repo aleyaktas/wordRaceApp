@@ -10,7 +10,7 @@ const ScoreCard = ({index, name, image, scores}: ScoreCardProps) => {
   return (
     <View className="bg-white rounded-xl flex-row justify-between items-center px-5 py-2">
       <View className="flex-row gap-2 items-center">
-        <Text className="text-sm font-bold text-gray-600">{index}</Text>
+        <Text className="text-sm font-poppinsBold text-gray-600">{index}</Text>
         <View className="w-[40px] h-[40px] rounded-full overflow-hidden">
           <Image
             source={{uri: imageUrl}}
@@ -18,8 +18,8 @@ const ScoreCard = ({index, name, image, scores}: ScoreCardProps) => {
           />
         </View>
       </View>
-      <Text className="text-sm text-gray-600 ">{name}</Text>
-      <Text className="text-sm font-bold text-black ">{scores}p</Text>
+      <Text className="text-sm text-gray-600 font-poppinsRegular">{name}</Text>
+      <Text className="text-sm font-poppinsBold text-black ">{scores}p</Text>
     </View>
   );
 };

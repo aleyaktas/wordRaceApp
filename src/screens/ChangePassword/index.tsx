@@ -16,7 +16,7 @@ const ChangePassword = () => {
       <View className="w-full px-5">
         <View className="flex-row justify-between items-center bg-white rounded-xl w-full h-12 px-3 mb-4">
           <TextInput
-            className="flex-1"
+            className="flex-1 font-poppinsLight"
             placeholder="Current Password"
             secureTextEntry
           />
@@ -24,7 +24,7 @@ const ChangePassword = () => {
         </View>
         <View className="flex-row justify-between items-center bg-white rounded-xl w-full h-12 px-3">
           <TextInput
-            className="flex-1"
+            className="flex-1 font-poppinsLight"
             placeholder="New Password"
             secureTextEntry
           />
@@ -38,7 +38,7 @@ const ChangePassword = () => {
           <TouchableOpacity
             className="w-full h-12 flex justify-center items-center"
             activeOpacity={0.9}>
-            <Text className="text-white text-base font-medium shadow">
+            <Text className="text-white text-base font-poppinsMedium shadow">
               Save Changes
             </Text>
           </TouchableOpacity>

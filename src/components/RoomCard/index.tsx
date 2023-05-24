@@ -10,7 +10,9 @@ const RoomCard = ({iconName, roomName}: RoomCardProps) => {
       className="justify-center items-center bg-white rounded-xl overflow-hidden">
       <Icon className="mt-4" name={iconName} width={100} height={100} />
       <View className="flex justify-center items-center bg-roomCardFooter w-full h-11 mt-4">
-        <Text className="text-white text-sm font-medium">{roomName}</Text>
+        <Text className="text-white text-sm font-poppinsMedium">
+          {roomName}
+        </Text>
       </View>
     </View>
   );

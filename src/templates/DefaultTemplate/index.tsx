@@ -49,7 +49,9 @@ const DefaultTemplate = ({
             <Icon name="Back" width={24} height={24} color="black" />
           </TouchableOpacity>
         )}
-        <Text style={styles.title} className="text-base text-black font-bold">
+        <Text
+          style={styles.title}
+          className="text-base text-black font-poppinsBold">
           {title}
         </Text>
         {rightIconName && (

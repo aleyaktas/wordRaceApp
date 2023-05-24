@@ -27,7 +27,7 @@ const FriendCard = ({name, image, isOnline, deleteFriend}: FriendCardProps) => {
           />
         )}
       </View>
-      <Text className="text-sm text-gray-600 ">{name}</Text>
+      <Text className="text-sm text-gray-600 font-poppinsRegular">{name}</Text>
       <TouchableOpacity
         activeOpacity={0.9}
         style={styles.button}

@@ -16,8 +16,10 @@ const IntroStep = ({
   return (
     <View className="flex w-full items-center justify-center h-full p-5">
       <Icon name={image} width={300} height={260} />
-      <Text className="font-bold text-2xl text-gray-900 mt-16">{title}</Text>
-      <Text className="font-normal text-sm text-textSecondary px-3 text-center mb-12 mt-3">
+      <Text className="font-poppinsBold text-2xl text-gray-900 mt-16">
+        {title}
+      </Text>
+      <Text className="font-poppinsRegular text-sm text-textSecondary px-3 text-center mb-12 mt-3">
         {description}
       </Text>
       <StepCounter step={step} totalStep={3} />
@@ -31,7 +33,7 @@ const IntroStep = ({
             className="w-full h-12 flex justify-center items-center"
             activeOpacity={0.9}
             onPress={buttonAction}>
-            <Text className="text-white text-base font-medium shadow">
+            <Text className="text-white font-poppinsRegular text-base font-medium shadow">
               {buttonLabel}
             </Text>
           </TouchableOpacity>

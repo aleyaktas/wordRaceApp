@@ -25,7 +25,7 @@ const FriendRequestCard = ({
           />
         </View>
       </View>
-      <Text className="text-sm text-gray-600 ">{name}</Text>
+      <Text className="text-sm text-gray-600 font-poppinsRegular">{name}</Text>
       <View className="flex-row gap-2">
         <TouchableOpacity
           activeOpacity={0.9}

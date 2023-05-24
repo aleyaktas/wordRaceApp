@@ -16,24 +16,30 @@ const Register = () => {
   return (
     <View className="flex w-full h-full mt-24 items-center px-5">
       <Icon name="Logo" width={100} height={100} />
-      <Text className="font-bold text-2xl text-gray-900 my-3">
+      <Text className="font-poppinsBold text-2xl text-gray-900 my-3">
         Create Account
       </Text>
-      <Text className="font-normal text-sm text-textSecondary px-10 text-center mb-6 mt-1">
+      <Text className="font-poppinsRegular text-sm text-textSecondary px-10 text-center mb-6 mt-1">
         Welcome to the Word Race app, please enter the information below to
         create an account for you
       </Text>
       <View className="flex-row justify-between items-center bg-textInput rounded-xl w-full h-12 px-3">
-        <TextInput className="flex-1" placeholder="Your Username" />
+        <TextInput
+          className="flex-1 font-poppinsLight"
+          placeholder="Your Username"
+        />
         <Icon name="User" width={24} height={24} color="#BCBCBC" />
       </View>
       <View className="flex-row justify-between items-center bg-textInput rounded-xl w-full h-12 px-3 mt-4">
-        <TextInput className="flex-1" placeholder="Your Email" />
+        <TextInput
+          className="flex-1 font-poppinsLight"
+          placeholder="Your Email"
+        />
         <Icon name="Mail" width={24} height={24} color="#BCBCBC" />
       </View>
       <View className="flex-row justify-between items-center bg-textInput rounded-xl w-full h-12 px-3 my-4">
         <TextInput
-          className="flex-1"
+          className="flex-1 font-poppinsLight"
           placeholder="Your Password"
           secureTextEntry
         />
@@ -49,7 +55,7 @@ const Register = () => {
           )}
         </TouchableOpacity>
         <TouchableOpacity className="w-fit mr-auto" activeOpacity={0.9}>
-          <Text className="text-darkGreen font-medium text-sm">
+          <Text className="text-darkGreen font-poppinsMedium text-sm">
             I agree to the Terms and Privacy Policy
           </Text>
         </TouchableOpacity>
@@ -62,19 +68,19 @@ const Register = () => {
         <TouchableOpacity
           className="w-full h-12 flex justify-center items-center"
           activeOpacity={0.9}>
-          <Text className="text-white text-base font-medium shadow">
+          <Text className="text-white text-base font-poppinsMedium shadow">
             Register
           </Text>
         </TouchableOpacity>
       </LinearGradient>
       <View className="flex-row gap-1">
-        <Text className="text-gray-900 text-sm font-medium">
+        <Text className="text-gray-900 text-sm font-poppinsMedium">
           Already have an account?
         </Text>
         <TouchableOpacity
           activeOpacity={0.9}
           onPress={() => navigation.navigate('Login')}>
-          <Text className="text-darkGreen text-sm font-bold">Login</Text>
+          <Text className="text-darkGreen text-sm font-poppinsBold">Login</Text>
         </TouchableOpacity>
       </View>
     </View>
