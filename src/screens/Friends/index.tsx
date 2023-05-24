@@ -7,6 +7,8 @@ import {TextInput} from 'react-native-gesture-handler';
 import Icon from '../../themes/icon';
 import LinearGradient from 'react-native-linear-gradient';
 import FriendCardList from '../../components/FriendCardList';
+import {useNavigation} from '@react-navigation/native';
+import {ScreenProp} from '../../navigation/types';
 
 const Friends = () => {
   const [friends, setFriends] = useState([
@@ -23,6 +25,7 @@ const Friends = () => {
   ]);
   const [showAddFriendModal, setShowAddFriendModal] = useState(false);
   const [showDeleteFriendModal, setShowDeleteFriendModal] = useState(false);
+  const navigation = useNavigation<ScreenProp>();
 
   const CustomAddComponent = () => (
     <View className="flex flex-col justify-center items-center w-full">
@@ -98,6 +101,7 @@ const Friends = () => {
       rightIconName="Add"
       leftIconName="Friends"
       title="Friends"
+      leftIconAction={() => navigation.navigate('PendingRequests')}
       rightIconAction={() => setShowAddFriendModal(true)}>
       {friends.length === 0 ? (
         <NoDataCard

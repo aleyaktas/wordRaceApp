@@ -11,6 +11,7 @@ export type StackNavigatorList = {
   BottomTab: undefined;
   ForgotPassword: undefined;
   NewPassword: undefined;
+  PendingRequests: undefined;
 };
 
 export type BottomNavigatorList = {

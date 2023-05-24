@@ -55,6 +55,8 @@ import Tick from '../assets/icons/Tick.svg';
 import ToastError from '../assets/icons/ToastError.svg';
 import ToastSuccess from '../assets/icons/ToastSuccess.svg';
 import TestUser from '../assets/icons/TestUser.svg';
+import EmptyRequest from '../assets/icons/EmptyRequest.svg';
+import Reject from '../assets/icons/Reject.svg';
 
 const icons: {[key: string]: React.FC<SvgProps>} = {
   User,
@@ -76,6 +78,7 @@ const icons: {[key: string]: React.FC<SvgProps>} = {
   Upload,
   CreateRoom,
   EmptyRoom,
+  EmptyRequest,
   Search,
   Bear,
   Bee,
@@ -112,6 +115,7 @@ const icons: {[key: string]: React.FC<SvgProps>} = {
   ToastError,
   ToastSuccess,
   TestUser,
+  Reject,
 };
 
 interface IconProps {

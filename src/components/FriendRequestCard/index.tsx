@@ -2,11 +2,16 @@ import React from 'react';
 import {Image, StyleSheet, Text} from 'react-native';
 import {View} from 'react-native';
 import Icon from '../../themes/icon';
-import {FriendCardProps} from './types';
+import {FriendRequestCardProps} from './types';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import colors from '../../themes/colors';
 
-const FriendCard = ({name, image, isOnline, deleteFriend}: FriendCardProps) => {
+const FriendRequestCard = ({
+  name,
+  image,
+  onAccept,
+  onDecline,
+}: FriendRequestCardProps) => {
   const imageUrl =
     'https://img.freepik.com/free-photo/happiness-wellbeing-confidence-concept-cheerful-attractive-african-american-woman-curly-haircut-cross-arms-chest-self-assured-powerful-pose-smiling-determined-wear-yellow-sweater_176420-35063.jpg';
 
@@ -19,20 +24,16 @@ const FriendCard = ({name, image, isOnline, deleteFriend}: FriendCardProps) => {
             style={{width: '100%', height: '100%'}}
           />
         </View>
-        {isOnline && (
-          <View
-            className={`w-3 h-3 rounded-full absolute bottom-0 right-0 ${
-              isOnline ? 'bg-green-500' : 'bg-gray-400'
-            }`}
-          />
-        )}
       </View>
       <Text className="text-sm text-gray-600 ">{name}</Text>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => deleteFriend && deleteFriend()}>
-        <Icon name="Trash" width={24} height={24} color="black" />
-      </TouchableOpacity>
+      <View className="flex-row gap-2">
+        <TouchableOpacity style={styles.button} onPress={() => onAccept()}>
+          <Icon name="Accept" width={24} height={24} color="black" />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={() => onDecline()}>
+          <Icon name="Reject" width={24} height={24} color="black" />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -48,4 +49,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FriendCard;
+export default FriendRequestCard;
