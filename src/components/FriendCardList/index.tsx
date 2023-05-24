@@ -1,14 +1,9 @@
 import React from 'react';
-import {FlatList, Text, View} from 'react-native';
+import {FlatList, View} from 'react-native';
 import FriendCard from '../FriendCard';
+import {FriendCardListProps} from './types';
 
-const FriendCardList = ({
-  friends,
-  deleteFriend,
-}: {
-  friends: any[];
-  deleteFriend: () => void;
-}) => {
+const FriendCardList = ({friends, deleteFriend}: FriendCardListProps) => {
   return (
     <FlatList
       data={friends}
@@ -17,7 +12,7 @@ const FriendCardList = ({
           name={item.name}
           image={item.image}
           isOnline={item.isOnline}
-          deleteFriend={() => deleteFriend()}
+          deleteFriend={() => deleteFriend && deleteFriend()}
         />
       )}
       keyExtractor={item => item.id}

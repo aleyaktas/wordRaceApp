@@ -1,11 +1,22 @@
 import React from 'react';
-import {View, Text, Dimensions, StyleSheet} from 'react-native';
+import {
+  View,
+  Text,
+  Dimensions,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
 import Icon from '../../themes/icon';
 import {RoomCardProps} from './types';
+import {ScreenProp} from '../../navigation/types';
+import {useNavigation} from '@react-navigation/native';
 
 const RoomCard = ({iconName, roomName}: RoomCardProps) => {
+  const navigation = useNavigation<ScreenProp>();
   return (
-    <View
+    <TouchableOpacity
+      activeOpacity={0.9}
+      onPress={() => navigation.navigate('Game')}
       style={styles.container}
       className="justify-center items-center bg-white rounded-xl overflow-hidden">
       <Icon className="mt-4" name={iconName} width={100} height={100} />
@@ -14,7 +25,7 @@ const RoomCard = ({iconName, roomName}: RoomCardProps) => {
           {roomName}
         </Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

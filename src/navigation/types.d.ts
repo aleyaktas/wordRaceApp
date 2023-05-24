@@ -13,6 +13,7 @@ export type StackNavigatorList = {
   NewPassword: undefined;
   PendingRequests: undefined;
   ChangePassword: undefined;
+  Game: undefined;
 };
 
 export type BottomNavigatorList = {
