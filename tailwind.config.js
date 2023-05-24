@@ -16,6 +16,8 @@ module.exports = {
         darkGreen: '#075765',
         iconBorder: '#E1E1E1',
         roomCardFooter: '#0DBB7E',
+        questionCard: '#23BAD4',
+        answerCard: '#C8E5E0',
       },
       fontFamily: {
         poppinsRegular: ['Poppins-Regular'],

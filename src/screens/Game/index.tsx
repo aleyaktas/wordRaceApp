@@ -1,10 +1,18 @@
 import React, {useState} from 'react';
 import DefaultTemplate from '../../templates/DefaultTemplate';
 import NoDataCard from '../../components/NoDataCard';
-import {View, Text, Dimensions, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  Dimensions,
+  TouchableOpacity,
+  StyleSheet,
+} from 'react-native';
 import Icon from '../../themes/icon';
 import AwesomeAlert from 'react-native-awesome-alerts';
 import InviteFriendCardList from '../../components/InviteFriendCardList';
+import {Line} from 'react-native-svg';
+import AnswerCardList from '../../components/AnswerCardList';
 
 const Game = () => {
   const [friends, setFriends] = useState([
@@ -14,6 +22,13 @@ const Game = () => {
     },
   ]);
   const [showInviteFriendModal, setShowInviteFriendModal] = useState(false);
+  const [question, setQuestion] = useState('responsible');
+  const [answers, setAnswers] = useState([
+    'soğuk algınlığı',
+    'sorumluluk',
+    'beyin',
+    'zorlukların üstesinden gelmek',
+  ]);
 
   const CustomAddComponent = () => (
     <View className="w-full max-h-80">
@@ -38,7 +53,33 @@ const Game = () => {
   );
 
   const RenderWaiting = () => (
-    <>
+    <NoDataCard
+      image="Game"
+      description="Waiting for other player. Do you want to invite your friend?"
+      buttonLabel="Invite Friend"
+    />
+  );
+
+  const RenderGame = () => (
+    <View className="p-5 ">
+      <View className="w-full h-16 !bg-questionCard rounded-xl">
+        <Text className="m-auto text-white font-poppinsMedium">{question}</Text>
+      </View>
+      <AnswerCardList answers={answers} />
+      <View className="flex gap-1 flex-row ml-auto">
+        <Icon name="FiftyFiftyJoker" width={32} height={32} color="#0DBB7E" />
+        <Icon name="DoubleChanceJoker" width={32} height={32} color="#0DBB7E" />
+      </View>
+      <View className="w-full border-b border-gray-400" />
+    </View>
+  );
+
+  return (
+    <DefaultTemplate
+      title="Game"
+      backIcon
+      rightIconName="InviteFriend"
+      rightIconAction={() => setShowInviteFriendModal(true)}>
       <View className="flex-row justify-center items-center gap-4 mt-4">
         <View className="w-32" style={{alignItems: 'center'}}>
           <Text className="font-poppinsRegular text-black text-sm">
@@ -54,21 +95,7 @@ const Game = () => {
           <Text className="font-poppinsMedium text-black text-xl">0</Text>
         </View>
       </View>
-      <NoDataCard
-        image="Game"
-        description="Waiting for other player. Do you want to invite your friend?"
-        buttonLabel="Invite Friend"
-      />
-    </>
-  );
-
-  return (
-    <DefaultTemplate
-      title="Game"
-      backIcon
-      rightIconName="InviteFriend"
-      rightIconAction={() => setShowInviteFriendModal(true)}>
-      <RenderWaiting />
+      <RenderGame />
       <AwesomeAlert
         show={showInviteFriendModal}
         showProgress={false}
