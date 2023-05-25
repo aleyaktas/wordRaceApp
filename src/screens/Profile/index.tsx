@@ -1,6 +1,6 @@
 import React from 'react';
 import DefaultTemplate from '../../templates/DefaultTemplate';
-import {TextInput, Image, View, TouchableOpacity, Text} from 'react-native';
+import {Image, View, TouchableOpacity, Text} from 'react-native';
 import Icon from '../../themes/icon';
 import LinearGradient from 'react-native-linear-gradient';
 import {useNavigation} from '@react-navigation/native';

@@ -99,7 +99,6 @@ const styles = StyleSheet.create({
     zIndex: -33,
     width: '100%',
     backgroundColor: colors.background,
-    marginBottom: 60,
   },
   loading: {
     marginTop: 63,

@@ -6,13 +6,14 @@ import {
   Text,
   Dimensions,
   TouchableOpacity,
-  StyleSheet,
+  TextInput,
 } from 'react-native';
 import Icon from '../../themes/icon';
 import AwesomeAlert from 'react-native-awesome-alerts';
 import InviteFriendCardList from '../../components/InviteFriendCardList';
-import {Line} from 'react-native-svg';
 import AnswerCardList from '../../components/AnswerCardList';
+import TimerProgressBar from '../../components/TimerProgressBar/index';
+import ChatCardList from '../../components/ChatCardList';
 
 const Game = () => {
   const [friends, setFriends] = useState([
@@ -21,6 +22,18 @@ const Game = () => {
       image: 'https://i.pravatar.cc/300?img=1',
     },
   ]);
+  const data = [
+    {
+      id: '1',
+      image: 'https://i.pravatar.cc/300?img=1',
+      isOwner: true,
+    },
+    {
+      id: '2',
+      image: 'https://i.pravatar.cc/300?img=1',
+      isOwner: false,
+    },
+  ];
   const [showInviteFriendModal, setShowInviteFriendModal] = useState(false);
   const [question, setQuestion] = useState('responsible');
   const [answers, setAnswers] = useState([
@@ -61,17 +74,41 @@ const Game = () => {
   );
 
   const RenderGame = () => (
-    <View className="p-5 ">
-      <View className="w-full h-16 !bg-questionCard rounded-xl">
-        <Text className="m-auto text-white font-poppinsMedium">{question}</Text>
+    <>
+      <View className="p-5">
+        <View className="w-full h-16 !bg-questionCard rounded-xl">
+          <Text className="m-auto text-white font-poppinsMedium">
+            {question}
+          </Text>
+        </View>
+        <TimerProgressBar
+          duration={100}
+          onTimeout={() => console.log('timeout')}
+        />
+        <AnswerCardList answers={answers} />
+        <View className="flex gap-2 flex-row ml-auto my-3">
+          <Icon name="FiftyFiftyJoker" width={32} height={32} color="#0DBB7E" />
+          <Icon
+            name="DoubleChanceJoker"
+            width={32}
+            height={32}
+            color="#0DBB7E"
+          />
+        </View>
+        <View className="w-full border-b border-gray-400" />
       </View>
-      <AnswerCardList answers={answers} />
-      <View className="flex gap-1 flex-row ml-auto">
-        <Icon name="FiftyFiftyJoker" width={32} height={32} color="#0DBB7E" />
-        <Icon name="DoubleChanceJoker" width={32} height={32} color="#0DBB7E" />
-      </View>
-      <View className="w-full border-b border-gray-400" />
-    </View>
+      <ChatCardList data={data} />
+      <TouchableOpacity
+        activeOpacity={0.9}
+        className="w-full absolute bottom-0 right-0 left-0 h-[52px] bg-white rounded-xl flex-row justify-between px-5 items-center">
+        <TextInput
+          placeholder="Send message"
+          placeholderTextColor={'gray'}
+          className="!text-gray-800 font-poppinsRegular text-sm flex-1"
+        />
+        <Icon name="SendActive" width={32} height={32} />
+      </TouchableOpacity>
+    </>
   );
 
   return (
