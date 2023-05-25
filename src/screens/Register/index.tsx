@@ -4,6 +4,7 @@ import Icon from '../../themes/icon';
 import LinearGradient from 'react-native-linear-gradient';
 import {useNavigation} from '@react-navigation/native';
 import {ScreenProp} from '../../navigation/types';
+import colors from '../../themes/colors';
 
 const Register = () => {
   const [isChecked, setIsChecked] = useState(false);
@@ -26,21 +27,18 @@ const Register = () => {
       <View className="flex-row justify-between items-center bg-textInput rounded-xl w-full h-12 px-3">
         <TextInput
           className="flex-1 font-poppinsLight"
-          placeholder="Your Username"
+          placeholder="Username"
         />
         <Icon name="User" width={24} height={24} color="#BCBCBC" />
       </View>
       <View className="flex-row justify-between items-center bg-textInput rounded-xl w-full h-12 px-3 mt-4">
-        <TextInput
-          className="flex-1 font-poppinsLight"
-          placeholder="Your Email"
-        />
+        <TextInput className="flex-1 font-poppinsLight" placeholder="Email" />
         <Icon name="Mail" width={24} height={24} color="#BCBCBC" />
       </View>
       <View className="flex-row justify-between items-center bg-textInput rounded-xl w-full h-12 px-3 my-4">
         <TextInput
           className="flex-1 font-poppinsLight"
-          placeholder="Your Password"
+          placeholder="Password"
           secureTextEntry
         />
         <Icon name="Lock" width={24} height={24} color="#BCBCBC" />
@@ -49,9 +47,9 @@ const Register = () => {
         <TouchableOpacity
           activeOpacity={0.9}
           onPress={toggleCheckbox}
-          className="flex justify-center items-center w-6 h-5 bg-gray-300 rounded-md">
+          className="flex justify-center items-center w-6 h-5 bg-gray-200 rounded-md">
           {isChecked && (
-            <Icon name="Tick" width={16} height={16} color="#BCBCBC" />
+            <Icon name="Tick" width={16} height={16} color={colors.primary} />
           )}
         </TouchableOpacity>
         <TouchableOpacity className="w-fit mr-auto" activeOpacity={0.9}>

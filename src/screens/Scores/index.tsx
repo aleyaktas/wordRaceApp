@@ -4,7 +4,7 @@ import {View} from 'react-native';
 import ScoreCardList from '../../components/ScoreCardList';
 
 const Scores = () => {
-  const [topScores, setTopScores] = useState<object[]>([]);
+  const [topScores, setTopScores] = useState<any>();
   useEffect(() => {
     setTopScores([
       {

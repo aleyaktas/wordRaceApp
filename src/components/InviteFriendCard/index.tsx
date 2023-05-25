@@ -10,7 +10,7 @@ const InviteFriendCard = ({name, image}: InviteFriendCardProps) => {
     'https://img.freepik.com/free-photo/happiness-wellbeing-confidence-concept-cheerful-attractive-african-american-woman-curly-haircut-cross-arms-chest-self-assured-powerful-pose-smiling-determined-wear-yellow-sweater_176420-35063.jpg';
 
   return (
-    <View className="bg-white rounded-xl flex-row justify-between items-center px-5 py-2 border border-gray-400">
+    <View className="bg-white rounded-xl flex-row justify-between items-center px-5 py-2 border border-gray-300">
       <View className="relative">
         <View className="w-[40px] h-[40px] rounded-full overflow-hidden">
           <Image

@@ -2,7 +2,7 @@ import React from 'react';
 import {Image, Text, View} from 'react-native';
 import {ChatCardProps} from './types';
 
-const ChatCard = ({image, isOwner}: ChatCardProps) => {
+const ChatCard = ({image, isOwner, msg}: ChatCardProps) => {
   const imageUrl = 'https://static.booksy.com/static/live/covers/make_up.jpg';
 
   return (
@@ -30,9 +30,7 @@ const ChatCard = ({image, isOwner}: ChatCardProps) => {
             style={{width: '100%', height: '100%'}}
           />
         </View>
-        <Text style={{fontFamily: 'poppinsMedium', color: 'black'}}>
-          ChatCard
-        </Text>
+        <Text style={{fontFamily: 'poppinsMedium', color: 'black'}}>{msg}</Text>
       </View>
     </View>
   );

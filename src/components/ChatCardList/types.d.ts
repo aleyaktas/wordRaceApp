@@ -3,5 +3,6 @@ export interface ChatCardListProps {
     id: string;
     image: string;
     isOwner: boolean;
+    msg: string;
   }[];
 }

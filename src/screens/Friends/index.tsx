@@ -11,7 +11,7 @@ import {useNavigation} from '@react-navigation/native';
 import {ScreenProp} from '../../navigation/types';
 
 const Friends = () => {
-  const [friends, setFriends] = useState([
+  const [friends, setFriends] = useState<any>([
     {
       name: 'TestUser',
       image: 'TestUser',

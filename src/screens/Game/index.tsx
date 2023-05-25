@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import DefaultTemplate from '../../templates/DefaultTemplate';
 import NoDataCard from '../../components/NoDataCard';
 import {
@@ -12,11 +12,15 @@ import Icon from '../../themes/icon';
 import AwesomeAlert from 'react-native-awesome-alerts';
 import InviteFriendCardList from '../../components/InviteFriendCardList';
 import AnswerCardList from '../../components/AnswerCardList';
-import TimerProgressBar from '../../components/TimerProgressBar/index';
 import ChatCardList from '../../components/ChatCardList';
+import ProgressCard from '../../components/ProgressCard';
 
 const Game = () => {
   const [friends, setFriends] = useState([
+    {
+      name: 'aleyna',
+      image: 'https://i.pravatar.cc/300?img=1',
+    },
     {
       name: 'aleyna',
       image: 'https://i.pravatar.cc/300?img=1',
@@ -27,11 +31,13 @@ const Game = () => {
       id: '1',
       image: 'https://i.pravatar.cc/300?img=1',
       isOwner: true,
+      msg: 'Hello',
     },
     {
       id: '2',
       image: 'https://i.pravatar.cc/300?img=1',
       isOwner: false,
+      msg: 'Hello',
     },
   ];
   const [showInviteFriendModal, setShowInviteFriendModal] = useState(false);
@@ -42,6 +48,9 @@ const Game = () => {
     'beyin',
     'zorlukların üstesinden gelmek',
   ]);
+  const [firstPlayerTurn, setFirstPlayerTurn] = useState(true);
+  const firstPlayerRef = useRef<any>(null);
+  const secondPlayerRef = useRef<any>(null);
 
   const CustomAddComponent = () => (
     <View className="w-full max-h-80">
@@ -51,10 +60,6 @@ const Game = () => {
         onPress={() => setShowInviteFriendModal(false)}>
         <Icon name="Close" width={24} height={24} color="black" />
       </TouchableOpacity>
-      <Icon name="InviteFriend2" width={100} height={100} className="mx-auto" />
-      <Text className="text-base font-poppinsBold text-black my-3 text-center">
-        Invite Your Friend
-      </Text>
       {friends.length > 0 ? (
         <InviteFriendCardList friends={friends} />
       ) : (
@@ -76,15 +81,11 @@ const Game = () => {
   const RenderGame = () => (
     <>
       <View className="p-5">
-        <View className="w-full h-16 !bg-questionCard rounded-xl">
+        <View className="w-full h-16 !bg-questionCard rounded-xl mb-6">
           <Text className="m-auto text-white font-poppinsMedium">
             {question}
           </Text>
         </View>
-        <TimerProgressBar
-          duration={100}
-          onTimeout={() => console.log('timeout')}
-        />
         <AnswerCardList answers={answers} />
         <View className="flex gap-2 flex-row ml-auto my-3">
           <Icon name="FiftyFiftyJoker" width={32} height={32} color="#0DBB7E" />
@@ -95,7 +96,7 @@ const Game = () => {
             color="#0DBB7E"
           />
         </View>
-        <View className="w-full border-b border-gray-400" />
+        <View className="w-full border-b border-gray-300" />
       </View>
       <ChatCardList data={data} />
       <TouchableOpacity
@@ -117,20 +118,24 @@ const Game = () => {
       backIcon
       rightIconName="InviteFriend"
       rightIconAction={() => setShowInviteFriendModal(true)}>
-      <View className="flex-row justify-center items-center gap-4 mt-4">
-        <View className="w-32" style={{alignItems: 'center'}}>
-          <Text className="font-poppinsRegular text-black text-sm">
-            aleyaktas
-          </Text>
-          <Text className="font-poppinsMedium text-black text-xl">0</Text>
-        </View>
-        <Icon name="Vs" width={40} height={36} color="black" />
-        <View className="w-32" style={{alignItems: 'center'}}>
-          <Text className="font-poppinsRegular text-black text-sm">
-            Waiting...
-          </Text>
-          <Text className="font-poppinsMedium text-black text-xl">0</Text>
-        </View>
+      <View className="flex-row justify-center items-center mt-4">
+        <ProgressCard
+          firstPlayerRef={firstPlayerRef}
+          secondPlayerRef={secondPlayerRef}
+          playerTurn={firstPlayerTurn}
+          setPlayerTurn={setFirstPlayerTurn}
+          playerName="aleynaaktas"
+          playerScore="10p"
+        />
+        <Icon className="mx-4" name="Vs" width={40} height={36} color="black" />
+        <ProgressCard
+          firstPlayerRef={secondPlayerRef}
+          secondPlayerRef={firstPlayerRef}
+          playerTurn={!firstPlayerTurn}
+          setPlayerTurn={setFirstPlayerTurn}
+          playerName="testuser"
+          playerScore="10p"
+        />
       </View>
       <RenderGame />
       <AwesomeAlert

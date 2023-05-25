@@ -7,7 +7,9 @@ const AnswerCard = ({answer}: AnswerCardProps) => {
     <TouchableOpacity
       className="w-[46%] h-20 !bg-answerCard rounded-xl"
       activeOpacity={0.9}>
-      <Text className="m-auto text-black font-poppinsMedium">{answer}</Text>
+      <Text className="m-auto text-center text-black font-poppinsMedium">
+        {answer}
+      </Text>
     </TouchableOpacity>
   );
 };

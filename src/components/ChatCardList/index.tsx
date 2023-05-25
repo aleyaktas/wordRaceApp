@@ -4,11 +4,12 @@ import ChatCard from '../ChatCard';
 import {ChatCardListProps} from './types';
 
 const ChatCardList = ({data}: ChatCardListProps) => {
+  const scrollRef = React.useRef<any>(null);
   return (
     <FlatList
       data={data}
       renderItem={({item}) => (
-        <ChatCard image={item.image} isOwner={item.isOwner} />
+        <ChatCard image={item.image} isOwner={item.isOwner} msg={item.msg} />
       )}
       contentContainerStyle={{
         paddingTop: 0,
@@ -17,6 +18,9 @@ const ChatCardList = ({data}: ChatCardListProps) => {
       }}
       ItemSeparatorComponent={() => <View style={{height: 20}} />}
       keyExtractor={item => item.id}
+      ref={scrollRef}
+      onContentSizeChange={() => scrollRef.current.scrollToEnd()}
+      onLayout={() => scrollRef.current.scrollToEnd()}
     />
   );
 };
