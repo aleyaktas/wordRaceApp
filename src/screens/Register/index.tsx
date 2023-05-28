@@ -5,10 +5,18 @@ import LinearGradient from 'react-native-linear-gradient';
 import {useNavigation} from '@react-navigation/native';
 import {ScreenProp} from '../../navigation/types';
 import colors from '../../themes/colors';
+import {handleRegister} from './actions';
+import {AppDispatch} from '../../store';
+import {useDispatch} from 'react-redux';
 
 const Register = () => {
   const [isChecked, setIsChecked] = useState(false);
   const navigation = useNavigation<ScreenProp>();
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const dispatch = useDispatch<AppDispatch>();
 
   const toggleCheckbox = () => {
     setIsChecked(!isChecked);
@@ -28,11 +36,18 @@ const Register = () => {
         <TextInput
           className="flex-1 font-poppinsLight"
           placeholder="Username"
+          value={username}
+          onChangeText={setUsername}
         />
         <Icon name="User" width={24} height={24} color="#BCBCBC" />
       </View>
       <View className="flex-row justify-between items-center bg-textInput rounded-xl w-full h-12 px-3 mt-4">
-        <TextInput className="flex-1 font-poppinsLight" placeholder="Email" />
+        <TextInput
+          className="flex-1 font-poppinsLight"
+          placeholder="Email"
+          value={email}
+          onChangeText={setEmail}
+        />
         <Icon name="Mail" width={24} height={24} color="#BCBCBC" />
       </View>
       <View className="flex-row justify-between items-center bg-textInput rounded-xl w-full h-12 px-3 my-4">
@@ -40,6 +55,8 @@ const Register = () => {
           className="flex-1 font-poppinsLight"
           placeholder="Password"
           secureTextEntry
+          value={password}
+          onChangeText={setPassword}
         />
         <Icon name="Lock" width={24} height={24} color="#BCBCBC" />
       </View>
@@ -65,7 +82,10 @@ const Register = () => {
         colors={['#5BB9CA', '#1D7483']}>
         <TouchableOpacity
           className="w-full h-12 flex justify-center items-center"
-          activeOpacity={0.9}>
+          activeOpacity={0.9}
+          onPress={() =>
+            handleRegister(username, email, password, navigation, dispatch)
+          }>
           <Text className="text-white text-base font-poppinsMedium shadow">
             Register
           </Text>

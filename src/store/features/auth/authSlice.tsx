@@ -1,14 +1,8 @@
-import {AnyAction, createAsyncThunk, createSlice} from '@reduxjs/toolkit';
+import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import axios from 'axios';
 import setAuthToken from '../../../utils/setAuthToken';
 import {showMessage} from '../../../utils/showMessage';
-import {
-  InitialStateProps,
-  LoginProps,
-  RegisterProps,
-  UserFriendsProps,
-  UserProps,
-} from './types';
+import {InitialStateProps, LoginProps, RegisterProps} from './types';
 
 const initialState: InitialStateProps = {
   token: null,
@@ -25,167 +19,123 @@ const initialState: InitialStateProps = {
   error: null,
 };
 
-export const registerUser = createAsyncThunk<
-  {token: string},
-  RegisterProps,
-  {
-    rejectValue: {
-      errors: {
-        msg: string;
-      }[];
+export const registerUser = createAsyncThunk(
+  'registerUser',
+  async ({username, email, password}: RegisterProps, {rejectWithValue}) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
     };
-  }
->('registerUser', async ({username, email, password}, {rejectWithValue}) => {
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
 
-  const body = JSON.stringify({username, email, password});
-  try {
-    const res = await axios.post('/api/users/', body, config);
-    return res.data;
-  } catch (err: any) {
-    console.log(err);
-    console.log(username, email, password);
-    return rejectWithValue(err.response.data.errors);
-  }
-});
+    const body = JSON.stringify({username, email, password});
+    try {
+      const res = await axios.post('/api/users/', body, config);
+      console.log(res.data);
+      return res.data;
+    } catch (err: any) {
+      console.log('err register', err.response.data.msg);
+      return rejectWithValue(err.response.data.errors);
+    }
+  },
+);
 
-export const loginUser = createAsyncThunk<
-  {token: string},
-  LoginProps,
-  {
-    rejectValue: {
-      msg: string;
+export const loginUser = createAsyncThunk(
+  'loginUser',
+  async ({username, password}: LoginProps, {rejectWithValue}) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
     };
-  }
->('loginUser', async ({username, password}, {rejectWithValue}) => {
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
-  const body = JSON.stringify({username, password});
-  try {
-    const res = await axios.post('/api/auth', body, config);
-    console.log('res', res.data);
-    return res.data;
-  } catch (err: any) {
-    console.log('err', err.response.data.msg);
-    return rejectWithValue(err.response.data);
-  }
-});
+    const body = JSON.stringify({username, password});
+    try {
+      const res = await axios.post('/api/auth', body, config);
+      console.log('res', res.data);
+      return res.data;
+    } catch (err: any) {
+      console.log('err', err.response.data.msg);
+      return rejectWithValue(err.response.data);
+    }
+  },
+);
 
-export const getUser = createAsyncThunk<
-  UserProps,
-  void,
-  {
-    rejectValue: {
-      errors: {
-        msg: string;
-      }[];
-    };
-  }
->('getUser', async () => {
+export const getUser = createAsyncThunk('getUser', async () => {
   if (initialState.token) {
     setAuthToken(initialState.token);
   }
-
   const res = await axios.get('/api/auth/me');
   console.log(res.data);
   return res.data;
 });
 
-export const addFriend = createAsyncThunk<
-  void,
-  {username: string},
-  {
-    rejectValue: {
-      errors: {
-        msg: string;
-      }[];
-    };
-  }
->('addFriend', async ({username}, {rejectWithValue}) => {
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
+export const addFriend = createAsyncThunk(
+  'addFriend',
+  async (
+    {
+      username,
+    }: {
+      username: string;
     },
-  };
-  const body = JSON.stringify({username});
-  try {
-    const res = await axios.post('/api/auth/addFriend', body, config);
+    {rejectWithValue},
+  ) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const body = JSON.stringify({username});
+    try {
+      const res = await axios.post('/api/auth/addFriend', body, config);
+      return res.data;
+    } catch (err: any) {
+      return rejectWithValue(err.response.data);
+    }
+  },
+);
+
+export const acceptFriend = createAsyncThunk(
+  'acceptFriend',
+  async ({username}: {username: string}) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    const body = JSON.stringify({username});
+    const res = await axios.post('/api/auth/acceptFriend', body, config);
     return res.data;
-  } catch (err: any) {
-    return rejectWithValue(err.response.data);
-  }
-});
+  },
+);
 
-export const acceptFriend = createAsyncThunk<
-  void,
-  {username: string},
-  {
-    rejectValue: {
-      errors: {
-        msg: string;
-      }[];
+export const rejectFriend = createAsyncThunk(
+  'rejectFriend',
+  async ({username}: {username: string}) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
     };
-  }
->('acceptFriend', async ({username}: {username: string}) => {
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
+    const body = JSON.stringify({username});
+    const res = await axios.post('/api/auth/rejectFriend', body, config);
+    return res.data;
+  },
+);
 
-  const body = JSON.stringify({username});
-  const res = await axios.post('/api/auth/acceptFriend', body, config);
-  return res.data;
-});
-
-export const rejectFriend = createAsyncThunk<
-  void,
-  {username: string},
-  {
-    rejectValue: {
-      errors: {
-        msg: string;
-      }[];
+export const deleteFriend = createAsyncThunk(
+  'deleteFriend',
+  async ({username}: {username: string}) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
     };
-  }
->('rejectFriend', async ({username}: {username: string}) => {
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
-  const body = JSON.stringify({username});
-  const res = await axios.post('/api/auth/rejectFriend', body, config);
-  return res.data;
-});
-
-export const deleteFriend = createAsyncThunk<
-  void,
-  {username: string},
-  {
-    rejectValue: {
-      errors: {
-        msg: string;
-      }[];
-    };
-  }
->('deleteFriend', async ({username}: {username: string}) => {
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
-  const body = JSON.stringify({username});
-  const res = await axios.post('/api/auth/deleteFriend', body, config);
-  return res.data;
-});
+    const body = JSON.stringify({username});
+    const res = await axios.post('/api/auth/deleteFriend', body, config);
+    return res.data;
+  },
+);
 
 export const getFriends = createAsyncThunk(
   'getFriends',
@@ -283,7 +233,11 @@ export const authSlice = createSlice({
     logout: (state, action) => {
       state.isAuthenticated = false;
       setAuthToken(null);
-      state.user = null;
+      state.user = {
+        friends: [],
+        pendingRequests: [],
+        profileImage: '',
+      };
       state.loading = false;
       state.token = null;
     },
@@ -299,7 +253,6 @@ export const authSlice = createSlice({
       state.loading = true;
       state.error = null;
     });
-
     builder.addCase(registerUser.rejected, (state, action: any) => {
       state.error = action.payload;
       state.loading = false;
@@ -318,7 +271,7 @@ export const authSlice = createSlice({
       state.error = null;
     });
 
-    builder.addCase(loginUser.rejected, (state, action) => {
+    builder.addCase(loginUser.rejected, (state, action: any) => {
       state.error = action.payload && action.payload.msg;
       state.loading = false;
       action.payload && showMessage(action.payload.msg, 'error');
@@ -389,7 +342,7 @@ export const authSlice = createSlice({
       state.error = action.error.message;
     });
 
-    builder.addCase(getFriends.fulfilled, (state: any, action) => {
+    builder.addCase(getFriends.fulfilled, (state, action) => {
       state.user.friends = action.payload.friends;
       state.user.pendingRequests = action.payload.pendingRequests;
     });

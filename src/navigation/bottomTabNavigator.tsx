@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {View} from 'react-native';
@@ -9,6 +9,15 @@ import Home from '../screens/Home';
 import Friends from '../screens/Friends';
 import Scores from '../screens/Scores';
 import Profile from '../screens/Profile';
+import socketIO from 'socket.io-client';
+import {useSelector} from 'react-redux';
+import {useAppDispatch, useAppSelector} from '../store';
+import {InitialStateProps} from '../store/features/auth/types';
+import {getOnlineUsers} from '../store/features/auth/authSlice';
+
+interface StateProps {
+  auth: InitialStateProps;
+}
 
 const BottomTabNavigator = ({}: {navigation: ScreenProp; route: any}) => {
   const BottomTab = createBottomTabNavigator<BottomNavigatorList>();
@@ -30,6 +39,27 @@ const BottomTabNavigator = ({}: {navigation: ScreenProp; route: any}) => {
       />
     </View>
   );
+
+  const findUsername = useAppSelector((state: StateProps) => state.auth.user);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    if (findUsername !== undefined) {
+      const socket = socketIO('https://api-wordrace.aleynaaktas.me', {
+        query: {
+          username: findUsername,
+        },
+      });
+      socket.emit('user_status', {findUsername});
+      socket.on('online_users', ({users}) => {
+        dispatch(getOnlineUsers({users}));
+      });
+      socket.on(`invited_${findUsername}`, ({room}) => {
+        console.log(room);
+        // setIsOpen(true);
+        // setRoom(room);
+      });
+    }
+  }, [findUsername]);
 
   return (
     <BottomTab.Navigator

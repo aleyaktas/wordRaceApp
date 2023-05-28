@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, Dimensions, TouchableOpacity} from 'react-native';
 import HomePageTemplate from '../../templates/HomePageTemplate';
 import NoDataCard from '../../components/NoDataCard';
@@ -8,22 +8,15 @@ import {TextInput} from 'react-native-gesture-handler';
 import RNPickerSelect from 'react-native-picker-select';
 import LinearGradient from 'react-native-linear-gradient';
 import RoomCardList from '../../components/RoomCardList';
+import {getInitialData} from './actions';
+import {AppDispatch} from '../../store';
+import {useDispatch} from 'react-redux';
+import socket from '../../utils/socket';
+import {getRooms} from '../../store/features/auth/authSlice';
+import {RoomProps} from './types';
 
 const Home = () => {
-  const [rooms, setRooms] = useState([
-    {
-      roomName: 'test',
-      iconName: 'Bird',
-    },
-    {
-      roomName: 'test',
-      iconName: 'Bird',
-    },
-    {
-      roomName: 'test',
-      iconName: 'Bird',
-    },
-  ]);
+  const [rooms, setRooms] = useState<RoomProps[]>([]);
   const [showAlert, setShowAlert] = useState(false);
   const [selectedTimer, setSelectedTimer] = useState({
     label: '20sn',
@@ -33,6 +26,16 @@ const Home = () => {
     label: 'Public',
     value: 'Public',
   });
+
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    getInitialData(dispatch);
+    socket.on('get_rooms', ({rooms}) => {
+      setRooms(rooms);
+      dispatch(getRooms(rooms));
+    });
+  }, []);
 
   const CustomComponent = () => (
     <View className="flex flex-col justify-center items-center w-full">

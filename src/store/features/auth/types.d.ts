@@ -11,7 +11,7 @@ export interface InitialStateProps {
       _id: string;
     }[];
     profileImage: string;
-  } | null;
+  };
   message: string | null;
   loading: boolean;
   onlineUsers: any[];

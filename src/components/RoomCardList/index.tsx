@@ -3,11 +3,12 @@ import {FlatList, View} from 'react-native';
 import RoomCard from '../RoomCard';
 
 const RoomCardList = ({rooms}: {rooms: any[]}) => {
+  console.log('rooms', rooms);
   return (
     <FlatList
       data={rooms}
       renderItem={({item}) => (
-        <RoomCard iconName={item.iconName} roomName={item.roomName} />
+        <RoomCard iconName={item.image} roomName={item.name} />
       )}
       keyExtractor={item => item.id}
       numColumns={2}
