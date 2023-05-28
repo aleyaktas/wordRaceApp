@@ -31,13 +31,13 @@ const FriendRequestCard = ({
           activeOpacity={0.9}
           style={styles.button}
           onPress={() => onDecline()}>
-          <Icon name="Reject" width={24} height={24} color="black" />
+          <Icon name="Reject" width={24} height={24} color="green" />
         </TouchableOpacity>
         <TouchableOpacity
           activeOpacity={0.9}
           style={styles.button}
           onPress={() => onAccept()}>
-          <Icon name="Accept" width={24} height={24} color="black" />
+          <Icon name="Accept" width={24} height={24} color="green" />
         </TouchableOpacity>
       </View>
     </View>

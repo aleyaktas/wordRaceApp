@@ -1,12 +1,21 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Text, TextInput, TouchableOpacity, View} from 'react-native';
 import Icon from '../../themes/icon';
 import LinearGradient from 'react-native-linear-gradient';
 import {useNavigation} from '@react-navigation/native';
 import {ScreenProp} from '../../navigation/types';
+import {useDispatch} from 'react-redux';
+import {getUser, loginUser} from '../../store/features/auth/authSlice';
+import {AppDispatch, useAppDispatch} from '../../store';
+import {handleLogin} from './actions';
 
 const Login = () => {
   const navigation = useNavigation<ScreenProp>();
+  const dispatch = useDispatch<AppDispatch>();
+
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
   return (
     <View className="flex w-full h-full mt-24 items-center px-5">
       <Icon name="Logo" width={100} height={100} />
@@ -20,6 +29,8 @@ const Login = () => {
         <TextInput
           className="flex-1 font-poppinsLight"
           placeholder="Your Username"
+          value={username}
+          onChangeText={setUsername}
         />
         <Icon name="User" width={24} height={24} color="#BCBCBC" />
       </View>
@@ -28,6 +39,8 @@ const Login = () => {
           className="flex-1 font-poppinsLight"
           placeholder="Your Password"
           secureTextEntry
+          value={password}
+          onChangeText={setPassword}
         />
         <Icon name="Lock" width={24} height={24} color="#BCBCBC" />
       </View>
@@ -45,7 +58,7 @@ const Login = () => {
         className="w-full rounded-xl mt-6 mb-7"
         colors={['#5BB9CA', '#1D7483']}>
         <TouchableOpacity
-          onPress={() => navigation.navigate('BottomTab')}
+          onPress={() => handleLogin(username, password, navigation, dispatch)}
           className="w-full h-12 flex justify-center items-center"
           activeOpacity={0.9}>
           <Text className="text-white text-base font-poppinsMedium shadow">
