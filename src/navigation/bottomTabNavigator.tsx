@@ -15,7 +15,7 @@ import {useAppDispatch, useAppSelector} from '../store';
 import {InitialStateProps} from '../store/features/auth/types';
 import {getOnlineUsers} from '../store/features/auth/authSlice';
 
-interface StateProps {
+export interface StateProps {
   auth: InitialStateProps;
 }
 
@@ -40,7 +40,9 @@ const BottomTabNavigator = ({}: {navigation: ScreenProp; route: any}) => {
     </View>
   );
 
-  const findUsername = useAppSelector((state: StateProps) => state.auth.user);
+  const findUsername = useAppSelector(
+    (state: StateProps) => state.auth.user.username,
+  );
   const dispatch = useAppDispatch();
   useEffect(() => {
     if (findUsername !== undefined) {

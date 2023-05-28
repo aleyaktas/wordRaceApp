@@ -8,6 +8,7 @@ const initialState: InitialStateProps = {
   token: null,
   isAuthenticated: false,
   user: {
+    username: '',
     friends: [],
     pendingRequests: [],
     profileImage: '',
@@ -234,6 +235,7 @@ export const authSlice = createSlice({
       state.isAuthenticated = false;
       setAuthToken(null);
       state.user = {
+        username: '',
         friends: [],
         pendingRequests: [],
         profileImage: '',
