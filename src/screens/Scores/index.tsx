@@ -2,23 +2,12 @@ import React, {useEffect, useState} from 'react';
 import DefaultTemplate from '../../templates/DefaultTemplate';
 import {View} from 'react-native';
 import ScoreCardList from '../../components/ScoreCardList';
+import {useAppSelector} from '../../store';
+import {StateProps} from '../../navigation/bottomTabNavigator';
 
 const Scores = () => {
-  const [topScores, setTopScores] = useState<any>();
-  useEffect(() => {
-    setTopScores([
-      {
-        name: 'Test User',
-        image: 'TestUser',
-        scores: 100,
-      },
-      {
-        name: 'Test User 2',
-        image: 'Bird',
-        scores: 200,
-      },
-    ]);
-  }, []);
+  const {topScores} = useAppSelector((state: StateProps) => state.auth);
+  useEffect(() => {}, []);
 
   return (
     <DefaultTemplate title="Scores">

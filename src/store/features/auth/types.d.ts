@@ -39,6 +39,11 @@ export interface InitialStateProps {
     timer: number;
   }[];
   error: string | null | undefined;
+  topScores: {
+    username: string;
+    score: number;
+    profileImage: string;
+  }[];
 }
 
 export interface RegisterProps {

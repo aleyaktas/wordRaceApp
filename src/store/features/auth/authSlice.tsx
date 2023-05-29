@@ -18,6 +18,7 @@ const initialState: InitialStateProps = {
   onlineUsers: [],
   rooms: [],
   error: null,
+  topScores: [],
 };
 
 export const registerUser = createAsyncThunk(
@@ -223,6 +224,15 @@ export const forgotPassword = createAsyncThunk(
   },
 );
 
+export const getTopScores = createAsyncThunk('getTopScores', async () => {
+  try {
+    const res = await axios.get('/api/auth/getTopScores');
+    return res.data;
+  } catch (err: any) {
+    return err.response.data;
+  }
+});
+
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
@@ -392,6 +402,18 @@ export const authSlice = createSlice({
     });
 
     builder.addCase(changePassword.fulfilled, (state, action) => {
+      state.loading = false;
+    });
+    builder.addCase(getTopScores.pending, (state, action) => {
+      state.loading = true;
+      state.error = null;
+    });
+    builder.addCase(getTopScores.rejected, (state, action) => {
+      state.error = action.error.message;
+      state.loading = false;
+    });
+    builder.addCase(getTopScores.fulfilled, (state, action) => {
+      state.topScores = action.payload;
       state.loading = false;
     });
   },

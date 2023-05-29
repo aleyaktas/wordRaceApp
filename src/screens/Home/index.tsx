@@ -12,7 +12,11 @@ import {handleCreateRoom} from './actions';
 import {AppDispatch, useAppSelector} from '../../store';
 import {useDispatch} from 'react-redux';
 import socket from '../../utils/socket';
-import {getRooms, getUser} from '../../store/features/auth/authSlice';
+import {
+  getRooms,
+  getTopScores,
+  getUser,
+} from '../../store/features/auth/authSlice';
 import {RoomProps} from './types';
 import {StateProps} from '../../navigation/bottomTabNavigator';
 
@@ -38,6 +42,7 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(getUser());
+    dispatch(getTopScores());
     socket.on('get_rooms', ({rooms}) => {
       setRooms(rooms);
       dispatch(getRooms(rooms));
