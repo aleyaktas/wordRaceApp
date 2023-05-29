@@ -48,7 +48,6 @@ export const handleCreateRoom = ({
       timer: selectedTimer.value,
       isPublic: selectedRoomStatus.value,
     });
-    console.log(roomId);
     navigation.navigate('Game');
     setShowAlert(false);
   }

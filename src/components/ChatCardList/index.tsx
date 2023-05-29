@@ -17,7 +17,6 @@ const ChatCardList = ({data}: ChatCardListProps) => {
         paddingBottom: 60,
       }}
       ItemSeparatorComponent={() => <View style={{height: 20}} />}
-      keyExtractor={item => item.id}
       ref={scrollRef}
       onContentSizeChange={() => scrollRef.current.scrollToEnd()}
       onLayout={() => scrollRef.current.scrollToEnd()}

@@ -32,10 +32,8 @@ export const registerUser = createAsyncThunk(
     const body = JSON.stringify({username, email, password});
     try {
       const res = await axios.post('/api/users/', body, config);
-      console.log(res.data);
       return res.data;
     } catch (err: any) {
-      console.log('err register', err.response.data.msg);
       return rejectWithValue(err.response.data.errors);
     }
   },
@@ -52,19 +50,22 @@ export const loginUser = createAsyncThunk(
     const body = JSON.stringify({username, password});
     try {
       const res = await axios.post('/api/auth', body, config);
-      console.log('res', res.data);
       return res.data;
     } catch (err: any) {
-      console.log('err', err.response.data.msg);
       return rejectWithValue(err.response.data);
     }
   },
 );
 
 export const getUser = createAsyncThunk('getUser', async () => {
-  const res = await axios.get('/api/auth/me');
-  console.log('getUser res', res.data);
-  return res.data;
+  try {
+    const res = await axios.get('/api/auth/me');
+    console.log('get User res', res.data);
+    return res.data;
+  } catch (err: any) {
+    console.log(err.response.data);
+    return err.response.data;
+  }
 });
 
 export const addFriend = createAsyncThunk(
@@ -123,21 +124,24 @@ export const rejectFriend = createAsyncThunk(
 
 export const deleteFriend = createAsyncThunk(
   'deleteFriend',
-  async ({username}: {username: string}) => {
+  async ({username}: {username: string}, {rejectWithValue}) => {
     const config = {
       headers: {
         'Content-Type': 'application/json',
       },
     };
     const body = JSON.stringify({username});
-    const res = await axios.post('/api/auth/deleteFriend', body, config);
-    return res.data;
+    try {
+      const res = await axios.post('/api/auth/deleteFriend', body, config);
+      return res.data;
+    } catch (err: any) {
+      return rejectWithValue(err.response.data);
+    }
   },
 );
 
 export const getFriends = createAsyncThunk('getFriends', async () => {
   const res = await axios.get('/api/auth/friends');
-  console.log('getFriends', res.data);
   return res.data;
 });
 
@@ -203,9 +207,7 @@ export const forgotPassword = createAsyncThunk(
         'Content-Type': 'application/json',
       },
     };
-    console.log({email});
     const body = JSON.stringify({email});
-    console.log(body);
     try {
       const res = await axios.post('/api/profile/forgotPassword', body, config);
       return res.data;
@@ -246,7 +248,6 @@ export const authSlice = createSlice({
     builder.addCase(registerUser.rejected, (state, action: any) => {
       state.error = action.payload;
       state.loading = false;
-      console.log(action.payload);
       showMessage(action.payload[0].msg, 'error');
     });
 
@@ -304,8 +305,11 @@ export const authSlice = createSlice({
       state.error = null;
     });
 
-    builder.addCase(deleteFriend.rejected, (state, action) => {
+    builder.addCase(deleteFriend.rejected, (state, action: any) => {
       state.error = action.error.message;
+      action.payload &&
+        action.payload.errors[0] &&
+        showMessage(action.payload.errors[0].msg, 'error');
     });
 
     builder.addCase(deleteFriend.fulfilled, (state, action) => {
@@ -333,7 +337,6 @@ export const authSlice = createSlice({
     });
 
     builder.addCase(getFriends.fulfilled, (state, action) => {
-      console.log('getFriends', action.payload);
       state.user.friends = action.payload.friends;
       state.user.pendingRequests = action.payload.pendingRequests;
     });
@@ -345,6 +348,7 @@ export const authSlice = createSlice({
     builder.addCase(getUser.rejected, (state, action) => {
       state.error = action.error.message;
       state.loading = false;
+      state.token = null;
       state.token = null;
       setAuthToken(null);
     });

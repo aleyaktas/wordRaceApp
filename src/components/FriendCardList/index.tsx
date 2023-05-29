@@ -3,20 +3,26 @@ import {FlatList, View} from 'react-native';
 import FriendCard from '../FriendCard';
 import {FriendCardListProps} from './types';
 
-const FriendCardList = ({friends, deleteFriend}: FriendCardListProps) => {
-  console.log('friends', friends);
+const FriendCardList = ({
+  friends,
+  onlineUsers,
+  deleteFriend,
+}: FriendCardListProps) => {
   return (
     <FlatList
       data={friends}
       renderItem={({item}) => (
         <FriendCard
           name={item.username}
+          isOnline={
+            (onlineUsers.length > 0 &&
+              onlineUsers.some(user => user.username === item.username)) ||
+            false
+          }
           image={item.profileImage}
-          // isOnline={item.isOnline}
-          deleteFriend={() => deleteFriend && deleteFriend()}
+          deleteFriend={() => deleteFriend(item.username)}
         />
       )}
-      keyExtractor={item => item.id}
       contentContainerStyle={{
         padding: 20,
         paddingBottom: 60,

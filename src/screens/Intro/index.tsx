@@ -1,10 +1,20 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View} from 'react-native';
 import IntroStep from '../../components/IntroStep';
 import {useNavigation} from '@react-navigation/native';
 import {ScreenProp} from '../../navigation/types';
+import {useAppSelector} from '../../store';
+import {StateProps} from '../../navigation/bottomTabNavigator';
+import setAuthToken from '../../utils/setAuthToken';
 
 const Intro = () => {
+  const {token} = useAppSelector((state: StateProps) => state.auth);
+  useEffect(() => {
+    if (token !== null) {
+      setAuthToken(token);
+      navigation.replace('BottomTab');
+    }
+  }, [token]);
   const [step, setStep] = useState(1);
   const introInfo = [
     {

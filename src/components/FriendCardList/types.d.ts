@@ -1,4 +1,5 @@
 export interface FriendCardListProps {
   friends: any[];
-  deleteFriend?: () => void;
+  deleteFriend: (username: string) => void;
+  onlineUsers: any[];
 }

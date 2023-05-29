@@ -39,7 +39,6 @@ const Home = () => {
   useEffect(() => {
     dispatch(getUser());
     socket.on('get_rooms', ({rooms}) => {
-      console.log(rooms);
       setRooms(rooms);
       dispatch(getRooms(rooms));
     });
@@ -50,9 +49,7 @@ const Home = () => {
       const filteredRooms = rooms.filter(room =>
         room.name.toLowerCase().includes(searchText.toLowerCase()),
       );
-      console.log(filteredRooms);
       if (filteredRooms.length > 0) {
-        console.log(filteredRooms);
         setFilteredRooms(filteredRooms);
       } else {
         setFilteredRooms([]);

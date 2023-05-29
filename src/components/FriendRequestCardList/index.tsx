@@ -19,7 +19,6 @@ const FriendRequestCardList = ({
           onDecline={() => onDecline()}
         />
       )}
-      keyExtractor={item => item.id}
       contentContainerStyle={{
         padding: 20,
       }}

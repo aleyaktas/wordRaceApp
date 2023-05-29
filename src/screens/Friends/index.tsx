@@ -11,18 +11,26 @@ import {useNavigation} from '@react-navigation/native';
 import {ScreenProp} from '../../navigation/types';
 import {useAppDispatch, useAppSelector} from '../../store';
 import {StateProps} from '../../navigation/bottomTabNavigator';
-import {getFriends} from '../../store/features/auth/authSlice';
+import {
+  addFriend,
+  deleteFriend,
+  getFriends,
+} from '../../store/features/auth/authSlice';
 import socket from '../../utils/socket';
 
 const Friends = () => {
   const [showAddFriendModal, setShowAddFriendModal] = useState(false);
   const [showDeleteFriendModal, setShowDeleteFriendModal] = useState(false);
+  const [deleteUsername, setDeleteUsername] = useState<string>('');
+  const [addUsername, setAddUsername] = useState<string>('');
   const navigation = useNavigation<ScreenProp>();
   const dispatch = useAppDispatch();
   const {friends} = useAppSelector((state: StateProps) => state.auth.user);
-
   const ownerUsername = useAppSelector(
     (state: StateProps) => state.auth.user.username,
+  );
+  const onlineUsers = useAppSelector((state: StateProps) =>
+    state.auth.onlineUsers.filter(user => user.username !== ownerUsername),
   );
 
   useEffect(() => {
@@ -55,6 +63,8 @@ const Friends = () => {
         <TextInput
           className="w-full font-poppinsLight"
           placeholder="Friend username"
+          value={addUsername}
+          onChangeText={setAddUsername}
         />
       </View>
       <View className="flex-row mt-6">
@@ -72,7 +82,16 @@ const Friends = () => {
           className="w-[48%] rounded-xl"
           colors={['#5BB9CA', '#1D7483']}>
           <TouchableOpacity
-            onPress={() => setShowAddFriendModal(false)}
+            onPress={async () => {
+              const res: any = await dispatch(
+                addFriend({username: addUsername}),
+              );
+              if (!res.error) {
+                await dispatch(getFriends());
+                socket.emit('friend_request', {username: addUsername});
+              }
+              setShowAddFriendModal(false);
+            }}
             className="w-full h-12 flex justify-center items-center"
             activeOpacity={0.9}>
             <Text className="text-white text-base font-poppinsMedium shadow">
@@ -109,7 +128,17 @@ const Friends = () => {
           className="w-[48%] rounded-xl"
           colors={['#5BB9CA', '#1D7483']}>
           <TouchableOpacity
-            onPress={() => setShowDeleteFriendModal(false)}
+            onPress={async () => {
+              const res: any = await dispatch(
+                deleteFriend({username: deleteUsername}),
+              );
+
+              if (!res.error) {
+                await dispatch(getFriends());
+                socket.emit('friend_delete', {deleteUsername});
+              }
+              setShowDeleteFriendModal(false);
+            }}
             className="w-full h-12 flex justify-center items-center"
             activeOpacity={0.9}>
             <Text className="text-white text-base font-poppinsMedium shadow">
@@ -137,8 +166,12 @@ const Friends = () => {
         />
       ) : (
         <FriendCardList
+          onlineUsers={onlineUsers}
           friends={friends}
-          deleteFriend={() => setShowDeleteFriendModal(true)}
+          deleteFriend={username => {
+            setShowDeleteFriendModal(true);
+            setDeleteUsername(username);
+          }}
         />
       )}
       <AwesomeAlert

@@ -56,7 +56,7 @@ const BottomTabNavigator = ({}: {navigation: ScreenProp; route: any}) => {
         dispatch(getOnlineUsers({users}));
       });
       socket.on(`invited_${findUsername}`, ({room}) => {
-        console.log(room);
+        // console.log(room);
         // setIsOpen(true);
         // setRoom(room);
       });

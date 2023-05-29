@@ -16,7 +16,6 @@ const ScoreCardList = ({topScores}: {topScores: any[]}) => {
           scores={item.scores}
         />
       )}
-      keyExtractor={item => item.id}
       contentContainerStyle={{
         padding: 20,
         paddingBottom: 60,

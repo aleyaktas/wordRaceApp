@@ -11,7 +11,6 @@ const InviteFriendCardList = ({friends}: InviteFriendCardProps) => {
       renderItem={({item}) => (
         <InviteFriendCard name={item.name} image={item.image} />
       )}
-      keyExtractor={item => item.id}
       ItemSeparatorComponent={() => <View style={{height: 12}} />}
       ListHeaderComponent={() => (
         <>
