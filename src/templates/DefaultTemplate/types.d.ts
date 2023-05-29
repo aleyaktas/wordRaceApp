@@ -14,6 +14,7 @@ export interface DefaultTemplateProps {
   leftIconAction?(): void | undefined;
   rightIconName?: string;
   rightIconAction?(): void | undefined;
+  pendingRequestLength?: number;
   backIcon?: boolean;
   title?: string;
 }

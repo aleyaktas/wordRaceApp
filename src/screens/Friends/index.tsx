@@ -25,7 +25,9 @@ const Friends = () => {
   const [addUsername, setAddUsername] = useState<string>('');
   const navigation = useNavigation<ScreenProp>();
   const dispatch = useAppDispatch();
-  const {friends} = useAppSelector((state: StateProps) => state.auth.user);
+  const {friends, pendingRequests} = useAppSelector(
+    (state: StateProps) => state.auth.user,
+  );
   const ownerUsername = useAppSelector(
     (state: StateProps) => state.auth.user.username,
   );
@@ -132,10 +134,9 @@ const Friends = () => {
               const res: any = await dispatch(
                 deleteFriend({username: deleteUsername}),
               );
-
               if (!res.error) {
                 await dispatch(getFriends());
-                socket.emit('friend_delete', {deleteUsername});
+                socket.emit('friend_delete', {username: deleteUsername});
               }
               setShowDeleteFriendModal(false);
             }}
@@ -154,6 +155,7 @@ const Friends = () => {
     <DefaultTemplate
       rightIconName="Add"
       leftIconName="Friends"
+      pendingRequestLength={pendingRequests.length}
       title="Friends"
       leftIconAction={() => navigation.navigate('PendingRequests')}
       rightIconAction={() => setShowAddFriendModal(true)}>

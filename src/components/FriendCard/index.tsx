@@ -17,9 +17,11 @@ const FriendCard = ({name, image, isOnline, deleteFriend}: FriendCardProps) => {
               style={{width: '100%', height: '100%'}}
             />
           ) : (
-            <Text className="text-black m-auto">
-              {name.charAt(0)?.toUpperCase()}
-            </Text>
+            <View className=" bg-gray-200 w-full h-full flex justify-center items-center">
+              <Text className="text-black font-poppinsSemiBold">
+                {name.charAt(0)?.toUpperCase()}
+              </Text>
+            </View>
           )}
         </View>
         <View

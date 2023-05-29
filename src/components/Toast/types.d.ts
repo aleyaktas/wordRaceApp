@@ -2,7 +2,7 @@ import {StyleProp, TextStyle, ViewStyle} from 'react-native';
 
 export interface ToastParams {
   title: string;
-  type?: 'success' | 'error';
+  type?: 'success' | 'error' | 'warning' | 'info';
 }
 
 export interface ToastRefProps {

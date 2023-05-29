@@ -22,6 +22,7 @@ const DefaultTemplate = ({
   scroll,
   leftIconName,
   rightIconName,
+  pendingRequestLength = 0,
   leftIconAction,
   rightIconAction,
   title,
@@ -39,6 +40,15 @@ const DefaultTemplate = ({
             style={[styles.button, styles.backButton]}
             onPress={leftIconAction}>
             <Icon name={leftIconName} width={24} height={24} color="black" />
+            {leftIconName === 'Friends' && pendingRequestLength > 0 && (
+              <View
+                className={`w-4 h-4 rounded-full absolute top-0 left-7 bg-green-500
+               `}>
+                <Text className="text-white text-[10px] font-poppinsBold m-auto">
+                  {pendingRequestLength}
+                </Text>
+              </View>
+            )}
           </TouchableOpacity>
         )}
         {backIcon && (

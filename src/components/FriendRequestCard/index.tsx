@@ -12,17 +12,22 @@ const FriendRequestCard = ({
   onAccept,
   onDecline,
 }: FriendRequestCardProps) => {
-  const imageUrl =
-    'https://img.freepik.com/free-photo/happiness-wellbeing-confidence-concept-cheerful-attractive-african-american-woman-curly-haircut-cross-arms-chest-self-assured-powerful-pose-smiling-determined-wear-yellow-sweater_176420-35063.jpg';
-
   return (
     <View className="bg-white rounded-xl flex-row justify-between items-center px-5 py-2">
       <View className="relative">
         <View className="w-[40px] h-[40px] rounded-full overflow-hidden">
-          <Image
-            source={{uri: imageUrl}}
-            style={{width: '100%', height: '100%'}}
-          />
+          {image ? (
+            <Image
+              source={{uri: image}}
+              style={{width: '100%', height: '100%'}}
+            />
+          ) : (
+            <View className=" bg-gray-200 w-full h-full flex justify-center items-center">
+              <Text className="text-black font-poppinsSemiBold">
+                {name.charAt(0)?.toUpperCase()}
+              </Text>
+            </View>
+          )}
         </View>
       </View>
       <Text className="text-sm text-gray-600 font-poppinsRegular">{name}</Text>
@@ -30,14 +35,14 @@ const FriendRequestCard = ({
         <TouchableOpacity
           activeOpacity={0.9}
           style={styles.button}
-          onPress={() => onDecline()}>
-          <Icon name="Reject" width={24} height={24} color="green" />
+          onPress={() => onDecline(name)}>
+          <Icon name="Reject" width={24} height={24} color="darkred" />
         </TouchableOpacity>
         <TouchableOpacity
           activeOpacity={0.9}
           style={styles.button}
-          onPress={() => onAccept()}>
-          <Icon name="Accept" width={24} height={24} color="green" />
+          onPress={() => onAccept(name)}>
+          <Icon name="Accept" width={24} height={24} color="darkgreen" />
         </TouchableOpacity>
       </View>
     </View>

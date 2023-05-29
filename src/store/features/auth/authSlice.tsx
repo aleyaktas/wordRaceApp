@@ -60,10 +60,8 @@ export const loginUser = createAsyncThunk(
 export const getUser = createAsyncThunk('getUser', async () => {
   try {
     const res = await axios.get('/api/auth/me');
-    console.log('get User res', res.data);
     return res.data;
   } catch (err: any) {
-    console.log(err.response.data);
     return err.response.data;
   }
 });
@@ -95,7 +93,7 @@ export const addFriend = createAsyncThunk(
 
 export const acceptFriend = createAsyncThunk(
   'acceptFriend',
-  async ({username}: {username: string}) => {
+  async ({username}: {username: string}, {rejectWithValue}) => {
     const config = {
       headers: {
         'Content-Type': 'application/json',
@@ -103,22 +101,30 @@ export const acceptFriend = createAsyncThunk(
     };
 
     const body = JSON.stringify({username});
-    const res = await axios.post('/api/auth/acceptFriend', body, config);
-    return res.data;
+    try {
+      const res = await axios.post('/api/auth/acceptFriend', body, config);
+      return res.data;
+    } catch (err: any) {
+      return rejectWithValue(err.response.data);
+    }
   },
 );
 
 export const rejectFriend = createAsyncThunk(
   'rejectFriend',
-  async ({username}: {username: string}) => {
+  async ({username}: {username: string}, {rejectWithValue}) => {
     const config = {
       headers: {
         'Content-Type': 'application/json',
       },
     };
     const body = JSON.stringify({username});
-    const res = await axios.post('/api/auth/rejectFriend', body, config);
-    return res.data;
+    try {
+      const res = await axios.post('/api/auth/rejectFriend', body, config);
+      return res.data;
+    } catch (err: any) {
+      return rejectWithValue(err.response.data);
+    }
   },
 );
 
@@ -327,6 +333,7 @@ export const authSlice = createSlice({
 
     builder.addCase(rejectFriend.fulfilled, (state, action) => {
       state.message = 'Friend request rejected';
+      showMessage('Friend request rejected', 'success');
     });
     builder.addCase(getFriends.pending, (state, action) => {
       state.error = null;

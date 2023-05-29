@@ -1,5 +1,5 @@
 export interface FriendRequestCardListProps {
   friends: any[];
-  onAccept: () => void;
-  onDecline: () => void;
+  onAccept: (username: string) => void;
+  onDecline: (username: string) => void;
 }

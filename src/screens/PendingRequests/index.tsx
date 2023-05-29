@@ -3,22 +3,31 @@ import DefaultTemplate from '../../templates/DefaultTemplate';
 import NoDataCard from '../../components/NoDataCard';
 import FriendRequestCard from '../../components/FriendRequestCard';
 import FriendRequestCardList from '../../components/FriendRequestCardList';
+import {useAppDispatch, useAppSelector} from '../../store';
+import {StateProps} from '../../navigation/bottomTabNavigator';
+import {
+  acceptFriend,
+  getFriends,
+  rejectFriend,
+} from '../../store/features/auth/authSlice';
+import socket from '../../utils/socket';
 
 const PendingRequests = () => {
-  const [pendingRequests, setPendingRequests] = useState<any>([]);
+  const {pendingRequests} = useAppSelector(
+    (state: StateProps) => state.auth.user,
+  );
+  const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    setPendingRequests([
-      {
-        name: 'Test User',
-        image: 'TestUser',
-      },
-      {
-        name: 'Test User 2',
-        image: 'Bird',
-      },
-    ]);
-  }, []);
+  const onClickAccept = async (username: string) => {
+    await dispatch(acceptFriend({username}));
+    socket.emit('friend_accept', {username});
+    await dispatch(getFriends());
+  };
+
+  const onClickReject = async (username: string) => {
+    await dispatch(rejectFriend({username}));
+    dispatch(getFriends());
+  };
 
   return (
     <DefaultTemplate backIcon title="Pending Requests">
@@ -27,8 +36,12 @@ const PendingRequests = () => {
       ) : (
         <FriendRequestCardList
           friends={pendingRequests}
-          onAccept={() => {}}
-          onDecline={() => {}}
+          onAccept={(name: string) => {
+            onClickAccept(name);
+          }}
+          onDecline={(name: string) => {
+            onClickReject(name);
+          }}
         />
       )}
     </DefaultTemplate>

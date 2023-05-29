@@ -13,10 +13,10 @@ const FriendRequestCardList = ({
       data={friends}
       renderItem={({item}) => (
         <FriendRequestCard
-          name={item.name}
-          image={item.image}
-          onAccept={() => onAccept()}
-          onDecline={() => onDecline()}
+          name={item.username}
+          image={item.profileImage}
+          onAccept={(username: string) => onAccept(username)}
+          onDecline={(username: string) => onDecline(username)}
         />
       )}
       contentContainerStyle={{

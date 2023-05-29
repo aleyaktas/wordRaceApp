@@ -1,6 +1,6 @@
 export interface FriendRequestCardProps {
   name: string;
   image: string;
-  onAccept: () => void;
-  onDecline: () => void;
+  onAccept: (name: string) => void;
+  onDecline: (name: string) => void;
 }
