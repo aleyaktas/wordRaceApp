@@ -9,6 +9,7 @@ const initialState: InitialStateProps = {
   isAuthenticated: false,
   user: {
     username: '',
+    email: '',
     friends: [],
     pendingRequests: [],
     profileImage: '',
@@ -194,6 +195,7 @@ export const changePassword = createAsyncThunk(
       const res = await axios.post('/api/profile/changePassword', body, config);
       return res.data;
     } catch (err: any) {
+      console.log(err);
       return rejectWithValue(err.response.data);
     }
   },
@@ -242,6 +244,7 @@ export const authSlice = createSlice({
       setAuthToken(null);
       state.user = {
         username: '',
+        email: '',
         friends: [],
         pendingRequests: [],
         profileImage: '',

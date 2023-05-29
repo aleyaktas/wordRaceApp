@@ -63,6 +63,8 @@ import ProfileActive from '../assets/icons/ProfileActive.svg';
 import ScoresActive from '../assets/icons/ScoresActive.svg';
 import InviteFriend2 from '../assets/icons/InviteFriend2.svg';
 import SendActive from '../assets/icons/SendActive.svg';
+import Eye from '../assets/icons/Eye.svg';
+import EyeOff from '../assets/icons/EyeOff.svg';
 
 const icons: {[key: string]: React.FC<SvgProps>} = {
   User,
@@ -128,6 +130,8 @@ const icons: {[key: string]: React.FC<SvgProps>} = {
   ScoresActive,
   InviteFriend2,
   SendActive,
+  Eye,
+  EyeOff,
 };
 
 interface IconProps {
