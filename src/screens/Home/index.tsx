@@ -8,17 +8,13 @@ import {TextInput} from 'react-native-gesture-handler';
 import RNPickerSelect from 'react-native-picker-select';
 import LinearGradient from 'react-native-linear-gradient';
 import RoomCardList from '../../components/RoomCardList';
-import {getInitialData} from './actions';
+import {handleCreateRoom} from './actions';
 import {AppDispatch, useAppSelector} from '../../store';
 import {useDispatch} from 'react-redux';
 import socket from '../../utils/socket';
-import {getRooms} from '../../store/features/auth/authSlice';
+import {getRooms, getUser} from '../../store/features/auth/authSlice';
 import {RoomProps} from './types';
-import {showMessage} from '../../utils/showMessage';
 import {StateProps} from '../../navigation/bottomTabNavigator';
-import {useNavigation} from '@react-navigation/native';
-import {ScreenProp} from '../../navigation/types';
-import uuid from 'react-native-uuid';
 
 const Home = () => {
   const [rooms, setRooms] = useState<RoomProps[]>([]);
@@ -26,7 +22,6 @@ const Home = () => {
   const [showAlert, setShowAlert] = useState(false);
   const [roomName, setRoomName] = useState('');
   const [searchText, setSearchText] = useState('');
-  const navigation = useNavigation<ScreenProp>();
   const [selectedTimer, setSelectedTimer] = useState({
     label: '20sn',
     value: 20,
@@ -42,16 +37,15 @@ const Home = () => {
   );
 
   useEffect(() => {
-    getInitialData(dispatch);
+    dispatch(getUser());
     socket.on('get_rooms', ({rooms}) => {
       console.log(rooms);
       setRooms(rooms);
       dispatch(getRooms(rooms));
     });
-  }, []);
+  }, [rooms, dispatch]);
 
   useEffect(() => {
-    console.log(searchText);
     if (searchText.length > 0) {
       const filteredRooms = rooms.filter(room =>
         room.name.toLowerCase().includes(searchText.toLowerCase()),
@@ -65,31 +59,6 @@ const Home = () => {
       }
     }
   }, [searchText]);
-
-  const handleCreateRoom = () => {
-    const roomId = uuid.v4();
-    if (roomName.length === 0) {
-      return showMessage('Room name cannot be empty', 'error');
-    } else if (roomName.length <= 3) {
-      return showMessage('Room name must be at least 4 characters', 'error');
-    } else if (rooms.find(room => room.name === roomName)) {
-      return showMessage('Room name already exists', 'error');
-    } else if (roomName.length > 3) {
-      socket.emit('create_room', {
-        user: {
-          username,
-          image: profileImage,
-        },
-        roomName,
-        roomId,
-        timer: selectedTimer.value,
-        isPublic: selectedRoomStatus.value,
-      });
-      console.log(roomId);
-      navigation.navigate('Game');
-      setShowAlert(false);
-    }
-  };
 
   const CustomComponent = memo(() => (
     <View className="flex flex-col justify-center items-center w-full">
@@ -145,7 +114,17 @@ const Home = () => {
           className="w-[48%] rounded-xl"
           colors={['#5BB9CA', '#1D7483']}>
           <TouchableOpacity
-            onPress={() => handleCreateRoom()}
+            onPress={() =>
+              handleCreateRoom({
+                roomName,
+                rooms,
+                username,
+                profileImage,
+                selectedTimer,
+                selectedRoomStatus,
+                setShowAlert,
+              })
+            }
             className="w-full h-12 flex justify-center items-center"
             activeOpacity={0.9}>
             <Text className="text-white text-base font-poppinsMedium shadow">

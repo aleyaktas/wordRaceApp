@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import DefaultTemplate from '../../templates/DefaultTemplate';
 import {Dimensions, Text, TouchableOpacity, View} from 'react-native';
 import NoDataCard from '../../components/NoDataCard';
@@ -9,23 +9,41 @@ import LinearGradient from 'react-native-linear-gradient';
 import FriendCardList from '../../components/FriendCardList';
 import {useNavigation} from '@react-navigation/native';
 import {ScreenProp} from '../../navigation/types';
+import {useAppDispatch, useAppSelector} from '../../store';
+import {StateProps} from '../../navigation/bottomTabNavigator';
+import {getFriends} from '../../store/features/auth/authSlice';
+import socket from '../../utils/socket';
 
 const Friends = () => {
-  const [friends, setFriends] = useState<any>([
-    {
-      name: 'TestUser',
-      image: 'TestUser',
-      isOnline: true,
-    },
-    {
-      name: 'test',
-      image: 'Bird',
-      isOnline: true,
-    },
-  ]);
   const [showAddFriendModal, setShowAddFriendModal] = useState(false);
   const [showDeleteFriendModal, setShowDeleteFriendModal] = useState(false);
   const navigation = useNavigation<ScreenProp>();
+  const dispatch = useAppDispatch();
+  const {friends} = useAppSelector((state: StateProps) => state.auth.user);
+
+  const ownerUsername = useAppSelector(
+    (state: StateProps) => state.auth.user.username,
+  );
+
+  useEffect(() => {
+    socket.on('incoming_request', ({username}) => {
+      if (username === ownerUsername) {
+        dispatch(getFriends());
+      }
+    });
+
+    socket.on('accepted_request', ({username}) => {
+      if (username === ownerUsername) {
+        dispatch(getFriends());
+      }
+    });
+
+    socket.on('deleted_friend', ({username}) => {
+      if (username === ownerUsername) {
+        dispatch(getFriends());
+      }
+    });
+  }, [dispatch]);
 
   const CustomAddComponent = () => (
     <View className="flex flex-col justify-center items-center w-full">

@@ -4,14 +4,15 @@ import FriendCard from '../FriendCard';
 import {FriendCardListProps} from './types';
 
 const FriendCardList = ({friends, deleteFriend}: FriendCardListProps) => {
+  console.log('friends', friends);
   return (
     <FlatList
       data={friends}
       renderItem={({item}) => (
         <FriendCard
-          name={item.name}
-          image={item.image}
-          isOnline={item.isOnline}
+          name={item.username}
+          image={item.profileImage}
+          // isOnline={item.isOnline}
           deleteFriend={() => deleteFriend && deleteFriend()}
         />
       )}

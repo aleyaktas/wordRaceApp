@@ -62,11 +62,8 @@ export const loginUser = createAsyncThunk(
 );
 
 export const getUser = createAsyncThunk('getUser', async () => {
-  if (initialState.token) {
-    setAuthToken(initialState.token);
-  }
   const res = await axios.get('/api/auth/me');
-  console.log(res.data);
+  console.log('getUser res', res.data);
   return res.data;
 });
 
@@ -138,20 +135,11 @@ export const deleteFriend = createAsyncThunk(
   },
 );
 
-export const getFriends = createAsyncThunk(
-  'getFriends',
-  async ({username}: {username: string}) => {
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-
-    const body = JSON.stringify({username});
-    const res = await axios.get('/api/auth/friends');
-    return res.data;
-  },
-);
+export const getFriends = createAsyncThunk('getFriends', async () => {
+  const res = await axios.get('/api/auth/friends');
+  console.log('getFriends', res.data);
+  return res.data;
+});
 
 export const editProfile = createAsyncThunk(
   'editProfile',
@@ -345,6 +333,7 @@ export const authSlice = createSlice({
     });
 
     builder.addCase(getFriends.fulfilled, (state, action) => {
+      console.log('getFriends', action.payload);
       state.user.friends = action.payload.friends;
       state.user.pendingRequests = action.payload.pendingRequests;
     });
@@ -364,8 +353,8 @@ export const authSlice = createSlice({
       state.isAuthenticated = action.payload?._id ? true : false;
       state.loading = false;
       state.user = action.payload;
-      state.token = initialState.token;
-      setAuthToken(initialState.token);
+      state.token = state.token;
+      setAuthToken(state.token);
     });
     builder.addCase(editProfile.pending, (state, action) => {
       state.loading = true;

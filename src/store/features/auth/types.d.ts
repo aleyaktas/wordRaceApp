@@ -6,10 +6,12 @@ export interface InitialStateProps {
     friends: {
       username: string;
       _id: string;
+      profileImage: string;
     }[];
     pendingRequests: {
       username: string;
       _id: string;
+      profileImage: string;
     }[];
     profileImage: string;
   };

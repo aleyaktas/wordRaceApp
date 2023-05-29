@@ -7,6 +7,7 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import colors from '../../themes/colors';
 
 const FriendCard = ({name, image, isOnline, deleteFriend}: FriendCardProps) => {
+  console.log('image', image);
   const imageUrl =
     'https://img.freepik.com/free-photo/happiness-wellbeing-confidence-concept-cheerful-attractive-african-american-woman-curly-haircut-cross-arms-chest-self-assured-powerful-pose-smiling-determined-wear-yellow-sweater_176420-35063.jpg';
 
@@ -14,10 +15,12 @@ const FriendCard = ({name, image, isOnline, deleteFriend}: FriendCardProps) => {
     <View className="bg-white rounded-xl flex-row justify-between items-center px-5 py-2">
       <View className="relative">
         <View className="w-[40px] h-[40px] rounded-full overflow-hidden">
-          <Image
-            source={{uri: imageUrl}}
-            style={{width: '100%', height: '100%'}}
-          />
+          {image && (
+            <Image
+              source={{uri: image}}
+              style={{width: '100%', height: '100%'}}
+            />
+          )}
         </View>
         {isOnline && (
           <View
