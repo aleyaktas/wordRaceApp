@@ -8,6 +8,7 @@ import {PersistGate} from 'redux-persist/integration/react';
 import store, {persistor} from '../store';
 import {Provider} from 'react-redux';
 import axios from 'axios';
+import AlertBox from '../components/InvitationModal';
 
 axios.defaults.baseURL = 'https://api-wordrace.aleynaaktas.me';
 
@@ -23,6 +24,7 @@ const NavigationStack = () => {
               </SafeAreaProvider>
             </GestureHandlerRootView>
             <Toast />
+            <AlertBox />
           </NavigationContainer>
         </SafeAreaProvider>
       </PersistGate>

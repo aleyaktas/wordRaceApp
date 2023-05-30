@@ -19,6 +19,7 @@ import {
 } from '../../store/features/auth/authSlice';
 import {RoomProps} from './types';
 import {StateProps} from '../../navigation/bottomTabNavigator';
+import InvitationModal from '../../components/InvitationModal';
 
 const Home = () => {
   const [rooms, setRooms] = useState<RoomProps[]>([]);
@@ -26,6 +27,8 @@ const Home = () => {
   const [showAlert, setShowAlert] = useState(false);
   const [roomName, setRoomName] = useState('');
   const [searchText, setSearchText] = useState('');
+  const [isOpen, setIsOpen] = useState(false);
+  const [room, setRoom] = useState<RoomProps>();
   const [selectedTimer, setSelectedTimer] = useState({
     label: '20sn',
     value: 20,
@@ -62,6 +65,22 @@ const Home = () => {
       }
     }
   }, [searchText]);
+
+  useEffect(() => {
+    socket.on(`invited_${username}`, ({room}) => {
+      console.log(room);
+      InvitationModal.open({
+        image: room.image,
+        username: room.players[0].username,
+        onConfirmPress: () => {},
+        onCancelPress: () => {},
+      });
+      console.log(username);
+
+      setIsOpen(true);
+      setRoom(room);
+    });
+  }, []);
 
   const CustomComponent = memo(() => (
     <View className="flex flex-col justify-center items-center w-full">
