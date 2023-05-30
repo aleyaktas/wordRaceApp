@@ -31,7 +31,7 @@ const PendingRequests = () => {
 
   return (
     <DefaultTemplate backIcon title="Pending Requests">
-      {pendingRequests.length === 0 ? (
+      {pendingRequests?.length === 0 ? (
         <NoDataCard image="EmptyRequest" description="You have no request." />
       ) : (
         <FriendRequestCardList

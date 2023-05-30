@@ -10,7 +10,6 @@ import Friends from '../screens/Friends';
 import Scores from '../screens/Scores';
 import Profile from '../screens/Profile';
 import socketIO from 'socket.io-client';
-import {useSelector} from 'react-redux';
 import {useAppDispatch, useAppSelector} from '../store';
 import {InitialStateProps} from '../store/features/auth/types';
 import {getOnlineUsers} from '../store/features/auth/authSlice';

@@ -17,4 +17,5 @@ export interface DefaultTemplateProps {
   pendingRequestLength?: number;
   backIcon?: boolean;
   title?: string;
+  bgColor?: string;
 }

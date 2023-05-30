@@ -17,7 +17,7 @@ const ChangePassword = () => {
 
   const handlePasswordChange = async () => {
     if (currentPassword && newPassword) {
-      if (newPassword.length < 6 || newPassword.length > 20) {
+      if (newPassword?.length < 6 || newPassword?.length > 20) {
         return showMessage(
           'Password must be between 6 and 20 characters',
           'error',

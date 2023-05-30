@@ -15,7 +15,7 @@ const FriendCardList = ({
         <FriendCard
           name={item.username}
           isOnline={
-            (onlineUsers.length > 0 &&
+            (onlineUsers?.length > 0 &&
               onlineUsers.some(user => user.username === item.username)) ||
             false
           }
@@ -25,7 +25,7 @@ const FriendCardList = ({
       )}
       contentContainerStyle={{
         padding: 20,
-        paddingBottom: 60,
+        paddingBottom: 80,
       }}
       ItemSeparatorComponent={() => <View style={{height: 20}} />}
     />

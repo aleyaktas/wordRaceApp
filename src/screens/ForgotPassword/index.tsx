@@ -11,6 +11,7 @@ import Icon from '../../themes/icon';
 import LinearGradient from 'react-native-linear-gradient';
 import {useNavigation} from '@react-navigation/native';
 import {ScreenProp} from '../../navigation/types';
+import DefaultTemplate from '../../templates/DefaultTemplate';
 
 const CELL_SIZE = 70;
 const CELL_BORDER_RADIUS = 6;
@@ -111,7 +112,7 @@ const ForgotPassword = () => {
   };
 
   return (
-    <View>
+    <DefaultTemplate backIcon bgColor="white">
       <View className="flex w-full h-full mt-24 items-center px-5">
         <Icon name="Logo" width={100} height={100} />
         <Text className="font-poppinsBold text-2xl text-gray-900 my-3">
@@ -157,7 +158,7 @@ const ForgotPassword = () => {
           </Text>
           <Text className="font-base text-primary text-center font-medium">
             {' '}
-            {(time % 60).toString().length == 1
+            {(time % 60).toString()?.length == 1
               ? '0' + (time % 60).toString()
               : (time % 60).toString()}{' '}
           </Text>
@@ -173,7 +174,7 @@ const ForgotPassword = () => {
           </TouchableOpacity>
         </View>
       </View>
-    </View>
+    </DefaultTemplate>
   );
 };
 

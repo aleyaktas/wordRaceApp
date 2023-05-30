@@ -23,6 +23,7 @@ const DefaultTemplate = ({
   leftIconName,
   rightIconName,
   pendingRequestLength = 0,
+  bgColor = '#F5F5F5',
   leftIconAction,
   rightIconAction,
   title,
@@ -30,6 +31,55 @@ const DefaultTemplate = ({
 }: DefaultTemplateProps) => {
   const Container = scroll ? ScrollView : View;
   const navigation = useNavigation<ScreenProp>();
+
+  const styles = StyleSheet.create({
+    top: {
+      position: 'relative',
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      paddingVertical: 16,
+      paddingHorizontal: 20,
+      width: '100%',
+      backgroundColor: colors.white,
+    },
+    container: {
+      flex: 1,
+      width: '100%',
+      backgroundColor: bgColor,
+    },
+    subContainer: {
+      flex: 1,
+      zIndex: -33,
+      width: '100%',
+      backgroundColor: bgColor,
+    },
+    loading: {
+      marginTop: 63,
+    },
+    backButton: {
+      position: 'absolute',
+      left: 20,
+      zIndex: 44,
+    },
+    rightButton: {
+      position: 'absolute',
+      right: 20,
+    },
+    title: {
+      flex: 1,
+      textAlign: 'center',
+    },
+    button: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderWidth: 1,
+      borderColor: colors.iconBorder,
+      borderRadius: 12,
+      padding: 6,
+    },
+  });
 
   return (
     <SafeAreaView style={styles.container}>
@@ -87,54 +137,5 @@ const DefaultTemplate = ({
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  top: {
-    position: 'relative',
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: 16,
-    paddingHorizontal: 20,
-    width: '100%',
-    backgroundColor: colors.white,
-  },
-  container: {
-    flex: 1,
-    width: '100%',
-    backgroundColor: colors.background,
-  },
-  subContainer: {
-    flex: 1,
-    zIndex: -33,
-    width: '100%',
-    backgroundColor: colors.background,
-  },
-  loading: {
-    marginTop: 63,
-  },
-  backButton: {
-    position: 'absolute',
-    left: 20,
-    zIndex: 44,
-  },
-  rightButton: {
-    position: 'absolute',
-    right: 20,
-  },
-  title: {
-    flex: 1,
-    textAlign: 'center',
-  },
-  button: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: colors.iconBorder,
-    borderRadius: 12,
-    padding: 6,
-  },
-});
 
 export default DefaultTemplate;

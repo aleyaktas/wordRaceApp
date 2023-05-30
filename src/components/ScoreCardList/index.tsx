@@ -19,7 +19,7 @@ const ScoreCardList = ({topScores}: {topScores: ScoreProps[]}) => {
       )}
       contentContainerStyle={{
         padding: 20,
-        paddingBottom: 60,
+        paddingBottom: 80,
       }}
       ItemSeparatorComponent={() => <View style={{height: 20}} />}
       ListHeaderComponent={() => (

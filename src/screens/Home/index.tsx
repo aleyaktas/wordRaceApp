@@ -41,7 +41,8 @@ const Home = () => {
   );
 
   useEffect(() => {
-    dispatch(getUser());
+    const res = dispatch(getUser());
+    console.log('res', res);
     dispatch(getTopScores());
     socket.on('get_rooms', ({rooms}) => {
       setRooms(rooms);
@@ -50,11 +51,11 @@ const Home = () => {
   }, [rooms, dispatch]);
 
   useEffect(() => {
-    if (searchText.length > 0) {
+    if (searchText?.length > 0) {
       const filteredRooms = rooms.filter(room =>
         room.name.toLowerCase().includes(searchText.toLowerCase()),
       );
-      if (filteredRooms.length > 0) {
+      if (filteredRooms?.length > 0) {
         setFilteredRooms(filteredRooms);
       } else {
         setFilteredRooms([]);
@@ -140,7 +141,7 @@ const Home = () => {
 
   return (
     <HomePageTemplate setShowAlert={setShowAlert}>
-      {rooms.length === 0 && !searchText ? (
+      {rooms?.length === 0 && !searchText ? (
         <NoDataCard
           image="EmptyRoom"
           description="There are no online room. You can create room to play"
@@ -166,13 +167,13 @@ const Home = () => {
           </View>
           <RoomCardList
             rooms={
-              (filteredRooms.length > 0 && searchText.length > 0) ||
-              (filteredRooms.length === 0 && searchText.length > 0)
+              (filteredRooms?.length > 0 && searchText?.length > 0) ||
+              (filteredRooms?.length === 0 && searchText?.length > 0)
                 ? filteredRooms
                 : rooms
             }
           />
-          {filteredRooms.length === 0 && searchText.length > 0 && (
+          {filteredRooms?.length === 0 && searchText?.length > 0 && (
             <Text className="text-center text-black font-poppinsMedium text-xl mt-5">
               There is no room with this name
             </Text>

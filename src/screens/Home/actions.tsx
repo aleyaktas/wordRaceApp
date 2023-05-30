@@ -31,13 +31,13 @@ export const handleCreateRoom = ({
   setShowAlert: (value: boolean) => void;
 }) => {
   const roomId = uuid.v4();
-  if (roomName.length === 0) {
+  if (roomName?.length === 0) {
     return showMessage('Room name cannot be empty', 'error');
-  } else if (roomName.length <= 3) {
+  } else if (roomName?.length <= 3) {
     return showMessage('Room name must be at least 4 characters', 'error');
   } else if (rooms.find(room => room.name === roomName)) {
     return showMessage('Room name already exists', 'error');
-  } else if (roomName.length > 3) {
+  } else if (roomName?.length > 3) {
     socket.emit('create_room', {
       user: {
         username,

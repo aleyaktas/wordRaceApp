@@ -6,8 +6,10 @@ import LinearGradient from 'react-native-linear-gradient';
 import {useNavigation, useIsFocused} from '@react-navigation/native';
 import {ScreenProp} from '../../navigation/types';
 import {StateProps} from '../../navigation/bottomTabNavigator';
-import {useAppSelector} from '../../store';
+import {useAppDispatch, useAppSelector} from '../../store';
 import {getScore} from './actions';
+import socket from '../../utils/socket';
+import {logout} from '../../store/features/auth/authSlice';
 
 const Profile = () => {
   const navigation = useNavigation<ScreenProp>();
@@ -15,11 +17,18 @@ const Profile = () => {
   const {username, email, profileImage} = useAppSelector(
     (state: StateProps) => state?.auth.user,
   );
+  const dispatch = useAppDispatch();
 
   const isFocused = useIsFocused();
   useEffect(() => {
     getScore(setScore);
   }, [isFocused]);
+
+  const onClickLogout = async () => {
+    socket.emit('logout_user', {username});
+    await dispatch(logout());
+    navigation.navigate('Login');
+  };
 
   return (
     <DefaultTemplate title="Profile">
@@ -34,7 +43,7 @@ const Profile = () => {
             ) : (
               <View className=" bg-gray-200 w-full h-full flex justify-center items-center">
                 <Text className="text-black text-3xl font-poppinsSemiBold">
-                  {username.charAt(0)?.toUpperCase()}
+                  {username?.charAt(0)?.toUpperCase()}
                 </Text>
               </View>
             )}
@@ -76,7 +85,7 @@ const Profile = () => {
         <LinearGradient
           start={{x: 0, y: 0}}
           end={{x: 1, y: 0}}
-          className="w-full rounded-xl mt-6 mb-6"
+          className="w-full rounded-xl my-6"
           colors={['#5BB9CA', '#1D7483']}>
           <TouchableOpacity
             className="w-full h-12 flex justify-center items-center"
@@ -86,6 +95,14 @@ const Profile = () => {
             </Text>
           </TouchableOpacity>
         </LinearGradient>
+        <TouchableOpacity
+          className="flex-row justify-center items-center"
+          onPress={() => onClickLogout()}>
+          <Icon name="Logout" width={24} height={24} color="black" />
+          <Text className="text-sm text-black font-poppinsRegular text-center">
+            Logout
+          </Text>
+        </TouchableOpacity>
       </View>
     </DefaultTemplate>
   );

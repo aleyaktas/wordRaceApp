@@ -9,6 +9,6 @@ export default {
   venetianRed: '#FB4E4E',
   aeroBlue: '#C5FFDC',
   palePink: '#FFDCDC',
-  background: '#F5F5F5',
+  background: '#F9F9F9',
   iconBorder: '#E1E1E1',
 };

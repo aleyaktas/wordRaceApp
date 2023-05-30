@@ -60,7 +60,7 @@ const Game = () => {
         onPress={() => setShowInviteFriendModal(false)}>
         <Icon name="Close" width={24} height={24} color="black" />
       </TouchableOpacity>
-      {friends.length > 0 ? (
+      {friends?.length > 0 ? (
         <InviteFriendCardList friends={friends} />
       ) : (
         <Text className="text-sm font-poppinsRegular text-black text-center my-2">

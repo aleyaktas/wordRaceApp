@@ -65,6 +65,7 @@ import InviteFriend2 from '../assets/icons/InviteFriend2.svg';
 import SendActive from '../assets/icons/SendActive.svg';
 import Eye from '../assets/icons/Eye.svg';
 import EyeOff from '../assets/icons/EyeOff.svg';
+import Logout from '../assets/icons/Logout.svg';
 
 const icons: {[key: string]: React.FC<SvgProps>} = {
   User,
@@ -132,6 +133,7 @@ const icons: {[key: string]: React.FC<SvgProps>} = {
   SendActive,
   Eye,
   EyeOff,
+  Logout,
 };
 
 interface IconProps {

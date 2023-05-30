@@ -155,11 +155,11 @@ const Friends = () => {
     <DefaultTemplate
       rightIconName="Add"
       leftIconName="Friends"
-      pendingRequestLength={pendingRequests.length}
+      pendingRequestLength={pendingRequests?.length}
       title="Friends"
       leftIconAction={() => navigation.navigate('PendingRequests')}
       rightIconAction={() => setShowAddFriendModal(true)}>
-      {friends.length === 0 ? (
+      {friends?.length === 0 ? (
         <NoDataCard
           image="EmptyFriend"
           description="You have no friends yet. Would you like to add friends?"
