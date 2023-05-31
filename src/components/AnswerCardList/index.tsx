@@ -3,12 +3,13 @@ import {StyleSheet, View} from 'react-native';
 import AnswerCard from '../AnswerCard';
 import {AnswerCardListProps} from './types';
 
-const AnswerCardList = ({answers}: AnswerCardListProps) => {
+const AnswerCardList = ({answers}: {answers: AnswerCardListProps}) => {
   return (
     <View style={styles.container}>
-      {answers.map((answer, index) => (
-        <AnswerCard key={index} answer={answer} />
-      ))}
+      <AnswerCard answer={answers.a} />
+      <AnswerCard answer={answers.b} />
+      <AnswerCard answer={answers.c} />
+      <AnswerCard answer={answers.d} />
     </View>
   );
 };

@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import DefaultTemplate from '../../templates/DefaultTemplate';
 import NoDataCard from '../../components/NoDataCard';
 import {
@@ -14,18 +14,88 @@ import InviteFriendCardList from '../../components/InviteFriendCardList';
 import AnswerCardList from '../../components/AnswerCardList';
 import ChatCardList from '../../components/ChatCardList';
 import ProgressCard from '../../components/ProgressCard';
+import {useAppSelector} from '../../store';
+import {StateProps} from '../../navigation/bottomTabNavigator';
+import socket from '../../utils/socket';
+import {showMessage} from '../../utils/showMessage';
+import {RoomProps} from '../Home/types';
+import {useNavigation} from '@react-navigation/native';
+import {ScreenProp} from '../../navigation/types';
 
 const Game = () => {
-  const [friends, setFriends] = useState([
-    {
-      name: 'aleyna',
-      image: 'https://i.pravatar.cc/300?img=1',
-    },
-    {
-      name: 'aleyna',
-      image: 'https://i.pravatar.cc/300?img=1',
-    },
-  ]);
+  const navigation = useNavigation<ScreenProp>();
+  const username = useAppSelector(
+    (state: StateProps) => state.auth.user.username,
+  );
+  const onlineUsers = useAppSelector((state: StateProps) =>
+    state.auth.onlineUsers.filter(user => user.username !== username),
+  );
+  const allFriends = useAppSelector(
+    (state: StateProps) => state.auth.user.friends,
+  );
+  const onlineFriends = onlineUsers?.filter(item =>
+    allFriends?.some(i => i.username === item.username),
+  );
+
+  const showInviteFriend = (room: RoomProps) => {
+    setRightIcon(
+      room.players?.filter((player: any) => player.isReady).length === 1
+        ? 'InviteFriend'
+        : '',
+    );
+  };
+
+  const [room, setRoom] = useState<RoomProps>();
+  const [rightIcon, setRightIcon] = useState('');
+  const [timeProgress, setTimeProgress] = useState(0);
+  const [question, setQuestion] = useState('responsible');
+  const [answers, setAnswers] = useState<{
+    a: string;
+    b: string;
+    c: string;
+    d: string;
+  }>();
+
+  useEffect(() => {
+    socket.on('room_created', ({room}) => {
+      console.log(room);
+      setRoom(room);
+      console.log(room.players.filter((player: any) => player.isReady).length);
+      showInviteFriend(room);
+    });
+    socket.on('room_joined', ({room, joinUser}) => {
+      console.log('room join', room);
+      setRoom(room);
+      showInviteFriend(room);
+      if (joinUser !== username && room) {
+        console.log('joinUser', joinUser);
+        console.log('username', username);
+        showMessage(`${joinUser} has joined the room`, 'success');
+        setQuestion(room.questions[room.questionIndex].question);
+        setAnswers(room.questions[room.questionIndex]);
+        setTimeProgress(room.timer);
+      }
+    });
+    socket.on('leave_room', ({room, disconnectUser}) => {
+      if (username === disconnectUser) {
+        navigation.navigate('Home');
+      }
+      console.log(room);
+      console.log(username);
+      console.log(disconnectUser);
+      setRoom(room);
+      showInviteFriend(room);
+    });
+  }, []);
+
+  const onClickInvite = ({invitedUsername}: {invitedUsername: string}) => {
+    socket.emit('invite_user', {
+      username: invitedUsername,
+      ownerUser: username,
+    });
+    showMessage('Invitation sent', 'success');
+  };
+
   const data = [
     {
       id: '1',
@@ -41,13 +111,7 @@ const Game = () => {
     },
   ];
   const [showInviteFriendModal, setShowInviteFriendModal] = useState(false);
-  const [question, setQuestion] = useState('responsible');
-  const [answers, setAnswers] = useState([
-    'soğuk algınlığı',
-    'sorumluluk',
-    'beyin',
-    'zorlukların üstesinden gelmek',
-  ]);
+
   const [firstPlayerTurn, setFirstPlayerTurn] = useState(true);
   const firstPlayerRef = useRef<any>(null);
   const secondPlayerRef = useRef<any>(null);
@@ -60,8 +124,11 @@ const Game = () => {
         onPress={() => setShowInviteFriendModal(false)}>
         <Icon name="Close" width={24} height={24} color="black" />
       </TouchableOpacity>
-      {friends?.length > 0 ? (
-        <InviteFriendCardList friends={friends} />
+      {onlineFriends?.length > 0 ? (
+        <InviteFriendCardList
+          friends={onlineFriends}
+          onClickInvite={invitedUsername => onClickInvite({invitedUsername})}
+        />
       ) : (
         <Text className="text-sm font-poppinsRegular text-black text-center my-2">
           You don't have online friends.
@@ -75,6 +142,7 @@ const Game = () => {
       image="Game"
       description="Waiting for other player. Do you want to invite your friend?"
       buttonLabel="Invite Friend"
+      buttonAction={() => setShowInviteFriendModal(true)}
     />
   );
 
@@ -86,7 +154,7 @@ const Game = () => {
             {question}
           </Text>
         </View>
-        <AnswerCardList answers={answers} />
+        {answers && <AnswerCardList answers={answers} />}
         <View className="flex gap-2 flex-row ml-auto my-3">
           <Icon name="FiftyFiftyJoker" width={32} height={32} color="#0DBB7E" />
           <Icon
@@ -116,7 +184,9 @@ const Game = () => {
     <DefaultTemplate
       title="Game"
       backIcon
-      rightIconName="InviteFriend"
+      leftIconAction={() => navigation.navigate('Home')}
+      // rightIconName="InviteFriend"
+      rightIconName={rightIcon}
       rightIconAction={() => setShowInviteFriendModal(true)}>
       <View className="flex-row justify-center items-center mt-4">
         <ProgressCard
@@ -124,8 +194,15 @@ const Game = () => {
           secondPlayerRef={secondPlayerRef}
           playerTurn={firstPlayerTurn}
           setPlayerTurn={setFirstPlayerTurn}
-          playerName="aleynaaktas"
+          playerName={room?.players[0].username || 'Waiting...'}
           playerScore="10p"
+          startGame={
+            room &&
+            room.players?.filter((player: any) => player.isReady).length > 1
+              ? true
+              : false
+          }
+          time={timeProgress * 1000}
         />
         <Icon className="mx-4" name="Vs" width={40} height={36} color="black" />
         <ProgressCard
@@ -133,11 +210,27 @@ const Game = () => {
           secondPlayerRef={firstPlayerRef}
           playerTurn={!firstPlayerTurn}
           setPlayerTurn={setFirstPlayerTurn}
-          playerName="testuser"
+          playerName={
+            room && room.players.length > 1
+              ? room?.players[1].username
+              : 'Waiting...'
+          }
           playerScore="10p"
+          startGame={
+            room &&
+            room.players?.filter((player: any) => player.isReady).length > 1
+              ? true
+              : false
+          }
+          time={timeProgress * 1000}
         />
       </View>
-      <RenderGame />
+      {room &&
+      room.players?.filter((player: any) => player.isReady).length === 1 ? (
+        <RenderWaiting />
+      ) : (
+        <RenderGame />
+      )}
       <AwesomeAlert
         show={showInviteFriendModal}
         showProgress={false}

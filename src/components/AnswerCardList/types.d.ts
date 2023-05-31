@@ -1,3 +1,6 @@
 export interface AnswerCardListProps {
-  answers: string[];
+  a: string;
+  b: string;
+  c: string;
+  d: string;
 }

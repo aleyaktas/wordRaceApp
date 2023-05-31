@@ -5,4 +5,6 @@ export interface ProgressCardProps {
   setPlayerTurn: any;
   playerName: string;
   playerScore: string;
+  startGame: boolean;
+  time: number;
 }

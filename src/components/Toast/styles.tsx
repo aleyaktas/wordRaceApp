@@ -25,7 +25,7 @@ export default (): StyleProps => {
       paddingVertical: 15,
       alignItems: 'center',
       flexDirection: 'row',
-      zIndex: 999,
+      zIndex: 9999,
     },
     header: {
       marginLeft: 12,

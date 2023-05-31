@@ -4,12 +4,19 @@ import InviteFriendCard from '../InviteFriendCard';
 import {InviteFriendCardProps} from './types';
 import Icon from '../../themes/icon';
 
-const InviteFriendCardList = ({friends}: InviteFriendCardProps) => {
+const InviteFriendCardList = ({
+  friends,
+  onClickInvite,
+}: InviteFriendCardProps) => {
   return (
     <FlatList
       data={friends}
       renderItem={({item}) => (
-        <InviteFriendCard name={item.name} image={item.image} />
+        <InviteFriendCard
+          name={item.username}
+          image={item.profileImage}
+          onClickInvite={username => onClickInvite(username)}
+        />
       )}
       ItemSeparatorComponent={() => <View style={{height: 12}} />}
       ListHeaderComponent={() => (

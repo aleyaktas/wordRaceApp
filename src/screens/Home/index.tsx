@@ -20,6 +20,7 @@ import {
 import {RoomProps} from './types';
 import {StateProps} from '../../navigation/bottomTabNavigator';
 import InvitationModal from '../../components/InvitationModal';
+import {useNavigation} from '@react-navigation/native';
 
 const Home = () => {
   const [rooms, setRooms] = useState<RoomProps[]>([]);
@@ -39,6 +40,7 @@ const Home = () => {
   });
 
   const dispatch = useDispatch<AppDispatch>();
+  const navigation = useNavigation();
   const {username, profileImage} = useAppSelector(
     (state: StateProps) => state?.auth.user,
   );
@@ -136,8 +138,8 @@ const Home = () => {
           className="w-[48%] rounded-xl"
           colors={['#5BB9CA', '#1D7483']}>
           <TouchableOpacity
-            onPress={() =>
-              handleCreateRoom({
+            onPress={async () =>
+              await handleCreateRoom({
                 roomName,
                 rooms,
                 username,
@@ -145,6 +147,7 @@ const Home = () => {
                 selectedTimer,
                 selectedRoomStatus,
                 setShowAlert,
+                navigation,
               })
             }
             className="w-full h-12 flex justify-center items-center"

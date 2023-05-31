@@ -1,23 +1,29 @@
-import React from 'react';
-import {Image, Text} from 'react-native';
+import React, {useState} from 'react';
+import {Image, Text, TouchableOpacity} from 'react-native';
 import {View} from 'react-native';
 import {InviteFriendCardProps} from './types';
-import {TouchableOpacity} from 'react-native-gesture-handler';
 import LinearGradient from 'react-native-linear-gradient';
 
-const InviteFriendCard = ({name, image}: InviteFriendCardProps) => {
-  const imageUrl =
-    'https://img.freepik.com/free-photo/happiness-wellbeing-confidence-concept-cheerful-attractive-african-american-woman-curly-haircut-cross-arms-chest-self-assured-powerful-pose-smiling-determined-wear-yellow-sweater_176420-35063.jpg';
-
+const InviteFriendCard = ({
+  name,
+  image,
+  onClickInvite,
+}: InviteFriendCardProps) => {
   return (
     <View className="bg-white rounded-xl flex-row justify-between items-center px-5 py-2 border border-gray-300">
-      <View className="relative">
-        <View className="w-[40px] h-[40px] rounded-full overflow-hidden">
+      <View className="w-[40px] h-[40px] rounded-full overflow-hidden">
+        {image ? (
           <Image
-            source={{uri: imageUrl}}
+            source={{uri: image}}
             style={{width: '100%', height: '100%'}}
           />
-        </View>
+        ) : (
+          <View className=" bg-gray-200 w-full h-full flex justify-center items-center">
+            <Text className="text-black font-poppinsSemiBold">
+              {name.charAt(0)?.toUpperCase()}
+            </Text>
+          </View>
+        )}
       </View>
       <Text className="text-sm text-gray-600 font-poppinsRegular">{name}</Text>
       <LinearGradient
@@ -27,8 +33,9 @@ const InviteFriendCard = ({name, image}: InviteFriendCardProps) => {
         colors={['#5BB9CA', '#1D7483']}>
         <TouchableOpacity
           className="w-fit px-3 h-8 flex justify-center items-center"
+          onPress={() => onClickInvite(name)}
           activeOpacity={0.9}>
-          <Text className="text-white text-base font-poppinsMedium shadow">
+          <Text className="text-white text-base font-poppinsMedium">
             Invite
           </Text>
         </TouchableOpacity>

@@ -1,11 +1,7 @@
 import {showMessage} from '../../utils/showMessage';
 import uuid from 'react-native-uuid';
 import socket from '../../utils/socket';
-import {ScreenProp} from '../../navigation/types';
-import {useNavigation} from '@react-navigation/native';
 import {RoomProps} from './types';
-
-const navigation = useNavigation<ScreenProp>();
 
 export const handleCreateRoom = ({
   roomName,
@@ -15,6 +11,7 @@ export const handleCreateRoom = ({
   selectedTimer,
   selectedRoomStatus,
   setShowAlert,
+  navigation,
 }: {
   roomName: string;
   rooms: RoomProps[];
@@ -29,6 +26,7 @@ export const handleCreateRoom = ({
     value: boolean;
   };
   setShowAlert: (value: boolean) => void;
+  navigation: any;
 }) => {
   const roomId = uuid.v4();
   if (roomName?.length === 0) {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import CircularProgress from 'react-native-circular-progress-indicator';
 import colors from '../../themes/colors';
 import {ProgressCardProps} from './types';
@@ -10,7 +10,12 @@ const ProgressCard = ({
   setPlayerTurn,
   playerName,
   playerScore,
+  startGame,
+  time,
 }: ProgressCardProps) => {
+  console.log(playerTurn);
+  console.log(startGame);
+
   return (
     <CircularProgress
       ref={firstPlayerRef}
@@ -22,11 +27,11 @@ const ProgressCard = ({
       inActiveStrokeColor={playerTurn ? '#E5E5E5' : 'transparent'}
       activeStrokeWidth={6}
       inActiveStrokeWidth={6}
-      duration={10000}
+      duration={time}
       showProgressValue={false}
       onAnimationComplete={() => {
-        setPlayerTurn(!playerTurn);
-        secondPlayerRef.current.reAnimate();
+        startGame && setPlayerTurn(!playerTurn);
+        startGame && secondPlayerRef.current.reAnimate();
       }}
       title={playerName}
       titleFontSize={14}
