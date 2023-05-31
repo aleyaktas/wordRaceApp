@@ -7,6 +7,7 @@ const AnswerCard = ({answer, onClick}: AnswerCardProps) => {
     <TouchableOpacity
       className="w-[46%] h-20 !bg-answerCard rounded-xl"
       activeOpacity={0.9}
+      disabled={answer === ''}
       onPress={() => onClick()}>
       <Text className="m-auto text-center text-black font-poppinsMedium">
         {answer}

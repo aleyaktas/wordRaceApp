@@ -1,17 +1,12 @@
+import {PlayerProps} from '../Game/types';
+
 export interface RoomProps {
   id: string;
   image: string;
   isPublic: boolean;
   messages: [] | any[];
   name: string;
-  players: {
-    username: string;
-    isReady: boolean;
-    isYourTurn: boolean;
-    scoreIndex: number;
-    usedJokers: [] | any[];
-    username: string;
-  }[];
+  players: PlayerProps[];
   questionIndex: number;
   questions: {
     question: string;

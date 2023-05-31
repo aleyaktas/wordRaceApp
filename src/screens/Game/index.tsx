@@ -21,10 +21,21 @@ import {RoomProps} from '../Home/types';
 import {useNavigation} from '@react-navigation/native';
 import {ScreenProp} from '../../navigation/types';
 import ProgressCard from '../../components/ProgressCard';
+import {AnswerProps, PlayerProps} from './types';
 
 const Game = () => {
   const navigation = useNavigation<ScreenProp>();
   const scores = [0, 10, 25, 50, 100, 250, 500, 1000, 2500, 5000, 10000];
+
+  const [room, setRoom] = useState<RoomProps>();
+  const [rightIcon, setRightIcon] = useState('');
+  const [pause, setPause] = useState(false);
+  const [isTimerRunning, setIsTimerRunning] = useState(false);
+  const [doubleChance, setDoubleChance] = useState(false);
+  const [timeProgress, setTimeProgress] = useState(0);
+  const [question, setQuestion] = useState('');
+  const [answers, setAnswers] = useState<AnswerProps>();
+  const [showInviteFriendModal, setShowInviteFriendModal] = useState(false);
 
   const username = useAppSelector(
     (state: StateProps) => state.auth.user.username,
@@ -41,80 +52,82 @@ const Game = () => {
 
   const showInviteFriend = (room: RoomProps) => {
     setRightIcon(
-      room.players?.filter((player: any) => player.isReady).length === 1
+      room.players?.filter((player: PlayerProps) => player.isReady).length === 1
         ? 'InviteFriend'
         : '',
     );
   };
-
-  const [room, setRoom] = useState<RoomProps>();
-  const [rightIcon, setRightIcon] = useState('');
-  const [pause, setPause] = useState(false);
-  const [doubleChance, setDoubleChance] = useState(false);
-  const [timeProgress, setTimeProgress] = useState(0);
-  const [question, setQuestion] = useState('responsible');
-  const [answers, setAnswers] = useState<{
-    a: string;
-    b: string;
-    c: string;
-    d: string;
-  }>();
+  const roomChange = (room: RoomProps) => {
+    setRoom(room);
+    setQuestion(room.questions[room.questionIndex].question);
+    setAnswers(room.questions[room.questionIndex]);
+  };
 
   useEffect(() => {
     socket.on('room_created', ({room}) => {
-      console.log(room);
       setRoom(room);
-      console.log(room.players.filter((player: any) => player.isReady).length);
       showInviteFriend(room);
     });
     socket.on('room_joined', ({room, joinUser}) => {
-      console.log('room join', room);
       setPause(false);
-      setRoom(room);
+      roomChange(room);
+      setTimeProgress(room.timer);
+      setIsTimerRunning(true);
       showInviteFriend(room);
       if (joinUser !== username && room) {
-        console.log('joinUser', joinUser);
-        console.log('username', username);
         showMessage(`${joinUser} has joined the room`, 'success');
-        setQuestion(room.questions[room.questionIndex].question);
-        setAnswers(room.questions[room.questionIndex]);
-        setTimeProgress(room.timer);
       }
     });
     socket.on('correct_answered', ({room}) => {
-      console.log(room);
-      console.log(room.questionIndex);
-      console.log(room.questions.length - 1);
-
       if (room.questionIndex <= room.questions.length - 1) {
         setTimeProgress(room.timer);
-        setRoom(room);
-        setQuestion(room.questions[room.questionIndex].question);
-        setAnswers(room.questions[room.questionIndex]);
+        roomChange(room);
       }
     });
     socket.on('wrong_answered', ({room}) => {
-      console.log(room);
-      console.log(room.questionIndex);
-      console.log(room.questions.length);
-
       if (room.questionIndex <= room.questions.length - 1) {
         setTimeProgress(room.timer);
-        setRoom(room);
-        setQuestion(room.questions[room.questionIndex].question);
-        setAnswers(room.questions[room.questionIndex]);
+        roomChange(room);
       }
     });
-    socket.on('leave_room', ({room, disconnectUser}) => {
-      if (username === disconnectUser) {
-        navigation.navigate('Home');
-      }
+    socket.on('fifty_fifty_joker_used', ({room}) => {
       console.log(room);
-      console.log(username);
-      console.log(disconnectUser);
+      setRoom(room);
+      setAnswers(room.questions[room.questionIndex]);
+    });
+    socket.on('double_chance_joker_used', ({room}) => {
+      setRoom(room);
+    });
+    socket.on('leave_room', ({room}) => {
+      console.log('leave_room', room);
+      setIsTimerRunning(false);
+      setTimeProgress(0);
       setRoom(room);
       showInviteFriend(room);
     });
+    socket.on('opponent_quit', ({username, room}) => {
+      console.log('opponent_quit', username, room);
+      setRoom(room);
+      setIsTimerRunning(false);
+      showMessage(`${username} has left the room`, 'error');
+      console.log(room);
+    });
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      socket.emit('left_room', {username});
+      socket.off('room_joined');
+      socket.off('room_created');
+      socket.off('leave_room');
+      socket.off('correct_answered');
+      socket.off('wrong_answered');
+      socket.off('fifty_fifty_joker_used');
+      socket.off('game_finished');
+      socket.off('started_play_again');
+      socket.off('opponent_quit');
+      socket.off('message_received');
+    };
   }, []);
 
   const checkAnswer = (answer: string) => {
@@ -123,31 +136,49 @@ const Game = () => {
     ) {
       return showMessage('Not your turn', 'error');
     }
-    console.log(answer);
     const findMe = room?.players.find(player => player.username === username);
     if (findMe?.isYourTurn && room) {
-      console.log(answer);
-      console.log(room.questions[room.questionIndex].answer);
       if (answer === room.questions[room.questionIndex].answer) {
         socket.emit('correct_answer', {username, roomId: room.id});
         doubleChance && setDoubleChance(false);
         showMessage('Correct Answer', 'success');
       }
       if (room.questionIndex === 19) {
-        console.log(room);
         socket.emit('game_over', {roomId: room.id});
       }
       if (
         doubleChance &&
         answer !== room.questions[room.questionIndex].answer
       ) {
-        console.log('b');
         setDoubleChance(false);
         return showMessage('Wrong Answer', 'error');
       }
       if (answer !== room.questions[room.questionIndex].answer) {
         socket.emit('wrong_answer', {username, roomId: room.id});
         showMessage('Wrong Answer', 'error');
+      }
+    }
+  };
+
+  const handleJoker = (joker: string) => {
+    const findMe: PlayerProps = room?.players.find(
+      player => player.username === username,
+    );
+    console.log('findMe', findMe);
+
+    if (
+      room &&
+      findMe &&
+      findMe.isYourTurn &&
+      !findMe.usedJokers.includes(joker)
+    ) {
+      if (joker === 'fifty_fifty') {
+        console.log('fifty_fifty');
+        socket.emit('fifty_fifty_joker', {username, roomId: room.id});
+      }
+      if (joker === 'double_chance') {
+        setDoubleChance(true);
+        socket.emit('double_chance_joker', {username, roomId: room.id});
       }
     }
   };
@@ -187,7 +218,6 @@ const Game = () => {
       msg: 'Hello',
     },
   ];
-  const [showInviteFriendModal, setShowInviteFriendModal] = useState(false);
 
   const CustomAddComponent = () => (
     <View className="w-full max-h-80">
@@ -234,13 +264,38 @@ const Game = () => {
           />
         )}
         <View className="flex gap-2 flex-row ml-auto my-3">
-          <Icon name="FiftyFiftyJoker" width={32} height={32} color="#0DBB7E" />
-          <Icon
-            name="DoubleChanceJoker"
-            width={32}
-            height={32}
-            color="#0DBB7E"
-          />
+          <TouchableOpacity
+            activeOpacity={0.9}
+            onPress={() => handleJoker('fifty_fifty')}>
+            <Icon
+              name="FiftyFiftyJoker"
+              width={32}
+              height={32}
+              color={
+                room?.players
+                  .find(player => player.username === username)
+                  ?.usedJokers.includes('fifty_fifty')
+                  ? '#BCBCBC'
+                  : '#0DBB7E'
+              }
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            activeOpacity={0.9}
+            onPress={() => handleJoker('double_chance')}>
+            <Icon
+              name="DoubleChanceJoker"
+              width={32}
+              height={32}
+              color={
+                room?.players
+                  .find(player => player.username === username)
+                  ?.usedJokers.includes('double_chance')
+                  ? '#BCBCBC'
+                  : '#0DBB7E'
+              }
+            />
+          </TouchableOpacity>
         </View>
         <View className="w-full border-b border-gray-300" />
       </View>
@@ -269,7 +324,7 @@ const Game = () => {
         {room && (
           <ProgressCard
             time={timeProgress}
-            isTimerRunning={true}
+            isTimerRunning={isTimerRunning}
             whoIsNext={room.players.find(player => player.isYourTurn)?.username}
             userplay1={room.players[0].username}
             userplay1Score={scores[room.players[0]?.scoreIndex]}
@@ -282,7 +337,8 @@ const Game = () => {
         )}
       </View>
       {room &&
-      room.players?.filter((player: any) => player.isReady).length === 1 ? (
+      room.players?.filter((player: PlayerProps) => player.isReady).length ===
+        1 ? (
         <RenderWaiting />
       ) : (
         <RenderGame />

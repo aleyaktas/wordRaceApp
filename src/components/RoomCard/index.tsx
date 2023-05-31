@@ -11,12 +11,12 @@ import {RoomCardProps} from './types';
 import {ScreenProp} from '../../navigation/types';
 import {useNavigation} from '@react-navigation/native';
 
-const RoomCard = ({iconName, roomName}: RoomCardProps) => {
+const RoomCard = ({iconName, roomName, onRoomClick}: RoomCardProps) => {
   const navigation = useNavigation<ScreenProp>();
   return (
     <TouchableOpacity
       activeOpacity={0.9}
-      onPress={() => navigation.navigate('Game')}
+      onPress={() => onRoomClick()}
       style={styles.container}
       className="justify-center items-center bg-white rounded-xl overflow-hidden">
       <Icon className="mt-4" name={iconName} width={100} height={100} />

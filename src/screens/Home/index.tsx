@@ -21,6 +21,8 @@ import {RoomProps} from './types';
 import {StateProps} from '../../navigation/bottomTabNavigator';
 import InvitationModal from '../../components/InvitationModal';
 import {useNavigation} from '@react-navigation/native';
+import {showMessage} from '../../utils/showMessage';
+import {ScreenProp} from '../../navigation/types';
 
 const Home = () => {
   const [rooms, setRooms] = useState<RoomProps[]>([]);
@@ -40,10 +42,21 @@ const Home = () => {
   });
 
   const dispatch = useDispatch<AppDispatch>();
-  const navigation = useNavigation();
+  const navigation = useNavigation<ScreenProp>();
   const {username, profileImage} = useAppSelector(
-    (state: StateProps) => state?.auth.user,
+    (state: StateProps) => state.auth.user,
   );
+
+  const onRoomClick = (roomId: string) => {
+    const joinRoom = rooms.find(room => room.id === roomId);
+    if (joinRoom && joinRoom.players.length < 2) {
+      socket.emit('join_room', {user: {username, image: profileImage}, roomId});
+      navigation.navigate('Game');
+      showMessage('You have joined the room', 'success');
+    } else {
+      showMessage('This room is full', 'error');
+    }
+  };
 
   useEffect(() => {
     dispatch(getUser());
@@ -73,11 +86,10 @@ const Home = () => {
       InvitationModal.open({
         image: room.image,
         username: room.players[0].username,
-        onConfirmPress: () => {},
-        onCancelPress: () => {},
+        onConfirmPress: () => onRoomClick(room.id),
+        onCancelPress: () => setIsOpen(false),
       });
       console.log(username);
-
       setIsOpen(true);
       setRoom(room);
     });
@@ -187,6 +199,7 @@ const Home = () => {
             </LinearGradient>
           </View>
           <RoomCardList
+            onRoomClick={(id: string) => onRoomClick(id)}
             rooms={
               (filteredRooms?.length > 0 && searchText?.length > 0) ||
               (filteredRooms?.length === 0 && searchText?.length > 0)

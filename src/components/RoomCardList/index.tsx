@@ -2,12 +2,22 @@ import React from 'react';
 import {FlatList, View} from 'react-native';
 import RoomCard from '../RoomCard';
 
-const RoomCardList = ({rooms}: {rooms: any[]}) => {
+const RoomCardList = ({
+  rooms,
+  onRoomClick,
+}: {
+  rooms: any[];
+  onRoomClick: (id: string) => void;
+}) => {
   return (
     <FlatList
       data={rooms}
       renderItem={({item}) => (
-        <RoomCard iconName={item.image} roomName={item.name} />
+        <RoomCard
+          iconName={item.image}
+          roomName={item.name}
+          onRoomClick={() => onRoomClick(item.id)}
+        />
       )}
       numColumns={2}
       contentContainerStyle={{
