@@ -13,7 +13,6 @@ import AwesomeAlert from 'react-native-awesome-alerts';
 import InviteFriendCardList from '../../components/InviteFriendCardList';
 import AnswerCardList from '../../components/AnswerCardList';
 import ChatCardList from '../../components/ChatCardList';
-import ProgressCard from '../../components/ProgressCard';
 import {useAppSelector} from '../../store';
 import {StateProps} from '../../navigation/bottomTabNavigator';
 import socket from '../../utils/socket';
@@ -21,9 +20,12 @@ import {showMessage} from '../../utils/showMessage';
 import {RoomProps} from '../Home/types';
 import {useNavigation} from '@react-navigation/native';
 import {ScreenProp} from '../../navigation/types';
+import ProgressCard from '../../components/ProgressCard';
 
 const Game = () => {
   const navigation = useNavigation<ScreenProp>();
+  const scores = [0, 10, 25, 50, 100, 250, 500, 1000, 2500, 5000, 10000];
+
   const username = useAppSelector(
     (state: StateProps) => state.auth.user.username,
   );
@@ -47,6 +49,8 @@ const Game = () => {
 
   const [room, setRoom] = useState<RoomProps>();
   const [rightIcon, setRightIcon] = useState('');
+  const [pause, setPause] = useState(false);
+  const [doubleChance, setDoubleChance] = useState(false);
   const [timeProgress, setTimeProgress] = useState(0);
   const [question, setQuestion] = useState('responsible');
   const [answers, setAnswers] = useState<{
@@ -65,6 +69,7 @@ const Game = () => {
     });
     socket.on('room_joined', ({room, joinUser}) => {
       console.log('room join', room);
+      setPause(false);
       setRoom(room);
       showInviteFriend(room);
       if (joinUser !== username && room) {
@@ -74,6 +79,30 @@ const Game = () => {
         setQuestion(room.questions[room.questionIndex].question);
         setAnswers(room.questions[room.questionIndex]);
         setTimeProgress(room.timer);
+      }
+    });
+    socket.on('correct_answered', ({room}) => {
+      console.log(room);
+      console.log(room.questionIndex);
+      console.log(room.questions.length - 1);
+
+      if (room.questionIndex <= room.questions.length - 1) {
+        setTimeProgress(room.timer);
+        setRoom(room);
+        setQuestion(room.questions[room.questionIndex].question);
+        setAnswers(room.questions[room.questionIndex]);
+      }
+    });
+    socket.on('wrong_answered', ({room}) => {
+      console.log(room);
+      console.log(room.questionIndex);
+      console.log(room.questions.length);
+
+      if (room.questionIndex <= room.questions.length - 1) {
+        setTimeProgress(room.timer);
+        setRoom(room);
+        setQuestion(room.questions[room.questionIndex].question);
+        setAnswers(room.questions[room.questionIndex]);
       }
     });
     socket.on('leave_room', ({room, disconnectUser}) => {
@@ -87,6 +116,54 @@ const Game = () => {
       showInviteFriend(room);
     });
   }, []);
+
+  const checkAnswer = (answer: string) => {
+    if (
+      !room?.players.find(player => player.username === username)?.isYourTurn
+    ) {
+      return showMessage('Not your turn', 'error');
+    }
+    console.log(answer);
+    const findMe = room?.players.find(player => player.username === username);
+    if (findMe?.isYourTurn && room) {
+      console.log(answer);
+      console.log(room.questions[room.questionIndex].answer);
+      if (answer === room.questions[room.questionIndex].answer) {
+        socket.emit('correct_answer', {username, roomId: room.id});
+        doubleChance && setDoubleChance(false);
+        showMessage('Correct Answer', 'success');
+      }
+      if (room.questionIndex === 19) {
+        console.log(room);
+        socket.emit('game_over', {roomId: room.id});
+      }
+      if (
+        doubleChance &&
+        answer !== room.questions[room.questionIndex].answer
+      ) {
+        console.log('b');
+        setDoubleChance(false);
+        return showMessage('Wrong Answer', 'error');
+      }
+      if (answer !== room.questions[room.questionIndex].answer) {
+        socket.emit('wrong_answer', {username, roomId: room.id});
+        showMessage('Wrong Answer', 'error');
+      }
+    }
+  };
+
+  const timeOver = () => {
+    if (
+      room &&
+      room.players &&
+      room.players.find(player => player.isYourTurn)?.username === username &&
+      !pause
+    ) {
+      socket.emit('wrong_answer', {username, roomId: room.id});
+      setTimeProgress(room.timer);
+      showMessage('Time is up!', 'error');
+    }
+  };
 
   const onClickInvite = ({invitedUsername}: {invitedUsername: string}) => {
     socket.emit('invite_user', {
@@ -111,10 +188,6 @@ const Game = () => {
     },
   ];
   const [showInviteFriendModal, setShowInviteFriendModal] = useState(false);
-
-  const [firstPlayerTurn, setFirstPlayerTurn] = useState(true);
-  const firstPlayerRef = useRef<any>(null);
-  const secondPlayerRef = useRef<any>(null);
 
   const CustomAddComponent = () => (
     <View className="w-full max-h-80">
@@ -154,7 +227,12 @@ const Game = () => {
             {question}
           </Text>
         </View>
-        {answers && <AnswerCardList answers={answers} />}
+        {answers && (
+          <AnswerCardList
+            answers={answers}
+            handleCheck={(answer: string) => checkAnswer(answer)}
+          />
+        )}
         <View className="flex gap-2 flex-row ml-auto my-3">
           <Icon name="FiftyFiftyJoker" width={32} height={32} color="#0DBB7E" />
           <Icon
@@ -185,45 +263,23 @@ const Game = () => {
       title="Game"
       backIcon
       leftIconAction={() => navigation.navigate('Home')}
-      // rightIconName="InviteFriend"
       rightIconName={rightIcon}
       rightIconAction={() => setShowInviteFriendModal(true)}>
       <View className="flex-row justify-center items-center mt-4">
-        <ProgressCard
-          firstPlayerRef={firstPlayerRef}
-          secondPlayerRef={secondPlayerRef}
-          playerTurn={firstPlayerTurn}
-          setPlayerTurn={setFirstPlayerTurn}
-          playerName={room?.players[0].username || 'Waiting...'}
-          playerScore="10p"
-          startGame={
-            room &&
-            room.players?.filter((player: any) => player.isReady).length > 1
-              ? true
-              : false
-          }
-          time={timeProgress * 1000}
-        />
-        <Icon className="mx-4" name="Vs" width={40} height={36} color="black" />
-        <ProgressCard
-          firstPlayerRef={secondPlayerRef}
-          secondPlayerRef={firstPlayerRef}
-          playerTurn={!firstPlayerTurn}
-          setPlayerTurn={setFirstPlayerTurn}
-          playerName={
-            room && room.players.length > 1
-              ? room?.players[1].username
-              : 'Waiting...'
-          }
-          playerScore="10p"
-          startGame={
-            room &&
-            room.players?.filter((player: any) => player.isReady).length > 1
-              ? true
-              : false
-          }
-          time={timeProgress * 1000}
-        />
+        {room && (
+          <ProgressCard
+            time={timeProgress}
+            isTimerRunning={true}
+            whoIsNext={room.players.find(player => player.isYourTurn)?.username}
+            userplay1={room.players[0].username}
+            userplay1Score={scores[room.players[0]?.scoreIndex]}
+            userplay2={
+              room?.players[1] ? room?.players[1].username : 'Waiting...'
+            }
+            userplay2Score={scores[room.players[1]?.scoreIndex] || 0}
+            timeOver={() => timeOver()}
+          />
+        )}
       </View>
       {room &&
       room.players?.filter((player: any) => player.isReady).length === 1 ? (

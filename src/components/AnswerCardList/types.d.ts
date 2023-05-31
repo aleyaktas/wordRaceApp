@@ -1,6 +1,9 @@
 export interface AnswerCardListProps {
-  a: string;
-  b: string;
-  c: string;
-  d: string;
+  answers: {
+    a: string;
+    b: string;
+    c: string;
+    d: string;
+  };
+  handleCheck(answer: string): void;
 }

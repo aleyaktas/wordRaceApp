@@ -46,14 +46,13 @@ const Home = () => {
   );
 
   useEffect(() => {
-    const res = dispatch(getUser());
-    console.log('res', res);
+    dispatch(getUser());
     dispatch(getTopScores());
     socket.on('get_rooms', ({rooms}) => {
       setRooms(rooms);
       dispatch(getRooms(rooms));
     });
-  }, [rooms, dispatch]);
+  }, [dispatch]);
 
   useEffect(() => {
     if (searchText?.length > 0) {
