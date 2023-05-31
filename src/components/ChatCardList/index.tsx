@@ -3,18 +3,23 @@ import {FlatList, View} from 'react-native';
 import ChatCard from '../ChatCard';
 import {ChatCardListProps} from './types';
 
-const ChatCardList = ({data}: ChatCardListProps) => {
+const ChatCardList = ({messages, username}: ChatCardListProps) => {
   const scrollRef = React.useRef<any>(null);
   return (
     <FlatList
-      data={data}
+      className="mb-16"
+      data={messages}
       renderItem={({item}) => (
-        <ChatCard image={item.image} isOwner={item.isOwner} msg={item.msg} />
+        <ChatCard
+          image={item.img}
+          isOwner={item.username === username ? true : false}
+          msg={item.msg}
+          username={item.username}
+        />
       )}
       contentContainerStyle={{
         paddingTop: 0,
         padding: 20,
-        paddingBottom: 60,
       }}
       ItemSeparatorComponent={() => <View style={{height: 20}} />}
       ref={scrollRef}

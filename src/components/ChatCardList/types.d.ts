@@ -1,8 +1,6 @@
+import {ChatProps} from '../../screens/Game/types';
+
 export interface ChatCardListProps {
-  data: {
-    id: string;
-    image: string;
-    isOwner: boolean;
-    msg: string;
-  }[];
+  messages: ChatProps[];
+  username: string;
 }

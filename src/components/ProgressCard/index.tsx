@@ -42,27 +42,62 @@ export default ({
 
   return (
     <View style={styles.container}>
-      {whoIsNext === userplay1 && renderRadius(time)}
-      <View style={styles.userContainer}>
-        <View style={styles.user}>
-          <Text className="text-sm">{userplay1}</Text>
-          <Text className="text-sm" style={{marginLeft: 5}}>
-            {userplay1Score}
-          </Text>
-          <Icon
-            className="mx-4"
-            name="Vs"
-            width={40}
-            height={36}
-            color="black"
-          />
-          <Text className="text-sm">{userplay2}</Text>
-          <Text className="text-sm" style={{marginLeft: 5}}>
-            {userplay2Score}
-          </Text>
-        </View>
+      <View
+        style={{
+          width: '45%',
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'flex-end',
+          alignItems: 'center',
+        }}>
+        {whoIsNext === userplay1 && renderRadius(time)}
+
+        <Text
+          className={`text-sm ${
+            whoIsNext === userplay1
+              ? 'font-poppinsBold text-gray-800'
+              : 'font-poppinsMedium text-gray-700'
+          } `}>
+          {userplay1}
+        </Text>
+        <Text
+          className={`text-sm ${
+            whoIsNext === userplay1
+              ? 'font-poppinsBold text-primary'
+              : 'font-poppinsMedium text-gray-700'
+          } `}
+          style={{marginLeft: 5}}>
+          {userplay1Score}
+        </Text>
       </View>
-      {whoIsNext !== userplay1 && renderRadius(time)}
+      <Icon className="mx-4" name="Vs" width={40} height={36} color="black" />
+      <View
+        style={{
+          width: '45%',
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'flex-start',
+          alignItems: 'center',
+        }}>
+        <Text
+          className={`text-sm ${
+            whoIsNext === userplay2
+              ? 'font-poppinsBold text-gray-800'
+              : 'font-poppinsMedium text-gray-700'
+          } `}>
+          {userplay2}
+        </Text>
+        <Text
+          className={`text-sm ${
+            whoIsNext === userplay2
+              ? 'font-poppinsBold text-primary'
+              : 'font-poppinsMedium text-gray-700'
+          } `}
+          style={{marginLeft: 5}}>
+          {userplay2Score}
+        </Text>
+        {whoIsNext !== userplay1 && renderRadius(time)}
+      </View>
     </View>
   );
 };

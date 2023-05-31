@@ -7,6 +7,7 @@ import {
   Dimensions,
   TouchableOpacity,
   TextInput,
+  Keyboard,
 } from 'react-native';
 import Icon from '../../themes/icon';
 import AwesomeAlert from 'react-native-awesome-alerts';
@@ -21,7 +22,7 @@ import {RoomProps} from '../Home/types';
 import {useNavigation} from '@react-navigation/native';
 import {ScreenProp} from '../../navigation/types';
 import ProgressCard from '../../components/ProgressCard';
-import {AnswerProps, PlayerProps} from './types';
+import {AnswerProps, ChatProps, PlayerProps} from './types';
 
 const Game = () => {
   const navigation = useNavigation<ScreenProp>();
@@ -33,6 +34,8 @@ const Game = () => {
   const [isTimerRunning, setIsTimerRunning] = useState(false);
   const [doubleChance, setDoubleChance] = useState(false);
   const [timeProgress, setTimeProgress] = useState(0);
+  const [messages, setMessages] = useState<ChatProps[]>([]);
+  const [msg, setMsg] = useState('');
   const [question, setQuestion] = useState('');
   const [answers, setAnswers] = useState<AnswerProps>();
   const [showInviteFriendModal, setShowInviteFriendModal] = useState(false);
@@ -98,6 +101,10 @@ const Game = () => {
     socket.on('double_chance_joker_used', ({room}) => {
       setRoom(room);
     });
+    socket.on('message_received', ({message}) => {
+      console.log('message_received', message);
+      setMessages(oldMessages => [...oldMessages, message]);
+    });
     socket.on('leave_room', ({room}) => {
       console.log('leave_room', room);
       setIsTimerRunning(false);
@@ -157,6 +164,14 @@ const Game = () => {
         socket.emit('wrong_answer', {username, roomId: room.id});
         showMessage('Wrong Answer', 'error');
       }
+    }
+  };
+
+  const onClickSendMsg = () => {
+    if (msg.trim() !== '') {
+      socket.emit('send_message', {username, roomId: room.id, msg});
+      setMsg('');
+      Keyboard.dismiss();
     }
   };
 
@@ -253,7 +268,7 @@ const Game = () => {
     <>
       <View className="p-5">
         <View className="w-full h-16 !bg-questionCard rounded-xl mb-6">
-          <Text className="m-auto text-white font-poppinsMedium">
+          <Text className="m-auto text-white text-lg font-poppinsMedium">
             {question}
           </Text>
         </View>
@@ -299,17 +314,6 @@ const Game = () => {
         </View>
         <View className="w-full border-b border-gray-300" />
       </View>
-      <ChatCardList data={data} />
-      <TouchableOpacity
-        activeOpacity={0.9}
-        className="w-full absolute bottom-0 right-0 left-0 h-[52px] bg-white rounded-xl flex-row justify-between px-5 items-center">
-        <TextInput
-          placeholder="Send message"
-          placeholderTextColor={'gray'}
-          className="!text-gray-800 font-poppinsRegular text-sm flex-1"
-        />
-        <Icon name="SendActive" width={32} height={32} />
-      </TouchableOpacity>
     </>
   );
 
@@ -341,8 +345,27 @@ const Game = () => {
         1 ? (
         <RenderWaiting />
       ) : (
-        <RenderGame />
+        <>
+          <RenderGame />
+          {messages?.length > 0 && (
+            <ChatCardList messages={messages} username={username} />
+          )}
+          <TouchableOpacity
+            activeOpacity={0.9}
+            onPress={() => onClickSendMsg()}
+            className="w-full absolute bottom-0 right-0 left-0 h-[52px] bg-white rounded-xl flex-row justify-between px-5 items-center">
+            <TextInput
+              placeholder="Send message"
+              placeholderTextColor={'gray'}
+              className="!text-gray-800 font-poppinsRegular text-sm flex-1"
+              value={msg}
+              onChangeText={setMsg}
+            />
+            <Icon name="SendActive" width={32} height={32} />
+          </TouchableOpacity>
+        </>
       )}
+
       <AwesomeAlert
         show={showInviteFriendModal}
         showProgress={false}

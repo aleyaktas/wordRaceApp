@@ -13,3 +13,9 @@ export interface PlayerProps {
   scoreIndex: number;
   usedJokers: Array<string>;
 }
+
+export interface ChatProps {
+  img: string;
+  msg: string;
+  username: string;
+}
