@@ -19,7 +19,7 @@ const ScoreCard = ({index, name, image, scores}: ScoreCardProps) => {
           ) : (
             <View className=" bg-gray-200 w-full h-full flex justify-center items-center">
               <Text className="text-black font-poppinsSemiBold">
-                {name.charAt(0)?.toUpperCase()}
+                {name?.charAt(0)?.toUpperCase()}
               </Text>
             </View>
           )}

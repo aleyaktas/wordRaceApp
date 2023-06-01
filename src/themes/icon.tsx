@@ -66,6 +66,9 @@ import SendActive from '../assets/icons/SendActive.svg';
 import Eye from '../assets/icons/Eye.svg';
 import EyeOff from '../assets/icons/EyeOff.svg';
 import Logout from '../assets/icons/Logout.svg';
+import Lose from '../assets/icons/Lose.svg';
+import Win from '../assets/icons/Win.svg';
+import Draw from '../assets/icons/Draw.svg';
 
 const icons: {[key: string]: React.FC<SvgProps>} = {
   User,
@@ -134,6 +137,9 @@ const icons: {[key: string]: React.FC<SvgProps>} = {
   Eye,
   EyeOff,
   Logout,
+  Lose,
+  Win,
+  Draw,
 };
 
 interface IconProps {

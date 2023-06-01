@@ -82,14 +82,12 @@ const Home = () => {
 
   useEffect(() => {
     socket.on(`invited_${username}`, ({room}) => {
-      console.log(room);
       InvitationModal.open({
         image: room.image,
         username: room.players[0].username,
         onConfirmPress: () => onRoomClick(room.id),
         onCancelPress: () => setIsOpen(false),
       });
-      console.log(username);
       setIsOpen(true);
       setRoom(room);
     });

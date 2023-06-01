@@ -23,6 +23,7 @@ import {useNavigation} from '@react-navigation/native';
 import {ScreenProp} from '../../navigation/types';
 import ProgressCard from '../../components/ProgressCard';
 import {AnswerProps, ChatProps, PlayerProps} from './types';
+import LinearGradient from 'react-native-linear-gradient';
 
 const Game = () => {
   const navigation = useNavigation<ScreenProp>();
@@ -39,6 +40,8 @@ const Game = () => {
   const [question, setQuestion] = useState('');
   const [answers, setAnswers] = useState<AnswerProps>();
   const [showInviteFriendModal, setShowInviteFriendModal] = useState(false);
+  const [showPlayAgainModal, setShowPlayAgainModal] = useState(false);
+  const [gameResult, setGameResult] = useState('');
 
   const username = useAppSelector(
     (state: StateProps) => state.auth.user.username,
@@ -60,6 +63,7 @@ const Game = () => {
         : '',
     );
   };
+
   const roomChange = (room: RoomProps) => {
     setRoom(room);
     setQuestion(room.questions[room.questionIndex].question);
@@ -72,6 +76,8 @@ const Game = () => {
       showInviteFriend(room);
     });
     socket.on('room_joined', ({room, joinUser}) => {
+      console.log('room_joined');
+      console.log(room);
       setPause(false);
       roomChange(room);
       setTimeProgress(room.timer);
@@ -94,7 +100,6 @@ const Game = () => {
       }
     });
     socket.on('fifty_fifty_joker_used', ({room}) => {
-      console.log(room);
       setRoom(room);
       setAnswers(room.questions[room.questionIndex]);
     });
@@ -102,22 +107,38 @@ const Game = () => {
       setRoom(room);
     });
     socket.on('message_received', ({message}) => {
-      console.log('message_received', message);
       setMessages(oldMessages => [...oldMessages, message]);
     });
+    socket.on('game_finished', ({result, room}) => {
+      setPause(true);
+      setRoom(room);
+      setIsTimerRunning(false);
+      result === 'draw'
+        ? setGameResult('draw')
+        : setGameResult(result.username);
+      setShowPlayAgainModal(true);
+    });
+
+    socket.on('started_play_again', ({room}) => {
+      console.log('started_play_again');
+      console.log(room);
+      setTimeProgress(room.timer);
+      room.players.filter((player: PlayerProps) => player.isReady).length === 1
+        ? setIsTimerRunning(false)
+        : setIsTimerRunning(true);
+      setPause(false);
+      roomChange(room);
+    });
     socket.on('leave_room', ({room}) => {
-      console.log('leave_room', room);
       setIsTimerRunning(false);
       setTimeProgress(0);
       setRoom(room);
       showInviteFriend(room);
     });
     socket.on('opponent_quit', ({username, room}) => {
-      console.log('opponent_quit', username, room);
       setRoom(room);
       setIsTimerRunning(false);
       showMessage(`${username} has left the room`, 'error');
-      console.log(room);
     });
   }, []);
 
@@ -179,7 +200,6 @@ const Game = () => {
     const findMe: PlayerProps = room?.players.find(
       player => player.username === username,
     );
-    console.log('findMe', findMe);
 
     if (
       room &&
@@ -188,7 +208,6 @@ const Game = () => {
       !findMe.usedJokers.includes(joker)
     ) {
       if (joker === 'fifty_fifty') {
-        console.log('fifty_fifty');
         socket.emit('fifty_fifty_joker', {username, roomId: room.id});
       }
       if (joker === 'double_chance') {
@@ -199,6 +218,12 @@ const Game = () => {
   };
 
   const timeOver = () => {
+    console.log('time over');
+    console.log(room?.players);
+    console.log(room?.players.find(player => player.isYourTurn)?.username);
+    console.log(username);
+    console.log(pause);
+
     if (
       room &&
       room.players &&
@@ -219,20 +244,20 @@ const Game = () => {
     showMessage('Invitation sent', 'success');
   };
 
-  const data = [
-    {
-      id: '1',
-      image: 'https://i.pravatar.cc/300?img=1',
-      isOwner: true,
-      msg: 'Hello',
-    },
-    {
-      id: '2',
-      image: 'https://i.pravatar.cc/300?img=1',
-      isOwner: false,
-      msg: 'Hello',
-    },
-  ];
+  const onClickAgainGame = (value: boolean) => {
+    setShowPlayAgainModal(false);
+    setIsTimerRunning(false);
+    console.log('onClickAgainGame');
+    console.log(room);
+    console.log(value);
+    if (value) {
+      console.log(value);
+      socket.emit('play_again', {roomId: room.id, username});
+    } else {
+      navigation.navigate('Home');
+      socket.emit('quit_game', {roomId: room.id, username});
+    }
+  };
 
   const CustomAddComponent = () => (
     <View className="w-full max-h-80">
@@ -252,6 +277,62 @@ const Game = () => {
           You don't have online friends.
         </Text>
       )}
+    </View>
+  );
+
+  const CustomPlayAgainComponent = () => (
+    <View className="flex flex-col justify-center items-center w-full">
+      <Icon
+        name={
+          gameResult === 'draw'
+            ? 'Draw'
+            : gameResult === username
+            ? 'Win'
+            : 'Lose'
+        }
+        width={100}
+        height={100}
+      />
+      <Text className="text-base font-poppinsBold text-black my-3">
+        {gameResult === 'draw'
+          ? 'Draw'
+          : gameResult === username
+          ? 'You Won'
+          : 'You Lost'}
+      </Text>
+      <Text className="text-center font-poppinsRegular">
+        Do you want to play again?
+      </Text>
+      <View className="flex-row mt-6">
+        <TouchableOpacity
+          onPress={() => {
+            onClickAgainGame(false);
+            setShowPlayAgainModal(false);
+          }}
+          className="w-[48%] h-12 flex justify-center items-center"
+          activeOpacity={0.9}>
+          <Text className="text-black text-base font-poppinsMedium shadow">
+            No
+          </Text>
+        </TouchableOpacity>
+        <LinearGradient
+          start={{x: 0, y: 0}}
+          end={{x: 1, y: 0}}
+          className="w-[48%] rounded-xl"
+          colors={['#5BB9CA', '#1D7483']}>
+          <TouchableOpacity
+            onPress={async () => {
+              setShowPlayAgainModal(false);
+              onClickAgainGame(true);
+            }}
+            className="w-full h-12 flex justify-center items-center"
+            activeOpacity={0.9}>
+            <Text className="text-white text-base font-poppinsMedium shadow">
+              Yes
+            </Text>
+          </TouchableOpacity>
+        </LinearGradient>
+      </View>
     </View>
   );
 
@@ -384,6 +465,26 @@ const Game = () => {
         }}
         onDismiss={() => {
           setShowInviteFriendModal(false);
+        }}
+      />
+      <AwesomeAlert
+        show={showPlayAgainModal}
+        showProgress={false}
+        customView={<CustomPlayAgainComponent />}
+        contentContainerStyle={{
+          width: Dimensions.get('window').width - 50,
+          borderRadius: 12,
+        }}
+        closeOnTouchOutside={true}
+        closeOnHardwareBackPress={false}
+        onCancelPressed={() => {
+          setShowPlayAgainModal(false);
+        }}
+        onConfirmPressed={() => {
+          setShowPlayAgainModal(false);
+        }}
+        onDismiss={() => {
+          setShowPlayAgainModal(false);
         }}
       />
     </DefaultTemplate>
