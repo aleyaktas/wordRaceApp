@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Text, TextInput, TouchableOpacity, View} from 'react-native';
 import Icon from '../../themes/icon';
 import LinearGradient from 'react-native-linear-gradient';
@@ -6,11 +6,12 @@ import {useNavigation} from '@react-navigation/native';
 import {ScreenProp} from '../../navigation/types';
 import colors from '../../themes/colors';
 import {handleRegister} from './actions';
-import {AppDispatch} from '../../store';
+import {AppDispatch, useAppSelector} from '../../store';
 import {useDispatch} from 'react-redux';
+import {StateProps} from '../../navigation/bottomTabNavigator';
+import {updateAcceptStatus} from '../../store/features/auth/authSlice';
 
 const Register = () => {
-  const [isChecked, setIsChecked] = useState(false);
   const navigation = useNavigation<ScreenProp>();
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -18,8 +19,12 @@ const Register = () => {
 
   const dispatch = useDispatch<AppDispatch>();
 
+  const isChecked = useAppSelector(
+    (state: StateProps) => state.auth.acceptPrivacy,
+  );
+
   const toggleCheckbox = () => {
-    setIsChecked(!isChecked);
+    navigation.navigate('PrivacyPolicy');
   };
 
   return (
@@ -60,21 +65,26 @@ const Register = () => {
         />
         <Icon name="Lock" width={24} height={24} color="#BCBCBC" />
       </View>
-      <View className="flex-row gap-2 mr-auto w-fit">
+      <TouchableOpacity
+        activeOpacity={0.9}
+        className="flex-row gap-2 mr-auto w-fit"
+        onPress={toggleCheckbox}>
         <TouchableOpacity
           activeOpacity={0.9}
-          onPress={toggleCheckbox}
-          className="flex justify-center items-center w-6 h-5 bg-gray-200 rounded-md">
+          className="flex justify-center items-center w-6 h-5 bg-gray-200 rounded-md"
+          onPress={() => {
+            dispatch(updateAcceptStatus(!isChecked));
+          }}>
           {isChecked && (
             <Icon name="Tick" width={16} height={16} color={colors.primary} />
           )}
         </TouchableOpacity>
-        <TouchableOpacity className="w-fit mr-auto" activeOpacity={0.9}>
+        <View className="w-fit mr-auto">
           <Text className="text-darkGreen font-poppinsMedium text-sm">
             I agree to the Terms and Privacy Policy
           </Text>
-        </TouchableOpacity>
-      </View>
+        </View>
+      </TouchableOpacity>
       <LinearGradient
         start={{x: 0, y: 0}}
         end={{x: 1, y: 0}}
@@ -84,7 +94,14 @@ const Register = () => {
           className="w-full h-12 flex justify-center items-center"
           activeOpacity={0.9}
           onPress={() =>
-            handleRegister(username, email, password, navigation, dispatch)
+            handleRegister(
+              isChecked,
+              username,
+              email,
+              password,
+              navigation,
+              dispatch,
+            )
           }>
           <Text className="text-white text-base font-poppinsMedium shadow">
             Register

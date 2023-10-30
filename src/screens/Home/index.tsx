@@ -23,6 +23,7 @@ import InvitationModal from '../../components/InvitationModal';
 import {useNavigation} from '@react-navigation/native';
 import {showMessage} from '../../utils/showMessage';
 import {ScreenProp} from '../../navigation/types';
+import {KeyboardView} from '../../decorators';
 
 const Home = () => {
   const [rooms, setRooms] = useState<RoomProps[]>([]);
@@ -172,66 +173,68 @@ const Home = () => {
 
   return (
     <HomePageTemplate setShowAlert={setShowAlert}>
-      {rooms?.length === 0 && !searchText ? (
-        <NoDataCard
-          image="EmptyRoom"
-          description="There are no online room. You can create room to play"
-          buttonLabel="Create Room"
-          buttonAction={() => setShowAlert(true)}
-        />
-      ) : (
-        <View>
-          <View className="flex-row justify-between items-center bg-white rounded-xl h-12 px-2 m-5 mb-0">
-            <TextInput
-              className="flex-1 px-3 text-black font-poppinsLight"
-              placeholder="Search room..."
-              value={searchText}
-              onChangeText={setSearchText}
-            />
-            <LinearGradient
-              start={{x: 0, y: 0}}
-              end={{x: 1, y: 0}}
-              className="w-10 h-10 flex justify-center items-center rounded-xl"
-              colors={['#5BB9CA', '#1D7483']}>
-              <Icon name="Search" width={24} height={24} color="white" />
-            </LinearGradient>
-          </View>
-          <RoomCardList
-            onRoomClick={(id: string) => onRoomClick(id)}
-            rooms={
-              (filteredRooms?.length > 0 && searchText?.length > 0) ||
-              (filteredRooms?.length === 0 && searchText?.length > 0)
-                ? filteredRooms
-                : rooms
-            }
+      <KeyboardView style={{}}>
+        {rooms?.length === 0 && !searchText ? (
+          <NoDataCard
+            image="EmptyRoom"
+            description="There are no online room. You can create room to play"
+            buttonLabel="Create Room"
+            buttonAction={() => setShowAlert(true)}
           />
-          {filteredRooms?.length === 0 && searchText?.length > 0 && (
-            <Text className="text-center text-black font-poppinsMedium text-xl mt-5">
-              There is no room with this name
-            </Text>
-          )}
-        </View>
-      )}
-      <AwesomeAlert
-        show={showAlert}
-        showProgress={false}
-        customView={<CustomComponent />}
-        contentContainerStyle={{
-          width: Dimensions.get('window').width - 50,
-          borderRadius: 12,
-        }}
-        closeOnTouchOutside={true}
-        closeOnHardwareBackPress={false}
-        onCancelPressed={() => {
-          setShowAlert(false);
-        }}
-        onConfirmPressed={() => {
-          setShowAlert(false);
-        }}
-        onDismiss={() => {
-          setShowAlert(false);
-        }}
-      />
+        ) : (
+          <View>
+            <View className="flex-row justify-between items-center bg-white rounded-xl h-12 px-2 m-5 mb-0">
+              <TextInput
+                className="flex-1 px-3 text-black font-poppinsLight"
+                placeholder="Search room..."
+                value={searchText}
+                onChangeText={setSearchText}
+              />
+              <LinearGradient
+                start={{x: 0, y: 0}}
+                end={{x: 1, y: 0}}
+                className="w-10 h-10 flex justify-center items-center rounded-xl"
+                colors={['#5BB9CA', '#1D7483']}>
+                <Icon name="Search" width={24} height={24} color="white" />
+              </LinearGradient>
+            </View>
+            <RoomCardList
+              onRoomClick={(id: string) => onRoomClick(id)}
+              rooms={
+                (filteredRooms?.length > 0 && searchText?.length > 0) ||
+                (filteredRooms?.length === 0 && searchText?.length > 0)
+                  ? filteredRooms
+                  : rooms
+              }
+            />
+            {filteredRooms?.length === 0 && searchText?.length > 0 && (
+              <Text className="text-center text-black font-poppinsMedium text-xl mt-5">
+                There is no room with this name
+              </Text>
+            )}
+          </View>
+        )}
+        <AwesomeAlert
+          show={showAlert}
+          showProgress={false}
+          customView={<CustomComponent />}
+          contentContainerStyle={{
+            width: Dimensions.get('window').width - 50,
+            borderRadius: 12,
+          }}
+          closeOnTouchOutside={true}
+          closeOnHardwareBackPress={false}
+          onCancelPressed={() => {
+            setShowAlert(false);
+          }}
+          onConfirmPressed={() => {
+            setShowAlert(false);
+          }}
+          onDismiss={() => {
+            setShowAlert(false);
+          }}
+        />
+      </KeyboardView>
     </HomePageTemplate>
   );
 };

@@ -45,7 +45,7 @@ const BottomTabNavigator = ({}: {navigation: ScreenProp; route: any}) => {
   const dispatch = useAppDispatch();
   useEffect(() => {
     if (findUsername !== undefined) {
-      const socket = socketIO('https://api-wordrace.aleynaaktas.me', {
+      const socket = socketIO('https://api-wordrace.aleynaaktas.com', {
         query: {
           username: findUsername,
         },

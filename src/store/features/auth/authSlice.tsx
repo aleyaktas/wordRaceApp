@@ -20,6 +20,7 @@ const initialState: InitialStateProps = {
   rooms: [],
   error: null,
   topScores: [],
+  acceptPrivacy: false,
 };
 
 export const registerUser = createAsyncThunk(
@@ -258,6 +259,9 @@ export const authSlice = createSlice({
     getRooms: (state, action) => {
       state.rooms = action.payload;
     },
+    updateAcceptStatus: (state, action) => {
+      state.acceptPrivacy = action.payload;
+    },
   },
   extraReducers: builder => {
     builder.addCase(registerUser.pending, (state, action) => {
@@ -422,5 +426,6 @@ export const authSlice = createSlice({
   },
 });
 
-export const {logout, getOnlineUsers, getRooms} = authSlice.actions;
+export const {logout, getOnlineUsers, getRooms, updateAcceptStatus} =
+  authSlice.actions;
 export default authSlice.reducer;

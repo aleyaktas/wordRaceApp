@@ -6,6 +6,7 @@ import {
 import {StackNavigatorList} from './types';
 import Login from '../screens/Login';
 import Register from '../screens/Register';
+import PrivacyPolicy from '../screens/PrivacyPolicy';
 import BottomTabNavigator, {StateProps} from './bottomTabNavigator';
 import ForgotPassword from '../screens/ForgotPassword';
 import NewPassword from '../screens/NewPassword';
@@ -44,6 +45,7 @@ const stackNavigator = () => {
       <Stack.Screen name="Intro" component={Intro} />
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Register" component={Register} />
+      <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicy} />
       <Stack.Screen name="BottomTab" component={BottomTabNavigator} />
       <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
       <Stack.Screen name="NewPassword" component={NewPassword} />

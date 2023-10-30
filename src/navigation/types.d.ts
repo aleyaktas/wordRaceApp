@@ -8,6 +8,7 @@ export type StackNavigatorList = {
   Intro: undefined;
   Login: undefined;
   Register: undefined;
+  PrivacyPolicy: Dispatch<SetStateAction<boolean>>;
   BottomTab: undefined;
   ForgotPassword: undefined;
   NewPassword: undefined;

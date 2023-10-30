@@ -46,6 +46,7 @@ export interface InitialStateProps {
     score: number;
     profileImage: string;
   }[];
+  acceptPrivacy: boolean;
 }
 
 export interface RegisterProps {

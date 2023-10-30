@@ -10,7 +10,7 @@ import {Provider} from 'react-redux';
 import axios from 'axios';
 import AlertBox from '../components/InvitationModal';
 
-axios.defaults.baseURL = 'https://api-wordrace.aleynaaktas.me';
+axios.defaults.baseURL = 'https://api-wordrace.aleynaaktas.com';
 
 const NavigationStack = () => {
   return (
