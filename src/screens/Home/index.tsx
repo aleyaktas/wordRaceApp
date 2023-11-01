@@ -173,7 +173,7 @@ const Home = () => {
 
   return (
     <HomePageTemplate setShowAlert={setShowAlert}>
-      <KeyboardView style={{}}>
+      <KeyboardView style={{flex: 1}}>
         {rooms?.length === 0 && !searchText ? (
           <NoDataCard
             image="EmptyRoom"

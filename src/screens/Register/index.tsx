@@ -81,7 +81,7 @@ const Register = () => {
         </TouchableOpacity>
         <View className="w-fit mr-auto">
           <Text className="text-darkGreen font-poppinsMedium text-sm">
-            I agree to the Terms and Privacy Policy
+            I agree to the Privacy Policy
           </Text>
         </View>
       </TouchableOpacity>
