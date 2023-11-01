@@ -1,6 +1,7 @@
 import React from 'react';
-import {Image, Text, View} from 'react-native';
+import {Text, View} from 'react-native';
 import {ChatCardProps} from './types';
+import Image from '../Image';
 
 const ChatCard = ({image, isOwner, msg, username}: ChatCardProps) => {
   return (

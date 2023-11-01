@@ -34,7 +34,7 @@ const BottomTabNavigator = ({}: {navigation: ScreenProp; route: any}) => {
         name={focused ? `${icon}Active` : icon}
         width={26}
         height={26}
-        color={colors.text}
+        color={colors.shadowColor}
       />
     </View>
   );

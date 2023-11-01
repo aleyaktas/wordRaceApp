@@ -1,10 +1,11 @@
 import React from 'react';
-import {Image, StyleSheet, Text} from 'react-native';
+import {StyleSheet, Text} from 'react-native';
 import {View} from 'react-native';
 import Icon from '../../themes/icon';
 import {FriendRequestCardProps} from './types';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import colors from '../../themes/colors';
+import Image from '../Image';
 
 const FriendRequestCard = ({
   name,

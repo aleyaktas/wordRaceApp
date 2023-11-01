@@ -34,7 +34,7 @@ const Home = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [room, setRoom] = useState<RoomProps>();
   const [selectedTimer, setSelectedTimer] = useState({
-    label: '20sn',
+    label: '20s',
     value: 20,
   });
   const [selectedRoomStatus, setSelectedRoomStatus] = useState({
@@ -113,9 +113,9 @@ const Home = () => {
           <RNPickerSelect
             onValueChange={value => setSelectedTimer(value)}
             items={[
-              {label: '20sn', value: 20},
-              {label: '15sn', value: 15},
-              {label: '10sn', value: 10},
+              {label: '20s', value: 20},
+              {label: '15s', value: 15},
+              {label: '10s', value: 10},
             ]}
             value={selectedTimer}
             placeholder={{}}

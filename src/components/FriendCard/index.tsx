@@ -1,10 +1,11 @@
 import React from 'react';
-import {Image, StyleSheet, Text} from 'react-native';
+import {StyleSheet, Text} from 'react-native';
 import {View} from 'react-native';
 import Icon from '../../themes/icon';
 import {FriendCardProps} from './types';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import colors from '../../themes/colors';
+import Image from '../Image';
 
 const FriendCard = ({name, image, isOnline, deleteFriend}: FriendCardProps) => {
   return (

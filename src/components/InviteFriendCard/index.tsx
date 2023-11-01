@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
-import {Image, Text, TouchableOpacity} from 'react-native';
+import {Text, TouchableOpacity} from 'react-native';
 import {View} from 'react-native';
 import {InviteFriendCardProps} from './types';
 import LinearGradient from 'react-native-linear-gradient';
+import Image from '../Image';
 
 const InviteFriendCard = ({
   name,

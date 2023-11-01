@@ -11,10 +11,9 @@ import {
 import colors from '../../themes/colors';
 import Icon from '../../themes/icon';
 import {HomePageTemplateProps} from './types';
-import LinearGradient from 'react-native-linear-gradient';
 import {useAppSelector} from '../../store';
 import {StateProps} from '../../navigation/bottomTabNavigator';
-import {Image} from 'react-native';
+import Image from '../../components/Image';
 
 const HomePageTemplate = ({
   children,

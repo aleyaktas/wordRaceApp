@@ -73,6 +73,9 @@ const Register = () => {
           activeOpacity={0.9}
           className="flex justify-center items-center w-6 h-5 bg-gray-200 rounded-md"
           onPress={() => {
+            if (!isChecked) {
+              return navigation.navigate('PrivacyPolicy');
+            }
             dispatch(updateAcceptStatus(!isChecked));
           }}>
           {isChecked && (

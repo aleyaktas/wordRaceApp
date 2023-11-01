@@ -1,7 +1,8 @@
 import React from 'react';
-import {Image, Text} from 'react-native';
+import {Text} from 'react-native';
 import {View} from 'react-native';
 import {ScoreCardProps} from './types';
+import Image from '../Image';
 
 const ScoreCard = ({index, name, image, scores}: ScoreCardProps) => {
   return (

@@ -19,6 +19,8 @@ module.exports = {
         roomCardFooter: '#0DBB7E',
         questionCard: '#23BAD4',
         answerCard: '#C8E5E0',
+        darkRed: '#FB4E4E',
+        black: '#000',
       },
       fontFamily: {
         poppinsRegular: ['Poppins-Regular'],

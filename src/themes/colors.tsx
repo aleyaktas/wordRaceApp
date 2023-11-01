@@ -11,4 +11,6 @@ export default {
   palePink: '#FFDCDC',
   background: '#F9F9F9',
   iconBorder: '#E1E1E1',
+  black: '#000',
+  shadowColor: '#C1c1c1',
 };
