@@ -16,6 +16,7 @@ export type StackNavigatorList = {
   PendingRequests: undefined;
   ChangePassword: undefined;
   Game: undefined;
+  EditAccount: undefined;
 };
 
 export type BottomNavigatorList = {

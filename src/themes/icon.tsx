@@ -69,6 +69,9 @@ import Logout from '../assets/icons/Logout.svg';
 import Lose from '../assets/icons/Lose.svg';
 import Win from '../assets/icons/Win.svg';
 import Draw from '../assets/icons/Draw.svg';
+import ArrowRight from '../assets/icons/ArrowRight.svg';
+import PrivacyPolicy from '../assets/icons/PrivacyPolicy.svg';
+import ChangePassword from '../assets/icons/ChangePassword.svg';
 
 const icons: {[key: string]: React.FC<SvgProps>} = {
   User,
@@ -140,6 +143,9 @@ const icons: {[key: string]: React.FC<SvgProps>} = {
   Lose,
   Win,
   Draw,
+  ArrowRight,
+  PrivacyPolicy,
+  ChangePassword,
 };
 
 interface IconProps {

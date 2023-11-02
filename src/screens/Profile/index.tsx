@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import DefaultTemplate from '../../templates/DefaultTemplate';
 import {
   View,
@@ -18,8 +18,6 @@ import socket from '../../utils/socket';
 import {logout} from '../../store/features/auth/authSlice';
 import Image from '../../components/Image';
 import AwesomeAlert from 'react-native-awesome-alerts';
-import * as ImagePicker from 'react-native-image-picker';
-import Toast from '../../components/Toast';
 import ProfileItem from '../../components/ProfileItem';
 import Divider from '../../components/Divider';
 import colors from '../../themes/colors';
@@ -43,26 +41,6 @@ const Profile = () => {
     await dispatch(logout());
     navigation.navigate('Login');
   };
-
-  const [photo, setPhoto] = useState(profileImage);
-
-  const onButtonPress = useCallback((options: Options) => {
-    ImagePicker.launchImageLibrary(options, (response: any) => {
-      if (response.didCancel) {
-        Toast.open({
-          type: 'info',
-          title: 'Photo selection canceled',
-        });
-      } else if (response.errorCode) {
-        Toast.open({
-          type: 'error',
-          title: 'Something went wrong',
-        });
-      } else {
-        setPhoto(response.assets[0].uri);
-      }
-    });
-  }, []);
 
   const CustomDeleteComponent = () => (
     <View className="flex flex-col justify-center items-center w-full">
@@ -107,9 +85,9 @@ const Profile = () => {
       <View className="justify-center items-center p-5">
         <View className="my-6">
           <View className="w-[120px] h-[120px] rounded-full overflow-hidden">
-            {photo ? (
+            {profileImage ? (
               <Image
-                source={{uri: photo}}
+                source={{uri: profileImage}}
                 style={{width: '100%', height: '100%'}}
               />
             ) : (
@@ -120,18 +98,6 @@ const Profile = () => {
               </View>
             )}
           </View>
-          <TouchableOpacity
-            onPress={() => onButtonPress(mediaOptions)}
-            className="bg-white w-9 h-9 rounded-full absolute bottom-0 right-0"
-            activeOpacity={0.9}>
-            <Icon
-              className="m-auto"
-              name="Upload"
-              color="black"
-              height="24"
-              width="24"
-            />
-          </TouchableOpacity>
         </View>
         <Text className="text-base font-poppinsMedium text-gray-800 mb-4">
           Your Score :
@@ -144,8 +110,8 @@ const Profile = () => {
         <View className="bg-white w-full">
           <ProfileItem
             title="Edit Account"
-            iconName="Home"
-            onPress={() => null}
+            iconName="User"
+            onPress={() => navigation.navigate('EditAccount')}
           />
           <Divider
             type="dashed"
@@ -155,8 +121,8 @@ const Profile = () => {
           />
           <ProfileItem
             title="Change Password"
-            iconName="Home"
-            onPress={() => null}
+            iconName="Lock"
+            onPress={() => navigation.navigate('ChangePassword')}
           />
           <Divider
             type="dashed"
@@ -166,48 +132,28 @@ const Profile = () => {
           />
           <ProfileItem
             title="Delete Account"
-            iconName="Home"
-            onPress={() => null}
+            iconName="Trash"
+            onPress={() => setShowDeleteAccountModal(true)}
           />
         </View>
-        {/* <View className="w-full px-5">
-        <View className="flex-row justify-between items-center bg-white rounded-xl w-full h-12 px-3 mb-4">
-          <Text className="flex-1 font-poppinsLight">{username} </Text>
-          <Icon name="User" width={24} height={24} color="#BCBCBC" />
+        <Text className="text-gray-800 font-poppinsBold text-lg py-2 mt-3 mr-auto">
+          Privacy Policy
+        </Text>
+        <View className="bg-white w-full">
+          <ProfileItem
+            title="Privacy Policy"
+            iconName="PrivacyPolicy"
+            onPress={() => navigation.navigate('PrivacyPolicy')}
+          />
+          <Divider
+            type="dashed"
+            direction="horizontal"
+            color={colors.iconBorder}
+            style={styles.divider}
+          />
         </View>
-        <View className="flex-row justify-between items-center bg-white rounded-xl w-full h-12 px-3">
-          <Text className="flex-1 font-poppinsLight">{email}</Text>
-          <Icon name="Mail" width={24} height={24} color="#BCBCBC" />
-        </View>
         <TouchableOpacity
-          onPress={() => navigation.navigate('ChangePassword')}
-          activeOpacity={0.9}>
-          <Text className="text-sm text-darkGreen font-poppinsMedium underline mt-7">
-            Change Your Password
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => setShowDeleteAccountModal(true)}
-          activeOpacity={0.9}>
-          <Text className="text-sm text-darkRed font-poppinsMedium underline mt-7">
-            Delete Account
-          </Text>
-        </TouchableOpacity>
-        {/* <LinearGradient
-          start={{x: 0, y: 0}}
-          end={{x: 1, y: 0}}
-          className="w-full rounded-xl my-6"
-          colors={['#5BB9CA', '#1D7483']}>
-          <TouchableOpacity
-            className="w-full h-12 flex justify-center items-center"
-            activeOpacity={0.9}>
-            <Text className="text-white text-base font-poppinsMedium shadow">
-              Save Changes
-            </Text>
-          </TouchableOpacity>
-        </LinearGradient> 
-        <TouchableOpacity
-          className="flex-row justify-center items-center"
+          className="flex-row justify-center items-center mt-5"
           onPress={() => onClickLogout()}>
           <Icon name="Logout" width={24} height={24} color="black" />
           <Text className="text-sm text-black font-poppinsRegular text-center">
@@ -234,25 +180,9 @@ const Profile = () => {
             setShowDeleteAccountModal(false);
           }}
         />
-      </View> */}
       </View>
     </DefaultTemplate>
   );
-};
-
-export interface Options {
-  selectionLimit?: number;
-  includeBase64: boolean;
-  includeExtra: boolean;
-  mediaType: string;
-  saveToPhotos?: boolean;
-}
-
-export const mediaOptions: Options = {
-  selectionLimit: 0,
-  mediaType: 'photo',
-  includeBase64: false,
-  includeExtra: true,
 };
 
 const styles = StyleSheet.create({

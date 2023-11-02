@@ -18,7 +18,7 @@ export default ({
       onPress={onPress}
       activeOpacity={0.8}>
       <View style={styles.subContainer}>
-        <Icon name={iconName} width="24" height="24" color={colors.primary} />
+        <Icon name={iconName} width="20" height="20" color={colors.secondary} />
 
         <Text
           style={styles.title}
@@ -27,7 +27,7 @@ export default ({
         </Text>
       </View>
       {customComponent || (
-        <Icon name="Back" width="16" height="16" color={colors.black} />
+        <Icon name="ArrowRight" width="20" height="20" color={colors.black} />
       )}
     </TouchableOpacity>
   );

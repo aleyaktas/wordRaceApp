@@ -16,6 +16,7 @@ import ChangePassword from '../screens/ChangePassword';
 import Game from '../screens/Game';
 import {useAppSelector} from '../store';
 import SendMail from '../screens/SendMail';
+import EditAccount from '../screens/EditAccount';
 
 const stackNavigator = () => {
   const Stack = createStackNavigator<StackNavigatorList>();
@@ -54,6 +55,7 @@ const stackNavigator = () => {
       <Stack.Screen name="PendingRequests" component={PendingRequests} />
       <Stack.Screen name="ChangePassword" component={ChangePassword} />
       <Stack.Screen name="Game" component={Game} />
+      <Stack.Screen name="EditAccount" component={EditAccount} />
     </Stack.Navigator>
   );
 };

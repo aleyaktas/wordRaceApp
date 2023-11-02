@@ -1,12 +1,19 @@
 import React, {useState} from 'react';
 import DefaultTemplate from '../../templates/DefaultTemplate';
-import {TextInput, View, TouchableOpacity, Text} from 'react-native';
+import {
+  TextInput,
+  View,
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+} from 'react-native';
 import Icon from '../../themes/icon';
 import LinearGradient from 'react-native-linear-gradient';
 import {changePassword} from '../../store/features/auth/authSlice';
 import {showMessage} from '../../utils/showMessage';
 import {useAppDispatch} from '../../store';
 import Image from '../../components/Image';
+import colors from '../../themes/colors';
 
 const ChangePassword = () => {
   const [currentPassword, setCurrentPassword] = useState<string>('');
@@ -38,13 +45,19 @@ const ChangePassword = () => {
   };
   return (
     <DefaultTemplate title="Change Password" backIcon>
-      <View className="flex h-full justify-center items-center">
-        <Image
-          // className="w-[100px] h-[100px] rounded-full mx-auto mt-6 my-10"
-          source={{
-            uri: 'https://static.booksy.com/static/live/covers/make_up.jpg',
-          }}
+      <View
+        style={styles.iconContainer}
+        className="w-32 h-32 rounded-full bg-white mt-11 mb-6 mx-auto">
+        <Icon
+          className="m-auto"
+          name="ChangePassword"
+          color={colors.primary}
+          width={90}
+          height={90}
         />
+      </View>
+
+      <View className="flex h-full justify-start items-center">
         <View className="w-full px-5">
           <View className="flex-row justify-between items-center bg-white rounded-xl w-full h-12 px-3 mb-4">
             <TextInput
@@ -57,8 +70,8 @@ const ChangePassword = () => {
             <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
               <Icon
                 name={showPassword ? 'EyeOff' : 'Eye'}
-                width={24}
-                height={24}
+                width={20}
+                height={20}
                 color="#BCBCBC"
               />
             </TouchableOpacity>
@@ -75,8 +88,8 @@ const ChangePassword = () => {
               onPress={() => setShowNewPassword(!showNewPassword)}>
               <Icon
                 name={showNewPassword ? 'EyeOff' : 'Eye'}
-                width={24}
-                height={24}
+                width={20}
+                height={20}
                 color="#BCBCBC"
               />
             </TouchableOpacity>
@@ -100,5 +113,13 @@ const ChangePassword = () => {
     </DefaultTemplate>
   );
 };
+
+const styles = StyleSheet.create({
+  iconContainer: {
+    borderStyle: 'dashed',
+    borderWidth: 1,
+    borderColor: colors.primary,
+  },
+});
 
 export default ChangePassword;

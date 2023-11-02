@@ -8,13 +8,15 @@ import {
 } from 'react-native';
 import DefaultTemplate from '../../templates/DefaultTemplate';
 import LinearGradient from 'react-native-linear-gradient';
-import {useAppDispatch} from '../../store';
+import {useAppDispatch, useAppSelector} from '../../store';
 import {updateAcceptStatus} from '../../store/features/auth/authSlice';
 import {useNavigation} from '@react-navigation/native';
+import {StateProps} from '../../navigation/bottomTabNavigator';
 
 const PrivacyPolicy = () => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
+  const {username} = useAppSelector((state: StateProps) => state.auth.user);
 
   return (
     <DefaultTemplate backIcon bgColor="white">
@@ -315,23 +317,25 @@ const PrivacyPolicy = () => {
           If you have any questions about this Privacy Policy, You can contact
           us: By email: aleynaaktas627@gmail.com
         </Text>
-        <LinearGradient
-          start={{x: 0, y: 0}}
-          end={{x: 1, y: 0}}
-          className="w-full rounded-xl mt-6 mb-7"
-          colors={['#5BB9CA', '#1D7483']}>
-          <TouchableOpacity
-            className="w-full h-12 flex justify-center items-center"
-            activeOpacity={0.9}
-            onPress={() => {
-              dispatch(updateAcceptStatus(true));
-              navigation.goBack();
-            }}>
-            <Text className="text-white text-base font-poppinsMedium shadow">
-              Accept
-            </Text>
-          </TouchableOpacity>
-        </LinearGradient>
+        {!username && (
+          <LinearGradient
+            start={{x: 0, y: 0}}
+            end={{x: 1, y: 0}}
+            className="w-full rounded-xl mt-6 mb-7"
+            colors={['#5BB9CA', '#1D7483']}>
+            <TouchableOpacity
+              className="w-full h-12 flex justify-center items-center"
+              activeOpacity={0.9}
+              onPress={() => {
+                dispatch(updateAcceptStatus(true));
+                navigation.goBack();
+              }}>
+              <Text className="text-white text-base font-poppinsMedium shadow">
+                Accept
+              </Text>
+            </TouchableOpacity>
+          </LinearGradient>
+        )}
       </ScrollView>
     </DefaultTemplate>
   );
