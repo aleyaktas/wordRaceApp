@@ -47,7 +47,7 @@ const Login = () => {
       <TouchableOpacity
         className="w-fit mr-auto"
         activeOpacity={0.9}
-        onPress={() => navigation.navigate('ForgotPassword')}>
+        onPress={() => navigation.navigate('SendMail')}>
         <Text className="text-darkGreen font-poppinsRegular text-sm underline underline-offset-6">
           Forgot Password?
         </Text>

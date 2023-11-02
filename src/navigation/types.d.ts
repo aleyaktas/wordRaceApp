@@ -11,6 +11,7 @@ export type StackNavigatorList = {
   PrivacyPolicy: undefined;
   BottomTab: undefined;
   ForgotPassword: undefined;
+  SendMail: undefined;
   NewPassword: undefined;
   PendingRequests: undefined;
   ChangePassword: undefined;
