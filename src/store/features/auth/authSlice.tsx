@@ -208,7 +208,7 @@ export const forgotPassword = createAsyncThunk(
     {
       email,
     }: {
-      email: string;
+      email: String;
     },
     {rejectWithValue},
   ) => {
@@ -220,6 +220,60 @@ export const forgotPassword = createAsyncThunk(
     const body = JSON.stringify({email});
     try {
       const res = await axios.post('/api/profile/forgotPassword', body, config);
+      return res.data;
+    } catch (err: any) {
+      return rejectWithValue(err.response.data);
+    }
+  },
+);
+
+export const checkCode = createAsyncThunk(
+  'checkCode',
+  async (
+    {
+      email,
+      otp,
+    }: {
+      email: String;
+      otp: Number;
+    },
+    {rejectWithValue},
+  ) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const body = JSON.stringify({email, otp});
+    try {
+      const res = await axios.post('/api/profile/otp', body, config);
+      return res.data;
+    } catch (err: any) {
+      return rejectWithValue(err.response.data);
+    }
+  },
+);
+
+export const newPassword = createAsyncThunk(
+  'newPassword',
+  async (
+    {
+      email,
+      password,
+    }: {
+      email: String;
+      password: String;
+    },
+    {rejectWithValue},
+  ) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const body = JSON.stringify({email, password});
+    try {
+      const res = await axios.put('/api/profile/newPassword', body, config);
       return res.data;
     } catch (err: any) {
       return rejectWithValue(err.response.data);
@@ -411,6 +465,47 @@ export const authSlice = createSlice({
     builder.addCase(changePassword.fulfilled, (state, action) => {
       state.loading = false;
     });
+    builder.addCase(forgotPassword.pending, (state, action) => {
+      state.loading = true;
+      state.error = null;
+    });
+
+    builder.addCase(forgotPassword.rejected, (state, action) => {
+      state.error = action.error.message;
+      state.loading = false;
+    });
+
+    builder.addCase(forgotPassword.fulfilled, (state, action) => {
+      state.loading = false;
+    });
+    builder.addCase(checkCode.pending, (state, action) => {
+      state.loading = true;
+      state.error = null;
+    });
+
+    builder.addCase(checkCode.rejected, (state, action) => {
+      state.error = action.error.message;
+      state.loading = false;
+    });
+
+    builder.addCase(checkCode.fulfilled, (state, action) => {
+      state.loading = false;
+    });
+
+    builder.addCase(newPassword.pending, (state, action) => {
+      state.loading = true;
+      state.error = null;
+    });
+
+    builder.addCase(newPassword.rejected, (state, action) => {
+      state.error = action.error.message;
+      state.loading = false;
+    });
+
+    builder.addCase(newPassword.fulfilled, (state, action) => {
+      state.loading = false;
+    });
+
     builder.addCase(getTopScores.pending, (state, action) => {
       state.loading = true;
       state.error = null;

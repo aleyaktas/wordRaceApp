@@ -9,14 +9,21 @@ import {
 import colors from '../../themes/colors';
 import Icon from '../../themes/icon';
 import LinearGradient from 'react-native-linear-gradient';
-import {useNavigation} from '@react-navigation/native';
+import {RouteProp, useNavigation} from '@react-navigation/native';
 import {ScreenProp} from '../../navigation/types';
 import DefaultTemplate from '../../templates/DefaultTemplate';
+import {checkResetCode, resetPassword} from './actions';
+import {useDispatch} from 'react-redux';
+import {AppDispatch} from '../../store';
 
 const CELL_SIZE = 70;
 const CELL_BORDER_RADIUS = 6;
 
-const ForgotPassword = () => {
+const ForgotPassword = ({
+  route,
+}: {
+  route: RouteProp<{params: {email: String}}>;
+}) => {
   const CELL_COUNT = 5;
   const [code, setCode] = useState('');
   const [value, setValue] = useState('');
@@ -28,6 +35,8 @@ const ForgotPassword = () => {
 
   const [time, setTime] = useState<number>(180);
   const navigation = useNavigation<ScreenProp>();
+
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -143,7 +152,14 @@ const ForgotPassword = () => {
           <TouchableOpacity
             className="w-full h-12 flex justify-center items-center"
             activeOpacity={0.9}
-            onPress={() => navigation.navigate('NewPassword')}>
+            onPress={() =>
+              checkResetCode(
+                route.params.email,
+                parseInt(code),
+                navigation,
+                dispatch,
+              )
+            }>
             <Text className="text-white text-base font-poppinsMedium shadow">
               Verify
             </Text>
@@ -164,7 +180,10 @@ const ForgotPassword = () => {
           </Text>
         </Text>
         <View className="flex-row gap-1">
-          <TouchableOpacity activeOpacity={0.9} disabled={time > 0}>
+          <TouchableOpacity
+            onPress={() => resetPassword(route.params.email, dispatch)}
+            activeOpacity={0.9}
+            disabled={time > 0}>
             <Text
               className={`${
                 time > 0 ? 'text-gray-400' : 'text-gray-900'

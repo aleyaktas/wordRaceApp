@@ -10,9 +10,9 @@ export type StackNavigatorList = {
   Register: undefined;
   PrivacyPolicy: undefined;
   BottomTab: undefined;
-  ForgotPassword: undefined;
+  ForgotPassword: {email: String};
   SendMail: undefined;
-  NewPassword: undefined;
+  NewPassword: {email: String};
   PendingRequests: undefined;
   ChangePassword: undefined;
   Game: undefined;

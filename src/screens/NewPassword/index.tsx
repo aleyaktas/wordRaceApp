@@ -1,14 +1,25 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Text, TextInput, TouchableOpacity, View} from 'react-native';
 import Icon from '../../themes/icon';
 import LinearGradient from 'react-native-linear-gradient';
-import {useNavigation} from '@react-navigation/native';
+import {RouteProp, useNavigation} from '@react-navigation/native';
 import {ScreenProp} from '../../navigation/types';
 import Toast from '../../components/Toast';
 import DefaultTemplate from '../../templates/DefaultTemplate';
+import {AppDispatch} from '../../store';
+import {useDispatch} from 'react-redux';
+import {setNewPassword} from './actions';
 
-const NewPassword = () => {
+const NewPassword = ({
+  route,
+}: {
+  route: RouteProp<{params: {email: String}}>;
+}) => {
+  const [password, setPassword] = useState('');
+
   const navigation = useNavigation<ScreenProp>();
+  const dispatch = useDispatch<AppDispatch>();
+
   return (
     <DefaultTemplate backIcon bgColor="white">
       <View className="flex w-full h-full mt-24 items-center px-5">
@@ -21,9 +32,11 @@ const NewPassword = () => {
         </Text>
         <View className="flex-row justify-between items-center bg-textInput rounded-xl w-full h-12 px-3">
           <TextInput
-            className="flex-1 poppinsLight"
+            className="flex-1 font-poppinsLight"
             placeholder="New Password"
             secureTextEntry
+            value={password}
+            onChangeText={setPassword}
           />
           <Icon name="Lock" width={24} height={24} color="#BCBCBC" />
         </View>
@@ -35,11 +48,12 @@ const NewPassword = () => {
           colors={['#5BB9CA', '#1D7483']}>
           <TouchableOpacity
             onPress={() => {
-              Toast.open({
-                type: 'success',
-                title: 'Change password successfully',
-              });
-              navigation.navigate('Login');
+              setNewPassword(
+                route.params.email,
+                password,
+                navigation,
+                dispatch,
+              );
             }}
             className="w-full h-12 flex justify-center items-center"
             activeOpacity={0.9}>

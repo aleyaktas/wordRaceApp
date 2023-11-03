@@ -12,10 +12,14 @@ import LinearGradient from 'react-native-linear-gradient';
 import {useNavigation} from '@react-navigation/native';
 import {ScreenProp} from '../../navigation/types';
 import DefaultTemplate from '../../templates/DefaultTemplate';
+import {resetPassword} from './actions';
+import {useDispatch} from 'react-redux';
+import {AppDispatch} from '../../store';
 
 const SendMail = () => {
   const navigation = useNavigation<ScreenProp>();
   const [mail, setMail] = useState('');
+  const dispatch = useDispatch<AppDispatch>();
 
   return (
     <DefaultTemplate backIcon bgColor="white">
@@ -44,7 +48,7 @@ const SendMail = () => {
           <TouchableOpacity
             className="w-full h-12 flex justify-center items-center"
             activeOpacity={0.9}
-            onPress={() => navigation.navigate('ForgotPassword')}>
+            onPress={() => resetPassword(mail, navigation, dispatch)}>
             <Text className="text-white text-base font-poppinsMedium shadow">
               Send Code
             </Text>
