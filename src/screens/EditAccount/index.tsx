@@ -1,19 +1,23 @@
 import React, {useCallback, useState} from 'react';
 import DefaultTemplate from '../../templates/DefaultTemplate';
-import {Text, TouchableOpacity, View} from 'react-native';
+import {Text, TextInput, TouchableOpacity, View} from 'react-native';
 import Icon from '../../themes/icon';
-import {useNavigation} from '@react-navigation/native';
-import {useAppSelector} from '../../store';
+import {AppDispatch, useAppSelector} from '../../store';
 import {StateProps} from '../../navigation/bottomTabNavigator';
 import Image from '../../components/Image';
 import * as ImagePicker from 'react-native-image-picker';
 import Toast from '../../components/Toast';
 import LinearGradient from 'react-native-linear-gradient';
 import colors from '../../themes/colors';
+import {useDispatch} from 'react-redux';
+import {editUsername} from './actions';
 
 const EditAccount = () => {
   const {user} = useAppSelector((state: StateProps) => state.auth);
   const [photo, setPhoto] = useState(user.profileImage);
+  const [username, setUsername] = useState(user.username);
+
+  const dispatch = useDispatch<AppDispatch>();
 
   const onButtonPress = useCallback((options: Options) => {
     ImagePicker.launchImageLibrary(options, (response: any) => {
@@ -45,7 +49,7 @@ const EditAccount = () => {
             ) : (
               <View className=" bg-gray-200 w-full h-full flex justify-center items-center">
                 <Text className="text-black text-3xl font-poppinsSemiBold">
-                  {user.username?.charAt(0)?.toUpperCase()}
+                  {username?.charAt(0)?.toUpperCase()}
                 </Text>
               </View>
             )}
@@ -64,8 +68,13 @@ const EditAccount = () => {
           </TouchableOpacity>
         </View>
         <View className="flex-row justify-between items-center bg-white rounded-xl w-full h-12 px-3 mb-4">
-          <Text className="flex-1 font-poppinsLight">{user.username} </Text>
-          <Icon name="User" width={20} height={20} color="#BCBCBC" />
+          <TextInput
+            className="flex-1 font-poppinsLight"
+            placeholder="Username"
+            value={username}
+            onChangeText={setUsername}
+          />
+          <Icon name="User" width={24} height={24} color="#BCBCBC" />
         </View>
         <View className="flex-row justify-between items-center bg-white rounded-xl w-full h-12 px-3">
           <Text className="flex-1 font-poppinsLight">{user.email}</Text>
@@ -79,7 +88,8 @@ const EditAccount = () => {
           colors={['#5BB9CA', '#1D7483']}>
           <TouchableOpacity
             className="w-full h-12 flex justify-center items-center"
-            activeOpacity={0.9}>
+            activeOpacity={0.9}
+            onPress={() => editUsername(user.email, username, dispatch)}>
             <Text className="text-white text-base font-poppinsMedium shadow">
               Save Changes
             </Text>

@@ -281,6 +281,33 @@ export const newPassword = createAsyncThunk(
   },
 );
 
+export const changeUsername = createAsyncThunk(
+  'changeUsername',
+  async (
+    {
+      email,
+      username,
+    }: {
+      email: String;
+      username: String;
+    },
+    {rejectWithValue},
+  ) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const body = JSON.stringify({email, username});
+    try {
+      const res = await axios.put('/api/profile/changeUsername', body, config);
+      return res.data;
+    } catch (err: any) {
+      return rejectWithValue(err.response.data);
+    }
+  },
+);
+
 export const getTopScores = createAsyncThunk('getTopScores', async () => {
   try {
     const res = await axios.get('/api/auth/getTopScores');
@@ -504,6 +531,21 @@ export const authSlice = createSlice({
 
     builder.addCase(newPassword.fulfilled, (state, action) => {
       state.loading = false;
+    });
+
+    builder.addCase(changeUsername.pending, (state, action) => {
+      state.loading = true;
+      state.error = null;
+    });
+
+    builder.addCase(changeUsername.rejected, (state, action) => {
+      state.error = action.error.message;
+      state.loading = false;
+    });
+
+    builder.addCase(changeUsername.fulfilled, (state, action) => {
+      state.loading = false;
+      console.log('11', action.payload);
     });
 
     builder.addCase(getTopScores.pending, (state, action) => {
