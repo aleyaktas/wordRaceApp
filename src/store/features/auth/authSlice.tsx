@@ -180,8 +180,8 @@ export const changePassword = createAsyncThunk(
       oldPassword,
       newPassword,
     }: {
-      oldPassword: string;
-      newPassword: string;
+      oldPassword: String;
+      newPassword: String;
     },
     {rejectWithValue},
   ) => {

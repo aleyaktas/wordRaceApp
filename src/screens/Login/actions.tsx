@@ -1,8 +1,4 @@
-import {
-  forgotPassword,
-  getUser,
-  loginUser,
-} from '../../store/features/auth/authSlice';
+import {getUser, loginUser} from '../../store/features/auth/authSlice';
 import {ScreenProp} from '../../navigation/types';
 import {showMessage} from '../../utils/showMessage';
 

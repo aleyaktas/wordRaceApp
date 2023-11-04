@@ -9,11 +9,9 @@ import {
 } from 'react-native';
 import Icon from '../../themes/icon';
 import LinearGradient from 'react-native-linear-gradient';
-import {changePassword} from '../../store/features/auth/authSlice';
-import {showMessage} from '../../utils/showMessage';
 import {useAppDispatch} from '../../store';
-import Image from '../../components/Image';
 import colors from '../../themes/colors';
+import {handlePasswordChange} from './actions';
 
 const ChangePassword = () => {
   const [currentPassword, setCurrentPassword] = useState<string>('');
@@ -23,26 +21,6 @@ const ChangePassword = () => {
 
   const dispatch = useAppDispatch();
 
-  const handlePasswordChange = async () => {
-    if (currentPassword && newPassword) {
-      if (newPassword?.length < 6 || newPassword?.length > 20) {
-        return showMessage(
-          'Password must be between 6 and 20 characters',
-          'error',
-        );
-      }
-      const res: any = await dispatch(
-        changePassword({
-          oldPassword: currentPassword,
-          newPassword,
-        }),
-      );
-      if (res.payload?.errors) {
-        return showMessage(res.payload.errors[0].msg, 'error');
-      }
-      return showMessage('Password changed successfully', 'success');
-    } else return showMessage('Please fill all fields', 'error');
-  };
   return (
     <DefaultTemplate title="Change Password" backIcon>
       <View
@@ -102,7 +80,9 @@ const ChangePassword = () => {
             <TouchableOpacity
               className="w-full h-12 flex justify-center items-center"
               activeOpacity={0.9}
-              onPress={() => handlePasswordChange()}>
+              onPress={() =>
+                handlePasswordChange(currentPassword, newPassword, dispatch)
+              }>
               <Text className="text-white text-base font-poppinsMedium shadow">
                 Save Changes
               </Text>
