@@ -13,7 +13,7 @@ import {useNavigation, useIsFocused} from '@react-navigation/native';
 import {ScreenProp} from '../../navigation/types';
 import {StateProps} from '../../navigation/bottomTabNavigator';
 import {useAppDispatch, useAppSelector} from '../../store';
-import {getScore} from './actions';
+import {getScore, handleDeleteAccount} from './actions';
 import socket from '../../utils/socket';
 import {logout} from '../../store/features/auth/authSlice';
 import Image from '../../components/Image';
@@ -67,6 +67,7 @@ const Profile = () => {
           colors={['#5BB9CA', '#1D7483']}>
           <TouchableOpacity
             onPress={async () => {
+              handleDeleteAccount(dispatch, navigation);
               setShowDeleteAccountModal(false);
             }}
             className="w-full h-12 flex justify-center items-center"

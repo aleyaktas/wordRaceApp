@@ -317,6 +317,15 @@ export const getTopScores = createAsyncThunk('getTopScores', async () => {
   }
 });
 
+export const deleteAccount = createAsyncThunk('deleteAccount', async () => {
+  try {
+    const res = await axios.delete('/api/profile/deleteAccount');
+    return res.data;
+  } catch (err: any) {
+    return err.response.data;
+  }
+});
+
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
@@ -558,6 +567,18 @@ export const authSlice = createSlice({
     });
     builder.addCase(getTopScores.fulfilled, (state, action) => {
       state.topScores = action.payload;
+      state.loading = false;
+    });
+
+    builder.addCase(deleteAccount.pending, (state, action) => {
+      state.loading = true;
+      state.error = null;
+    });
+    builder.addCase(deleteAccount.rejected, (state, action) => {
+      state.error = action.error.message;
+      state.loading = false;
+    });
+    builder.addCase(deleteAccount.fulfilled, (state, action) => {
       state.loading = false;
     });
   },
