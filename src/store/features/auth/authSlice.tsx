@@ -8,6 +8,7 @@ const initialState: InitialStateProps = {
   token: null,
   isAuthenticated: false,
   user: {
+    _id: '',
     username: '',
     email: '',
     friends: [],
@@ -326,6 +327,32 @@ export const deleteAccount = createAsyncThunk('deleteAccount', async () => {
   }
 });
 
+export const updatePhoto = createAsyncThunk(
+  'updatePhoto',
+  async (
+    {
+      url,
+    }: {
+      url: string;
+    },
+    {rejectWithValue},
+  ) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    try {
+      const body = JSON.stringify({url});
+      const res = await axios.post('/api/auth/editProfile', body, config);
+      return res.data;
+    } catch (err: any) {
+      return rejectWithValue(err.response.data);
+    }
+  },
+);
+
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
@@ -334,6 +361,7 @@ export const authSlice = createSlice({
       state.isAuthenticated = false;
       setAuthToken(null);
       state.user = {
+        _id: '',
         username: '',
         email: '',
         friends: [],
@@ -580,6 +608,20 @@ export const authSlice = createSlice({
     });
     builder.addCase(deleteAccount.fulfilled, (state, action) => {
       state.loading = false;
+    });
+
+    builder.addCase(updatePhoto.rejected, (state, action) => {
+      state.error = action.error.message;
+      state.loading = false;
+    });
+
+    builder.addCase(updatePhoto.fulfilled, (state, action) => {
+      state.user.profileImage = action.payload;
+      state.loading = false;
+    });
+    builder.addCase(updatePhoto.pending, (state, action) => {
+      state.loading = true;
+      state.error = '';
     });
   },
 });

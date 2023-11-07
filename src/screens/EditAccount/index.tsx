@@ -10,7 +10,7 @@ import Toast from '../../components/Toast';
 import LinearGradient from 'react-native-linear-gradient';
 import colors from '../../themes/colors';
 import {useDispatch} from 'react-redux';
-import {editUsername} from './actions';
+import {editUsername, handleUpdatePhoto} from './actions';
 
 const EditAccount = () => {
   const {user} = useAppSelector((state: StateProps) => state.auth);
@@ -33,6 +33,7 @@ const EditAccount = () => {
         });
       } else {
         setPhoto(response.assets[0].uri);
+        handleUpdatePhoto(user._id, response.assets[0].uri, dispatch);
       }
     });
   }, []);
@@ -48,7 +49,7 @@ const EditAccount = () => {
               />
             ) : (
               <View className=" bg-gray-200 w-full h-full flex justify-center items-center">
-                <Text className="text-black text-3xl font-poppinsSemiBold">
+                <Text className="text-textPrimary text-3xl font-poppinsSemiBold">
                   {username?.charAt(0)?.toUpperCase()}
                 </Text>
               </View>
@@ -69,15 +70,18 @@ const EditAccount = () => {
         </View>
         <View className="flex-row justify-between items-center bg-white rounded-xl w-full h-12 px-3 mb-4">
           <TextInput
-            className="flex-1 font-poppinsLight"
+            className="flex-1 font-poppinsLight text-textPrimary"
             placeholder="Username"
+            placeholderTextColor={'gray'}
             value={username}
             onChangeText={setUsername}
           />
           <Icon name="User" width={24} height={24} color="#BCBCBC" />
         </View>
         <View className="flex-row justify-between items-center bg-white rounded-xl w-full h-12 px-3">
-          <Text className="flex-1 font-poppinsLight">{user.email}</Text>
+          <Text className="flex-1 font-poppinsLight text-textPrimary">
+            {user.email}
+          </Text>
           <Icon name="Mail" width={20} height={20} color="#BCBCBC" />
         </View>
 

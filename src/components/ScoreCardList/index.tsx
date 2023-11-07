@@ -29,7 +29,7 @@ const ScoreCardList = ({topScores}: {topScores: ScoreProps[]}) => {
             className="w-32 h-32 rounded-full bg-white mt-6 mb-5 mx-auto">
             <Icon className="m-auto" name="TopScores" width={90} height={90} />
           </View>
-          <Text className="text-secondary text-base font-poppinsMedium mb-4 text-center">
+          <Text className="text-textPrimary text-base font-poppinsMedium mb-4 text-center">
             Top 10 Scores
           </Text>
         </>

@@ -13,7 +13,7 @@ const NoDataCard = ({
   return (
     <View className="flex h-full justify-center items-center px-8">
       <Icon name={image} width={320} height={224} />
-      <Text className="text-sm text-center font-poppinsRegular text-gray-900 mt-6 mb-4">
+      <Text className="text-sm text-center font-poppinsRegular text-textPrimary mt-6 mb-4">
         {description}
       </Text>
       {buttonLabel && (

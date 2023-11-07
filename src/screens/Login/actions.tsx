@@ -11,7 +11,7 @@ export const handleLogin = async (
   if (!username || !password)
     return showMessage('Please fill all fields', 'error');
   const res = await dispatch(loginUser({username, password}));
-  await getUser();
+  await dispatch(getUser());
   if (res.error) return showMessage(res.payload.msg, 'error');
   navigation.navigate('Home');
 };

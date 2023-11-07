@@ -22,7 +22,7 @@ export const handleRegister = async (
   if (password?.length > 20 || password?.length < 6)
     return showMessage('Password must be between 6 and 20 characters', 'error');
   const res = await dispatch(registerUser({username, email, password}));
-  await getUser();
+  await dispatch(getUser());
   if (res.error) return showMessage(res.payload.msg, 'error');
   navigation.navigate('Home');
 };

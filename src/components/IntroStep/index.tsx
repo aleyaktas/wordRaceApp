@@ -16,7 +16,7 @@ const IntroStep = ({
   return (
     <View className="flex w-full items-center justify-center h-full p-5">
       <Icon name={image} width={300} height={260} />
-      <Text className="font-poppinsBold text-2xl text-gray-900 mt-16">
+      <Text className="font-poppinsBold text-2xl text-textPrimary mt-16">
         {title}
       </Text>
       <Text className="font-poppinsRegular text-sm text-textSecondary px-3 text-center mb-12 mt-3">

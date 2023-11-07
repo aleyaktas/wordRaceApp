@@ -19,7 +19,7 @@ const ScoreCard = ({index, name, image, scores}: ScoreCardProps) => {
             />
           ) : (
             <View className=" bg-gray-200 w-full h-full flex justify-center items-center">
-              <Text className="text-black font-poppinsSemiBold">
+              <Text className="text-textPrimary font-poppinsSemiBold">
                 {name?.charAt(0)?.toUpperCase()}
               </Text>
             </View>
@@ -27,7 +27,9 @@ const ScoreCard = ({index, name, image, scores}: ScoreCardProps) => {
         </View>
       </View>
       <Text className="text-sm text-gray-600 font-poppinsRegular">{name}</Text>
-      <Text className="text-sm font-poppinsBold text-black ">{scores}p</Text>
+      <Text className="text-sm font-poppinsBold text-textPrimary ">
+        {scores}p
+      </Text>
     </View>
   );
 };

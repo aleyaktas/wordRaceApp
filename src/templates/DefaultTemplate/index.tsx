@@ -111,7 +111,7 @@ const DefaultTemplate = ({
         )}
         <Text
           style={styles.title}
-          className="text-base text-black font-poppinsBold">
+          className="text-base text-textPrimary font-poppinsBold">
           {title}
         </Text>
         {rightIconName && (

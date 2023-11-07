@@ -3,6 +3,7 @@ export interface InitialStateProps {
   isAuthenticated: boolean;
 
   user: {
+    _id: string;
     username: string;
     email: string;
     friends: {

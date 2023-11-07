@@ -27,7 +27,7 @@ const InviteFriendCardList = ({
             height={100}
             className="mx-auto"
           />
-          <Text className="text-base font-poppinsBold text-black my-3 text-center">
+          <Text className="text-base font-poppinsBold text-textPrimary my-3 text-center">
             Invite Your Friend
           </Text>
         </>

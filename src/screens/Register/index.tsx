@@ -30,7 +30,7 @@ const Register = () => {
   return (
     <View className="flex w-full h-full mt-24 items-center px-5">
       <Icon name="Logo" width={100} height={100} />
-      <Text className="font-poppinsBold text-2xl text-gray-900 my-3">
+      <Text className="font-poppinsBold text-2xl text-textPrimary my-3">
         Create Account
       </Text>
       <Text className="font-poppinsRegular text-sm text-textSecondary px-10 text-center mb-6 mt-1">
@@ -39,8 +39,9 @@ const Register = () => {
       </Text>
       <View className="flex-row justify-between items-center bg-textInput rounded-xl w-full h-12 px-3">
         <TextInput
-          className="flex-1 font-poppinsLight"
+          className="flex-1 font-poppinsLight text-textPrimary"
           placeholder="Username"
+          placeholderTextColor={'gray'}
           value={username}
           onChangeText={setUsername}
         />
@@ -48,8 +49,9 @@ const Register = () => {
       </View>
       <View className="flex-row justify-between items-center bg-textInput rounded-xl w-full h-12 px-3 mt-4">
         <TextInput
-          className="flex-1 font-poppinsLight"
+          className="flex-1 font-poppinsLight text-textPrimary"
           placeholder="Email"
+          placeholderTextColor={'gray'}
           value={email}
           onChangeText={setEmail}
         />
@@ -57,8 +59,9 @@ const Register = () => {
       </View>
       <View className="flex-row justify-between items-center bg-textInput rounded-xl w-full h-12 px-3 my-4">
         <TextInput
-          className="flex-1 font-poppinsLight"
+          className="flex-1 font-poppinsLight text-textPrimary"
           placeholder="Password"
+          placeholderTextColor={'gray'}
           secureTextEntry
           value={password}
           onChangeText={setPassword}
@@ -112,7 +115,7 @@ const Register = () => {
         </TouchableOpacity>
       </LinearGradient>
       <View className="flex-row gap-1">
-        <Text className="text-gray-900 text-sm font-poppinsMedium">
+        <Text className="text-textPrimary text-sm font-poppinsMedium">
           Already have an account?
         </Text>
         <TouchableOpacity

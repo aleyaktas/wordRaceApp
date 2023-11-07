@@ -9,7 +9,7 @@ const AnswerCard = ({answer, onClick}: AnswerCardProps) => {
       activeOpacity={0.9}
       disabled={answer === ''}
       onPress={() => onClick()}>
-      <Text className="m-auto text-center text-black font-poppinsMedium">
+      <Text className="m-auto text-center text-textPrimary font-poppinsMedium">
         {answer}
       </Text>
     </TouchableOpacity>

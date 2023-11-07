@@ -9,14 +9,15 @@
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* WordRaceAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* WordRaceAppTests.m */; };
 		063754A6C6634205ABB0A7F6 /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EA0DA574016E49F39A048E7E /* Poppins-SemiBold.ttf */; };
-		0C80B921A6F3F58F76C31292 /* libPods-WordRaceApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-WordRaceApp.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		361C19EC6F5E8E1813E0BF06 /* Pods_WordRaceApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFA7A13D024467FF8B18449C /* Pods_WordRaceApp.framework */; };
 		436D597F47B5497499E38CAE /* Poppins-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6E90D34100634BD2A401C153 /* Poppins-Light.ttf */; };
+		62D918694966B9FB992C8C7F /* Pods_WordRaceApp_WordRaceAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB855F3A658C2394184701AD /* Pods_WordRaceApp_WordRaceAppTests.framework */; };
 		6C2CB60340ED421E95DBB29C /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 303EE72927BB4F29B87EADB8 /* Poppins-Regular.ttf */; };
-		7699B88040F8A987B510C191 /* libPods-WordRaceApp-WordRaceAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-WordRaceApp-WordRaceAppTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		A66B56AA2AFADE3400A4D39B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A66B56A92AFADE3400A4D39B /* GoogleService-Info.plist */; };
 		E36270067BE94501AD5E5D4B /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63CAAEEEBAEE489F9BB8AD8A /* Poppins-Medium.ttf */; };
 		E3C5EAE64CD844B79909BADB /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3B2877DFB5884914BDD408A0 /* Poppins-Bold.ttf */; };
 /* End PBXBuildFile section */
@@ -41,18 +42,19 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = WordRaceApp/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = WordRaceApp/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = WordRaceApp/main.m; sourceTree = "<group>"; };
-		19F6CBCC0A4E27FBF8BF4A61 /* libPods-WordRaceApp-WordRaceAppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WordRaceApp-WordRaceAppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		303EE72927BB4F29B87EADB8 /* Poppins-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Regular.ttf"; path = "../src/assets/fonts/Poppins-Regular.ttf"; sourceTree = "<group>"; };
-		3B2877DFB5884914BDD408A0 /* Poppins-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Bold.ttf"; path = "../src/assets/fonts/Poppins-Bold.ttf"; sourceTree = "<group>"; };
+		303EE72927BB4F29B87EADB8 /* Poppins-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Regular.ttf"; path = "../src/assets/fonts/Poppins-Regular.ttf"; sourceTree = "<group>"; };
+		3B2877DFB5884914BDD408A0 /* Poppins-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Bold.ttf"; path = "../src/assets/fonts/Poppins-Bold.ttf"; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-WordRaceApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WordRaceApp.debug.xcconfig"; path = "Target Support Files/Pods-WordRaceApp/Pods-WordRaceApp.debug.xcconfig"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-WordRaceApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WordRaceApp.release.xcconfig"; path = "Target Support Files/Pods-WordRaceApp/Pods-WordRaceApp.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-WordRaceApp-WordRaceAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WordRaceApp-WordRaceAppTests.debug.xcconfig"; path = "Target Support Files/Pods-WordRaceApp-WordRaceAppTests/Pods-WordRaceApp-WordRaceAppTests.debug.xcconfig"; sourceTree = "<group>"; };
-		5DCACB8F33CDC322A6C60F78 /* libPods-WordRaceApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WordRaceApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		63CAAEEEBAEE489F9BB8AD8A /* Poppins-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Medium.ttf"; path = "../src/assets/fonts/Poppins-Medium.ttf"; sourceTree = "<group>"; };
-		6E90D34100634BD2A401C153 /* Poppins-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Light.ttf"; path = "../src/assets/fonts/Poppins-Light.ttf"; sourceTree = "<group>"; };
+		63CAAEEEBAEE489F9BB8AD8A /* Poppins-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Medium.ttf"; path = "../src/assets/fonts/Poppins-Medium.ttf"; sourceTree = "<group>"; };
+		6E90D34100634BD2A401C153 /* Poppins-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Light.ttf"; path = "../src/assets/fonts/Poppins-Light.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = WordRaceApp/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-WordRaceApp-WordRaceAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WordRaceApp-WordRaceAppTests.release.xcconfig"; path = "Target Support Files/Pods-WordRaceApp-WordRaceAppTests/Pods-WordRaceApp-WordRaceAppTests.release.xcconfig"; sourceTree = "<group>"; };
-		EA0DA574016E49F39A048E7E /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-SemiBold.ttf"; path = "../src/assets/fonts/Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
+		A66B56A92AFADE3400A4D39B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		CB855F3A658C2394184701AD /* Pods_WordRaceApp_WordRaceAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WordRaceApp_WordRaceAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DFA7A13D024467FF8B18449C /* Pods_WordRaceApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WordRaceApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EA0DA574016E49F39A048E7E /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-SemiBold.ttf"; path = "../src/assets/fonts/Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -61,7 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7699B88040F8A987B510C191 /* libPods-WordRaceApp-WordRaceAppTests.a in Frameworks */,
+				62D918694966B9FB992C8C7F /* Pods_WordRaceApp_WordRaceAppTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -69,7 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0C80B921A6F3F58F76C31292 /* libPods-WordRaceApp.a in Frameworks */,
+				361C19EC6F5E8E1813E0BF06 /* Pods_WordRaceApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -110,8 +112,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				5DCACB8F33CDC322A6C60F78 /* libPods-WordRaceApp.a */,
-				19F6CBCC0A4E27FBF8BF4A61 /* libPods-WordRaceApp-WordRaceAppTests.a */,
+				DFA7A13D024467FF8B18449C /* Pods_WordRaceApp.framework */,
+				CB855F3A658C2394184701AD /* Pods_WordRaceApp_WordRaceAppTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -126,7 +128,6 @@
 				EA0DA574016E49F39A048E7E /* Poppins-SemiBold.ttf */,
 			);
 			name = Resources;
-			path = "";
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -139,6 +140,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				A66B56A92AFADE3400A4D39B /* GoogleService-Info.plist */,
 				13B07FAE1A68108700A75B9A /* WordRaceApp */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* WordRaceAppTests */,
@@ -268,6 +270,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				A66B56AA2AFADE3400A4D39B /* GoogleService-Info.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				E3C5EAE64CD844B79909BADB /* Poppins-Bold.ttf in Resources */,
 				436D597F47B5497499E38CAE /* Poppins-Light.ttf in Resources */,

@@ -39,8 +39,9 @@ const ChangePassword = () => {
         <View className="w-full px-5">
           <View className="flex-row justify-between items-center bg-white rounded-xl w-full h-12 px-3 mb-4">
             <TextInput
-              className="flex-1 font-poppinsLight"
+              className="flex-1 font-poppinsLight text-textPrimary"
               placeholder="Current Password"
+              placeholderTextColor={'gray'}
               secureTextEntry={!showPassword}
               value={currentPassword}
               onChangeText={setCurrentPassword}
@@ -56,8 +57,9 @@ const ChangePassword = () => {
           </View>
           <View className="flex-row justify-between items-center bg-white rounded-xl w-full h-12 px-3">
             <TextInput
-              className="flex-1 font-poppinsLight"
+              className="flex-1 font-poppinsLight text-textPrimary"
               placeholder="New Password"
+              placeholderTextColor={'gray'}
               secureTextEntry={!showNewPassword}
               value={newPassword}
               onChangeText={setNewPassword}

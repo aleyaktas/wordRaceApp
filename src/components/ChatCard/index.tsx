@@ -31,7 +31,7 @@ const ChatCard = ({image, isOwner, msg, username}: ChatCardProps) => {
             />
           ) : (
             <View className=" bg-gray-200 w-full h-full flex justify-center items-center">
-              <Text className="text-black font-poppinsSemiBold">
+              <Text className="text-textPrimary font-poppinsSemiBold">
                 {username?.charAt(0)?.toUpperCase()}
               </Text>
             </View>

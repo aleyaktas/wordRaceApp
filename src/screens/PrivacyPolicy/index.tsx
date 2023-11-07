@@ -21,13 +21,13 @@ const PrivacyPolicy = () => {
   return (
     <DefaultTemplate backIcon bgColor="white">
       <ScrollView style={styles.scrollView}>
-        <Text className="font-poppinsBold text-4xl text-gray-900">
+        <Text className="font-poppinsBold text-4xl text-textPrimary">
           Privacy Policy
         </Text>
-        <Text className="font-poppinsRegular text-base text-gray-900 pb-2">
+        <Text className="font-poppinsRegular text-base text-textPrimary pb-2">
           Last updated: October 30, 2023
         </Text>
-        <Text className="font-poppinsMedium text-base text-gray-900">
+        <Text className="font-poppinsMedium text-base text-textPrimary">
           This Privacy Policy describes Our policies and procedures on the
           collection, use and disclosure of Your information when You use the
           Service and tells You about Your privacy rights and how the law
@@ -36,22 +36,22 @@ const PrivacyPolicy = () => {
           information in accordance with this Privacy Policy. This Privacy
           Policy has been created with the help of the Privacy Policy Generator.
         </Text>
-        <Text className="font-poppinsBold text-3xl text-gray-900 py-3">
+        <Text className="font-poppinsBold text-3xl text-textPrimary py-3">
           Interpretation and Definitions
         </Text>
-        <Text className="font-poppinsBold text-2xl text-gray-900 py-3">
+        <Text className="font-poppinsBold text-2xl text-textPrimary py-3">
           Interpretation
         </Text>
-        <Text className="font-poppinsMedium text-base text-gray-900 py-3">
+        <Text className="font-poppinsMedium text-base text-textPrimary py-3">
           The words of which the initial letter is capitalized have meanings
           defined under the following conditions. The following definitions
           shall have the same meaning regardless of whether they appear in
           singular or in plural.
         </Text>
-        <Text className="font-poppinsBold text-2xl text-gray-900 py-3">
+        <Text className="font-poppinsBold text-2xl text-textPrimary py-3">
           Definition
         </Text>
-        <Text className="font-poppinsMedium text-base text-gray-900 py-3">
+        <Text className="font-poppinsMedium text-base text-textPrimary py-3">
           For the purposes of this Privacy Policy: Account means a unique
           account created for You to access our Service or parts of our Service.
           Affiliate means an entity that controls, is controlled by or is under
@@ -76,25 +76,25 @@ const PrivacyPolicy = () => {
           the Service, or the company, or other legal entity on behalf of which
           such individual is accessing or using the Service, as applicable.
         </Text>
-        <Text className="font-poppinsBold text-4xl text-gray-900 py-3">
+        <Text className="font-poppinsBold text-4xl text-textPrimary py-3">
           Collecting and Using Your Personal Data
         </Text>
-        <Text className="font-poppinsBold text-3xl text-gray-900 py-3">
+        <Text className="font-poppinsBold text-3xl text-textPrimary py-3">
           Types of Data Collected
         </Text>
-        <Text className="font-poppinsBold text-2xl text-gray-900 py-3">
+        <Text className="font-poppinsBold text-2xl text-textPrimary py-3">
           Personal Data
         </Text>
-        <Text className="font-poppinsMedium text-base text-gray-900 py-3">
+        <Text className="font-poppinsMedium text-base text-textPrimary py-3">
           While using Our Service, We may ask You to provide Us with certain
           personally identifiable information that can be used to contact or
           identify You. Personally identifiable information may include, but is
           not limited to: Email address Usage Data
         </Text>
-        <Text className="font-poppinsBold text-2xl text-gray-900 py-3">
+        <Text className="font-poppinsBold text-2xl text-textPrimary py-3">
           Usage Data
         </Text>
-        <Text className="font-poppinsMedium text-base text-gray-900 py-3">
+        <Text className="font-poppinsMedium text-base text-textPrimary py-3">
           Usage Data is collected automatically when using the Service. Usage
           Data may include information such as Your Device's Internet Protocol
           address (e.g. IP address), browser type, browser version, the pages of
@@ -109,10 +109,10 @@ const PrivacyPolicy = () => {
           that Your browser sends whenever You visit our Service or when You
           access the Service by or through a mobile device.
         </Text>
-        <Text className="font-poppinsBold text-2xl text-gray-900 py-3">
+        <Text className="font-poppinsBold text-2xl text-textPrimary py-3">
           Information Collected while Using the Application
         </Text>
-        <Text className="font-poppinsMedium text-base text-gray-900 py-3">
+        <Text className="font-poppinsMedium text-base text-textPrimary py-3">
           While using Our Application, in order to provide features of Our
           Application, We may collect, with Your prior permission: Pictures and
           other information from your Device's camera and photo library We use
@@ -122,10 +122,10 @@ const PrivacyPolicy = () => {
           simply stored on Your device. You can enable or disable access to this
           information at any time, through Your Device settings.
         </Text>
-        <Text className="font-poppinsBold text-3xl text-gray-900 py-3">
+        <Text className="font-poppinsBold text-3xl text-textPrimary py-3">
           Use of Your Personal Data
         </Text>
-        <Text className="font-poppinsMedium text-base text-gray-900 py-3">
+        <Text className="font-poppinsMedium text-base text-textPrimary py-3">
           The Company may use Personal Data for the following purposes: To
           provide and maintain our Service, including to monitor the usage of
           our Service. To manage Your Account: to manage Your registration as a
@@ -174,10 +174,10 @@ const PrivacyPolicy = () => {
           may disclose Your personal information for any other purpose with Your
           consent.
         </Text>
-        <Text className="font-poppinsBold text-2xl text-gray-900 py-3">
+        <Text className="font-poppinsBold text-2xl text-textPrimary py-3">
           Retention of Your Personal Data
         </Text>
-        <Text className="font-poppinsMedium text-base text-gray-900 py-3">
+        <Text className="font-poppinsMedium text-base text-textPrimary py-3">
           The Company will retain Your Personal Data only for as long as is
           necessary for the purposes set out in this Privacy Policy. We will
           retain and use Your Personal Data to the extent necessary to comply
@@ -190,10 +190,10 @@ const PrivacyPolicy = () => {
           Our Service, or We are legally obligated to retain this data for
           longer time periods.
         </Text>
-        <Text className="font-poppinsBold text-2xl text-gray-900 py-3">
+        <Text className="font-poppinsBold text-2xl text-textPrimary py-3">
           Transfer of Your Personal Data
         </Text>
-        <Text className="font-poppinsMedium text-base text-gray-900 py-3">
+        <Text className="font-poppinsMedium text-base text-textPrimary py-3">
           Your information, including Personal Data, is processed at the
           Company's operating offices and in any other places where the parties
           involved in the processing are located. It means that this information
@@ -209,10 +209,10 @@ const PrivacyPolicy = () => {
           place including the security of Your data and other personal
           information.
         </Text>
-        <Text className="font-poppinsBold text-2xl text-gray-900 py-3">
+        <Text className="font-poppinsBold text-2xl text-textPrimary py-3">
           Delete Your Personal Data
         </Text>
-        <Text className="font-poppinsMedium text-base text-gray-900 py-3">
+        <Text className="font-poppinsMedium text-base text-textPrimary py-3">
           You have the right to delete or request that We assist in deleting the
           Personal Data that We have collected about You. Our Service may give
           You the ability to delete certain information about You from within
@@ -224,32 +224,32 @@ const PrivacyPolicy = () => {
           note, however, that We may need to retain certain information when we
           have a legal obligation or lawful basis to do so.
         </Text>
-        <Text className="font-poppinsBold text-2xl text-gray-900 py-3">
+        <Text className="font-poppinsBold text-2xl text-textPrimary py-3">
           Disclosure of Your Personal Data
         </Text>
-        <Text className="font-poppinsBold text-xl text-gray-900 py-3">
+        <Text className="font-poppinsBold text-xl text-textPrimary py-3">
           Business Transactions
         </Text>
-        <Text className="font-poppinsMedium text-base text-gray-900 py-3">
+        <Text className="font-poppinsMedium text-base text-textPrimary py-3">
           If the Company is involved in a merger, acquisition or asset sale,
           Your Personal Data may be transferred. We will provide notice before
           Your Personal Data is transferred and becomes subject to a different
           Privacy Policy.
         </Text>
 
-        <Text className="font-poppinsBold text-xl text-gray-900 py-3">
+        <Text className="font-poppinsBold text-xl text-textPrimary py-3">
           Law enforcement
         </Text>
-        <Text className="font-poppinsMedium text-base text-gray-900 py-3">
+        <Text className="font-poppinsMedium text-base text-textPrimary py-3">
           Under certain circumstances, the Company may be required to disclose
           Your Personal Data if required to do so by law or in response to valid
           requests by public authorities (e.g. a court or a government agency).
         </Text>
 
-        <Text className="font-poppinsBold text-xl text-gray-900 py-3">
+        <Text className="font-poppinsBold text-xl text-textPrimary py-3">
           Other legal requirements
         </Text>
-        <Text className="font-poppinsMedium text-base text-gray-900 py-3">
+        <Text className="font-poppinsMedium text-base text-textPrimary py-3">
           The Company may disclose Your Personal Data in the good faith belief
           that such action is necessary to: Comply with a legal obligation
           Protect and defend the rights or property of the Company Prevent or
@@ -258,10 +258,10 @@ const PrivacyPolicy = () => {
           against legal liability
         </Text>
 
-        <Text className="font-poppinsBold text-xl text-gray-900 py-3">
+        <Text className="font-poppinsBold text-xl text-textPrimary py-3">
           Security of Your Personal Data
         </Text>
-        <Text className="font-poppinsMedium text-base text-gray-900 py-3">
+        <Text className="font-poppinsMedium text-base text-textPrimary py-3">
           The security of Your Personal Data is important to Us, but remember
           that no method of transmission over the Internet, or method of
           electronic storage is 100% secure. While We strive to use commercially
@@ -269,10 +269,10 @@ const PrivacyPolicy = () => {
           its absolute security.
         </Text>
 
-        <Text className="font-poppinsBold text-3xl text-gray-900 py-3">
+        <Text className="font-poppinsBold text-3xl text-textPrimary py-3">
           Children's Privacy
         </Text>
-        <Text className="font-poppinsMedium text-base text-gray-900 py-3">
+        <Text className="font-poppinsMedium text-base text-textPrimary py-3">
           Our Service does not address anyone under the age of 13. We do not
           knowingly collect personally identifiable information from anyone
           under the age of 13. If You are a parent or guardian and You are aware
@@ -285,10 +285,10 @@ const PrivacyPolicy = () => {
           consent before We collect and use that information.
         </Text>
 
-        <Text className="font-poppinsBold text-3xl text-gray-900 py-3">
+        <Text className="font-poppinsBold text-3xl text-textPrimary py-3">
           Links to Other Websites
         </Text>
-        <Text className="font-poppinsMedium text-base text-gray-900 py-3">
+        <Text className="font-poppinsMedium text-base text-textPrimary py-3">
           Our Service may contain links to other websites that are not operated
           by Us. If You click on a third party link, You will be directed to
           that third party's site. We strongly advise You to review the Privacy
@@ -297,10 +297,10 @@ const PrivacyPolicy = () => {
           third party sites or services.
         </Text>
 
-        <Text className="font-poppinsBold text-3xl text-gray-900 py-3">
+        <Text className="font-poppinsBold text-3xl text-textPrimary py-3">
           Changes to this Privacy Policy
         </Text>
-        <Text className="font-poppinsMedium text-base text-gray-900 py-3">
+        <Text className="font-poppinsMedium text-base text-textPrimary py-3">
           We may update Our Privacy Policy from time to time. We will notify You
           of any changes by posting the new Privacy Policy on this page. We will
           let You know via email and/or a prominent notice on Our Service, prior
@@ -310,10 +310,10 @@ const PrivacyPolicy = () => {
           are effective when they are posted on this page.
         </Text>
 
-        <Text className="font-poppinsBold text-3xl text-gray-900 py-3">
+        <Text className="font-poppinsBold text-3xl text-textPrimary py-3">
           Contact Us
         </Text>
-        <Text className="font-poppinsMedium text-base text-gray-900">
+        <Text className="font-poppinsMedium text-base text-textPrimary">
           If you have any questions about this Privacy Policy, You can contact
           us: By email: aleynaaktas627@gmail.com
         </Text>

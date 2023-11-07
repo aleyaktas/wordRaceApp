@@ -22,7 +22,7 @@ export default ({
 
         <Text
           style={styles.title}
-          className="text-sm font-poppinsMedium text-text">
+          className="text-sm font-poppinsMedium text-text text-textPrimary">
           {title}
         </Text>
       </View>

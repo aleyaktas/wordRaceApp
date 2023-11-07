@@ -38,15 +38,17 @@ const HomePageTemplate = ({
               />
             ) : (
               <View className=" bg-gray-200 w-full h-full flex justify-center items-center">
-                <Text className="text-black font-poppinsSemiBold">
+                <Text className="text-textPrimary font-poppinsSemiBold">
                   {username?.charAt(0)?.toUpperCase()}
                 </Text>
               </View>
             )}
           </View>
           <View className="flex">
-            <Text className="text-xs text-black font-poppinsLight">Hello,</Text>
-            <Text className="text-base text-black font-poppinsBold">
+            <Text className="text-xs text-textPrimary font-poppinsLight">
+              Hello,
+            </Text>
+            <Text className="text-base text-textPrimary font-poppinsBold">
               {username}
             </Text>
           </View>

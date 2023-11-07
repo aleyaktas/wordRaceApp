@@ -27,8 +27,9 @@ const Login = () => {
       </Text>
       <View className="flex-row justify-between items-center bg-textInput rounded-xl w-full h-12 px-3">
         <TextInput
-          className="flex-1 font-poppinsLight"
-          placeholder="Your Username"
+          className="flex-1 font-poppinsLight text-textPrimary"
+          placeholder="Username"
+          placeholderTextColor={'gray'}
           value={username}
           onChangeText={setUsername}
         />
@@ -36,8 +37,9 @@ const Login = () => {
       </View>
       <View className="flex-row justify-between items-center bg-textInput rounded-xl w-full h-12 px-3 my-4">
         <TextInput
-          className="flex-1 font-poppinsLight"
-          placeholder="Your Password"
+          className="flex-1 font-poppinsLight text-textPrimary"
+          placeholder="Password"
+          placeholderTextColor={'gray'}
           secureTextEntry
           value={password}
           onChangeText={setPassword}

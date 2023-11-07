@@ -19,7 +19,7 @@ const FriendCard = ({name, image, isOnline, deleteFriend}: FriendCardProps) => {
             />
           ) : (
             <View className=" bg-gray-200 w-full h-full flex justify-center items-center">
-              <Text className="text-black font-poppinsSemiBold">
+              <Text className="text-textPrimary font-poppinsSemiBold">
                 {name?.charAt(0)?.toUpperCase()}
               </Text>
             </View>

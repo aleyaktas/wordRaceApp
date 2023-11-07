@@ -273,7 +273,7 @@ const Game = () => {
           onClickInvite={invitedUsername => onClickInvite({invitedUsername})}
         />
       ) : (
-        <Text className="text-sm font-poppinsRegular text-black text-center my-2">
+        <Text className="text-sm font-poppinsRegular text-textPrimary text-center my-2">
           You don't have online friends.
         </Text>
       )}
@@ -293,14 +293,14 @@ const Game = () => {
         width={100}
         height={100}
       />
-      <Text className="text-base font-poppinsBold text-black my-3">
+      <Text className="text-base font-poppinsBold text-textPrimary my-3">
         {gameResult === 'draw'
           ? 'Draw'
           : gameResult === username
           ? 'You Won'
           : 'You Lost'}
       </Text>
-      <Text className="text-center font-poppinsRegular">
+      <Text className="text-center font-poppinsRegular text-textPrimary">
         Do you want to play again?
       </Text>
       <View className="flex-row mt-6">
@@ -311,7 +311,7 @@ const Game = () => {
           }}
           className="w-[48%] h-12 flex justify-center items-center"
           activeOpacity={0.9}>
-          <Text className="text-black text-base font-poppinsMedium shadow">
+          <Text className="text-textPrimary text-base font-poppinsMedium shadow">
             No
           </Text>
         </TouchableOpacity>
@@ -436,9 +436,9 @@ const Game = () => {
             onPress={() => onClickSendMsg()}
             className="w-full absolute bottom-0 right-0 left-0 h-[52px] bg-white rounded-xl flex-row justify-between px-5 items-center">
             <TextInput
+              className="!text-gray-800 font-poppinsRegular text-sm flex-1"
               placeholder="Send message"
               placeholderTextColor={'gray'}
-              className="!text-gray-800 font-poppinsRegular text-sm flex-1"
               value={msg}
               onChangeText={setMsg}
             />

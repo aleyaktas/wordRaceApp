@@ -75,11 +75,11 @@ const InvitationModalRoot = forwardRef((props, ref: any) => {
             width={100}
             height={100}
           />
-          <Text className="text-base font-poppinsBold text-black my-3">
+          <Text className="text-base font-poppinsBold text-textPrimary my-3">
             Game Invitation
           </Text>
-          <Text className="text-center text-base font-poppinsMedium">
-            <Text className="font-poppinsMedium text-base text-secondary">
+          <Text className="text-center text-base text-textPrimary font-poppinsMedium">
+            <Text className="font-poppinsMedium text-base text-textPrimary">
               {username}{' '}
             </Text>
             invited you to a game
@@ -103,7 +103,7 @@ const InvitationModalRoot = forwardRef((props, ref: any) => {
               }}
               className="w-[48%] h-12 flex justify-center items-center"
               activeOpacity={0.9}>
-              <Text className="text-black text-base font-poppinsMedium shadow">
+              <Text className="text-textPrimary text-base font-poppinsMedium shadow">
                 Cancel
               </Text>
             </TouchableOpacity>

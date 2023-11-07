@@ -97,13 +97,14 @@ const Home = () => {
   const CustomComponent = memo(() => (
     <View className="flex flex-col justify-center items-center w-full">
       <Icon name="CreateRoom" width={100} height={100} />
-      <Text className="text-base font-poppinsBold text-black my-3">
+      <Text className="text-base font-poppinsBold text-textPrimary my-3">
         Create Room
       </Text>
       <View className="bg-textInput rounded-xl h-12 px-3 w-full">
         <TextInput
-          className="flex-1 font-poppinsLight"
+          className="flex-1 font-poppinsLight text-textPrimary"
           placeholder="Room Name"
+          placeholderTextColor={'gray'}
           value={roomName}
           onChangeText={setRoomName}
         />
@@ -138,7 +139,7 @@ const Home = () => {
           onPress={() => setShowAlert(false)}
           className="w-[48%] h-12 flex justify-center items-center"
           activeOpacity={0.9}>
-          <Text className="text-black text-base font-poppinsMedium shadow">
+          <Text className="text-textPrimary text-base font-poppinsMedium shadow">
             Cancel
           </Text>
         </TouchableOpacity>
@@ -185,8 +186,9 @@ const Home = () => {
           <View>
             <View className="flex-row justify-between items-center bg-white rounded-xl h-12 px-2 m-5 mb-0">
               <TextInput
-                className="flex-1 px-3 text-black font-poppinsLight"
+                className="flex-1 px-3 text-textPrimary font-poppinsLight"
                 placeholder="Search room..."
+                placeholderTextColor={'gray'}
                 value={searchText}
                 onChangeText={setSearchText}
               />
@@ -208,7 +210,7 @@ const Home = () => {
               }
             />
             {filteredRooms?.length === 0 && searchText?.length > 0 && (
-              <Text className="text-center text-black font-poppinsMedium text-xl mt-5">
+              <Text className="text-center text-textPrimary font-poppinsMedium text-xl mt-5">
                 There is no room with this name
               </Text>
             )}

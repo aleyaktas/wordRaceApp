@@ -124,10 +124,10 @@ const ForgotPassword = ({
     <DefaultTemplate backIcon bgColor="white">
       <View className="flex w-full h-full mt-24 items-center px-5">
         <Icon name="Logo" width={100} height={100} />
-        <Text className="font-poppinsBold text-2xl text-gray-900 my-3">
+        <Text className="font-poppinsBold text-2xl text-textPrimary my-3">
           Forgot Password
         </Text>
-        <Text className="font-poppinsRegular text-sm text-textSecondary px-10 text-center mb-6 mt-1">
+        <Text className="font-poppinsRegular text-sm text-textPrimary px-10 text-center mb-6 mt-1">
           Please enter the 5-digit verification code sent to the your email
           address.
         </Text>
@@ -165,14 +165,14 @@ const ForgotPassword = ({
             </Text>
           </TouchableOpacity>
         </LinearGradient>
-        <Text style={styles.headerWrapper} className="mb-4">
-          <Text className="font-base text-primary text-center font-medium">
+        <Text style={styles.headerWrapper} className="mb-4 text-textPrimary">
+          <Text className="font-base text-textPrimary text-center font-medium">
             {'0' + Math.floor(time / 60).toString()}{' '}
           </Text>
-          <Text className="font-base text-primary text-center font-medium">
+          <Text className="font-base text-textPrimary text-center font-medium">
             :
           </Text>
-          <Text className="font-base text-primary text-center font-medium">
+          <Text className="font-base text-textPrimary text-center font-medium">
             {' '}
             {(time % 60).toString()?.length == 1
               ? '0' + (time % 60).toString()

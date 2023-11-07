@@ -45,10 +45,10 @@ const Profile = () => {
   const CustomDeleteComponent = () => (
     <View className="flex flex-col justify-center items-center w-full">
       <Icon name="DeleteFriend" width={100} height={100} />
-      <Text className="text-base font-poppinsBold text-black my-3">
+      <Text className="text-base font-poppinsBold text-textPrimary my-3">
         Delete Your Account
       </Text>
-      <Text className="text-center font-poppinsRegular">
+      <Text className="text-center font-poppinsRegular text-textPrimary">
         Are you sure you want to permanently delete your account?
       </Text>
       <View className="flex-row mt-6">
@@ -56,7 +56,7 @@ const Profile = () => {
           onPress={() => setShowDeleteAccountModal(false)}
           className="w-[48%] h-12 flex justify-center items-center"
           activeOpacity={0.9}>
-          <Text className="text-black text-base font-poppinsMedium shadow">
+          <Text className="text-textPrimary text-base font-poppinsMedium shadow">
             Cancel
           </Text>
         </TouchableOpacity>
@@ -93,7 +93,7 @@ const Profile = () => {
               />
             ) : (
               <View className=" bg-gray-200 w-full h-full flex justify-center items-center">
-                <Text className="text-black text-3xl font-poppinsSemiBold">
+                <Text className="text-textPrimary text-3xl font-poppinsSemiBold">
                   {username?.charAt(0)?.toUpperCase()}
                 </Text>
               </View>
@@ -157,7 +157,7 @@ const Profile = () => {
           className="flex-row justify-center items-center mt-5"
           onPress={() => onClickLogout()}>
           <Icon name="Logout" width={24} height={24} color="black" />
-          <Text className="text-sm text-black font-poppinsRegular text-center">
+          <Text className="text-sm text-textPrimary font-poppinsRegular text-center">
             Logout
           </Text>
         </TouchableOpacity>

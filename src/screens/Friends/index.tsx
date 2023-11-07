@@ -58,13 +58,14 @@ const Friends = () => {
   const CustomAddComponent = () => (
     <View className="flex flex-col justify-center items-center w-full">
       <Icon name="AddFriend" width={100} height={100} />
-      <Text className="text-base font-poppinsBold text-black my-3">
+      <Text className="text-base font-poppinsBold text-textPrimary my-3">
         Add Friend
       </Text>
       <View className="bg-textInput rounded-xl h-12 px-3 w-full">
         <TextInput
-          className="w-full font-poppinsLight"
+          className="w-full font-poppinsLight text-textPrimary"
           placeholder="Friend username"
+          placeholderTextColor={'gray'}
           value={addUsername}
           onChangeText={setAddUsername}
         />
@@ -74,7 +75,7 @@ const Friends = () => {
           onPress={() => setShowAddFriendModal(false)}
           className="w-[48%] h-12 flex justify-center items-center"
           activeOpacity={0.9}>
-          <Text className="text-black text-base font-poppinsMedium shadow">
+          <Text className="text-textPrimary text-base font-poppinsMedium shadow">
             Cancel
           </Text>
         </TouchableOpacity>
@@ -108,10 +109,10 @@ const Friends = () => {
   const CustomDeleteComponent = () => (
     <View className="flex flex-col justify-center items-center w-full">
       <Icon name="DeleteFriend" width={100} height={100} />
-      <Text className="text-base font-poppinsBold text-black my-3">
+      <Text className="text-base font-poppinsBold text-textPrimary my-3">
         Delete Your Friend
       </Text>
-      <Text className="text-center font-poppinsRegular">
+      <Text className="text-center font-poppinsRegular text-textPrimary">
         Do you want to delete your friend? You can then send a friend request
         again
       </Text>
@@ -120,7 +121,7 @@ const Friends = () => {
           onPress={() => setShowDeleteFriendModal(false)}
           className="w-[48%] h-12 flex justify-center items-center"
           activeOpacity={0.9}>
-          <Text className="text-black text-base font-poppinsMedium shadow">
+          <Text className="text-textPrimary text-base font-poppinsMedium shadow">
             Cancel
           </Text>
         </TouchableOpacity>
