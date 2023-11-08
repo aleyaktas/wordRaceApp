@@ -1,6 +1,12 @@
 import React, {useCallback, useState} from 'react';
 import DefaultTemplate from '../../templates/DefaultTemplate';
-import {Text, TextInput, TouchableOpacity, View} from 'react-native';
+import {
+  ActivityIndicator,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import Icon from '../../themes/icon';
 import {AppDispatch, useAppSelector} from '../../store';
 import {StateProps} from '../../navigation/bottomTabNavigator';
@@ -14,7 +20,7 @@ import {editUsername, handleUpdatePhoto} from './actions';
 
 const EditAccount = () => {
   const {user} = useAppSelector((state: StateProps) => state.auth);
-  const [photo, setPhoto] = useState(user.profileImage);
+  const [loading, setLoading] = useState(false);
   const [username, setUsername] = useState(user.username);
 
   const dispatch = useDispatch<AppDispatch>();
@@ -32,22 +38,47 @@ const EditAccount = () => {
           title: 'Something went wrong',
         });
       } else {
-        setPhoto(response.assets[0].uri);
-        handleUpdatePhoto(user._id, response.assets[0].uri, dispatch);
+        setLoading(true);
+        handleUpdatePhoto(
+          user._id,
+          response.assets[0].uri,
+          dispatch,
+          setLoading,
+        );
       }
     });
   }, []);
+
   return (
     <DefaultTemplate backIcon title="Edit Account">
       <View className="justify-center items-center p-5">
         <View className="my-6">
           <View className="w-[120px] h-[120px] rounded-full overflow-hidden">
-            {photo ? (
-              <Image
-                source={{uri: photo}}
-                style={{width: '100%', height: '100%'}}
+            {loading && (
+              <ActivityIndicator
+                size="large"
+                color={colors.darkText}
+                style={{
+                  position: 'absolute',
+                  zIndex: 1,
+                  width: '100%',
+                  height: '100%',
+                }}
               />
-            ) : (
+            )}
+            {user.profileImage && (
+              <>
+                <Image
+                  source={{uri: user.profileImage}}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    opacity: loading ? 0.4 : 1,
+                  }}
+                />
+              </>
+            )}
+            {!user.profileImage && (
               <View className=" bg-gray-200 w-full h-full flex justify-center items-center">
                 <Text className="text-textPrimary text-3xl font-poppinsSemiBold">
                   {username?.charAt(0)?.toUpperCase()}
@@ -84,7 +115,6 @@ const EditAccount = () => {
           </Text>
           <Icon name="Mail" width={20} height={20} color="#BCBCBC" />
         </View>
-
         <LinearGradient
           start={{x: 0, y: 0}}
           end={{x: 1, y: 0}}

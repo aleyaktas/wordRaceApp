@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {
   ActivityIndicator,
   Dimensions,
   SafeAreaView,
   ScrollView,
+  StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -13,7 +14,7 @@ import colors from '../../themes/colors';
 import Icon from '../../themes/icon';
 import {DefaultTemplateProps} from './types';
 import LinearGradient from 'react-native-linear-gradient';
-import {useNavigation} from '@react-navigation/native';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {ScreenProp} from '../../navigation/types';
 
 const DefaultTemplate = ({
@@ -46,7 +47,7 @@ const DefaultTemplate = ({
     container: {
       flex: 1,
       width: '100%',
-      backgroundColor: bgColor,
+      backgroundColor: colors.white,
     },
     subContainer: {
       flex: 1,

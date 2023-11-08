@@ -25,6 +25,7 @@ export const handleUpdatePhoto = async (
   userId: string,
   photo: string,
   dispatch: any,
+  setLoading: (loading: boolean) => void,
 ) => {
   const reference = storage().ref(`images/${userId}`);
   const task = reference.putFile(photo);
@@ -33,5 +34,6 @@ export const handleUpdatePhoto = async (
     const res = await dispatch(updatePhoto({url}));
     if (res.error) return showMessage(res.payload.errors[0].msg, 'error');
     showMessage('Profile photo updated successfuly', 'success');
+    setLoading(false);
   });
 };
