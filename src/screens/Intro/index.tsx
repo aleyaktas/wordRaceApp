@@ -6,10 +6,12 @@ import {ScreenProp} from '../../navigation/types';
 import {useAppSelector} from '../../store';
 import {StateProps} from '../../navigation/bottomTabNavigator';
 import setAuthToken from '../../utils/setAuthToken';
+import SplashScreen from 'react-native-splash-screen';
 
 const Intro = () => {
   const {token} = useAppSelector((state: StateProps) => state.auth);
   useEffect(() => {
+    SplashScreen.hide();
     if (token !== null) {
       setAuthToken(token);
       navigation.replace('BottomTab');
