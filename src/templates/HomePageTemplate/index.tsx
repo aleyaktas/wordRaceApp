@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   ActivityIndicator,
   SafeAreaView,
@@ -25,6 +25,10 @@ const HomePageTemplate = ({
   const {username, profileImage} = useAppSelector(
     (state: StateProps) => state.auth.user,
   );
+
+  useEffect(() => {
+    console.log(username);
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>

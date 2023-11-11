@@ -10,8 +10,8 @@ import {Provider} from 'react-redux';
 import axios from 'axios';
 import AlertBox from '../components/InvitationModal';
 
-// axios.defaults.baseURL = 'https://api-wordrace.aleynaaktas.com';
-axios.defaults.baseURL = 'http://192.168.1.100:5001';
+axios.defaults.baseURL = 'https://api-wordrace.aleynaaktas.com';
+// axios.defaults.baseURL = 'http://192.168.1.100:5001';
 const NavigationStack = () => {
   return (
     <Provider store={store}>

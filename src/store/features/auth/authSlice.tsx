@@ -9,7 +9,7 @@ const initialState: InitialStateProps = {
   isAuthenticated: false,
   user: {
     _id: '',
-    username: '',
+    username: 'Guest',
     email: '',
     friends: [],
     pendingRequests: [],
@@ -362,7 +362,7 @@ export const authSlice = createSlice({
       setAuthToken(null);
       state.user = {
         _id: '',
-        username: '',
+        username: 'Guest',
         email: '',
         friends: [],
         pendingRequests: [],
@@ -498,8 +498,7 @@ export const authSlice = createSlice({
     builder.addCase(getUser.fulfilled, (state, action) => {
       state.isAuthenticated = action.payload?._id ? true : false;
       state.loading = false;
-      state.user = action.payload;
-      state.token = state.token;
+      state.user = action.payload?._id ? action.payload : initialState.user;
       setAuthToken(state.token);
     });
     builder.addCase(editProfile.pending, (state, action) => {

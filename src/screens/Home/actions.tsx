@@ -7,6 +7,7 @@ export const handleCreateRoom = ({
   roomName,
   rooms,
   username,
+  token,
   profileImage,
   selectedTimer,
   selectedRoomStatus,
@@ -16,6 +17,7 @@ export const handleCreateRoom = ({
   roomName: string;
   rooms: RoomProps[];
   username: string;
+  token: string;
   profileImage: string;
   selectedTimer: {
     label: string;
@@ -28,6 +30,10 @@ export const handleCreateRoom = ({
   setShowAlert: (value: boolean) => void;
   navigation: any;
 }) => {
+  if (!token) {
+    setShowAlert(false);
+    return navigation.navigate('Login');
+  }
   const roomId = uuid.v4();
   if (roomName?.length === 0) {
     return showMessage('Room name cannot be empty', 'error');

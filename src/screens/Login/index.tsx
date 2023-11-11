@@ -80,6 +80,13 @@ const Login = () => {
           </Text>
         </TouchableOpacity>
       </View>
+      <TouchableOpacity
+        activeOpacity={0.9}
+        onPress={() => navigation.navigate('BottomTab')}>
+        <Text className=" text-gray-500 text-sm font-poppinsRegular underline underline-offset-6 mt-4">
+          Continue as guest
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 };

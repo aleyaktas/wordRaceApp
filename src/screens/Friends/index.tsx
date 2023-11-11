@@ -25,6 +25,7 @@ const Friends = () => {
   const [addUsername, setAddUsername] = useState<string>('');
   const navigation = useNavigation<ScreenProp>();
   const dispatch = useAppDispatch();
+  const token = useAppSelector((state: StateProps) => state.auth.token);
   const {friends, pendingRequests} = useAppSelector(
     (state: StateProps) => state.auth.user,
   );
@@ -86,6 +87,10 @@ const Friends = () => {
           colors={['#5BB9CA', '#1D7483']}>
           <TouchableOpacity
             onPress={async () => {
+              if (!token) {
+                setShowAddFriendModal(false);
+                return navigation.navigate('Login');
+              }
               const res: any = await dispatch(
                 addFriend({username: addUsername}),
               );

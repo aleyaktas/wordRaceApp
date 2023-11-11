@@ -47,8 +47,12 @@ const Home = () => {
   const {username, profileImage} = useAppSelector(
     (state: StateProps) => state.auth.user,
   );
+  const {token} = useAppSelector((state: StateProps) => state.auth);
 
   const onRoomClick = (roomId: string) => {
+    if (!token) {
+      return showMessage('You have to login before enter the room', 'error');
+    }
     const joinRoom = rooms.find(room => room.id === roomId);
     if (joinRoom && joinRoom.players.length < 2) {
       socket.emit('join_room', {user: {username, image: profileImage}, roomId});
@@ -154,6 +158,7 @@ const Home = () => {
                 roomName,
                 rooms,
                 username,
+                token,
                 profileImage,
                 selectedTimer,
                 selectedRoomStatus,

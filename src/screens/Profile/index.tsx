@@ -29,6 +29,7 @@ const Profile = () => {
   const {username, email, profileImage} = useAppSelector(
     (state: StateProps) => state?.auth.user,
   );
+  const {token} = useAppSelector((state: StateProps) => state?.auth);
   const dispatch = useAppDispatch();
 
   const isFocused = useIsFocused();
@@ -112,7 +113,11 @@ const Profile = () => {
           <ProfileItem
             title="Edit Account"
             iconName="User"
-            onPress={() => navigation.navigate('EditAccount')}
+            onPress={() => {
+              !token
+                ? navigation.navigate('Login')
+                : navigation.navigate('EditAccount');
+            }}
           />
           <Divider
             type="dashed"
@@ -123,7 +128,11 @@ const Profile = () => {
           <ProfileItem
             title="Change Password"
             iconName="Lock"
-            onPress={() => navigation.navigate('ChangePassword')}
+            onPress={() => {
+              !token
+                ? navigation.navigate('Login')
+                : navigation.navigate('ChangePassword');
+            }}
           />
           <Divider
             type="dashed"
@@ -134,7 +143,11 @@ const Profile = () => {
           <ProfileItem
             title="Delete Account"
             iconName="Trash"
-            onPress={() => setShowDeleteAccountModal(true)}
+            onPress={() => {
+              !token
+                ? navigation.navigate('Login')
+                : setShowDeleteAccountModal(true);
+            }}
           />
         </View>
         <Text className="text-gray-800 font-poppinsBold text-lg py-2 mt-3 mr-auto">
@@ -153,12 +166,15 @@ const Profile = () => {
             style={styles.divider}
           />
         </View>
+
         <TouchableOpacity
           className="flex-row justify-center items-center mt-5"
-          onPress={() => onClickLogout()}>
+          onPress={() => {
+            !token ? navigation.navigate('Login') : onClickLogout();
+          }}>
           <Icon name="Logout" width={24} height={24} color="black" />
           <Text className="text-sm text-textPrimary font-poppinsRegular text-center">
-            Logout
+            {!token ? 'Login' : 'Logout'}
           </Text>
         </TouchableOpacity>
         <AwesomeAlert
