@@ -50,7 +50,7 @@ const EditAccount = () => {
   }, []);
 
   return (
-    <DefaultTemplate backIcon title="Edit Account">
+    <DefaultTemplate backIcon title="Edit Account" scroll>
       <View className="justify-center items-center p-5">
         <View className="my-6">
           <View className="w-[120px] h-[120px] rounded-full overflow-hidden">

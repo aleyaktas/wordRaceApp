@@ -22,7 +22,7 @@ const ChangePassword = () => {
   const dispatch = useAppDispatch();
 
   return (
-    <DefaultTemplate title="Change Password" backIcon>
+    <DefaultTemplate title="Change Password" backIcon scroll>
       <View
         style={styles.iconContainer}
         className="w-32 h-32 rounded-full bg-white mt-11 mb-6 mx-auto">

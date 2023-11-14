@@ -24,6 +24,7 @@ import {useNavigation} from '@react-navigation/native';
 import {showMessage} from '../../utils/showMessage';
 import {ScreenProp} from '../../navigation/types';
 import {KeyboardView} from '../../decorators';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 const Home = () => {
   const [rooms, setRooms] = useState<RoomProps[]>([]);

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View} from 'react-native';
+import {SafeAreaView, ScrollView, View} from 'react-native';
 import IntroStep from '../../components/IntroStep';
 import {useNavigation} from '@react-navigation/native';
 import {ScreenProp} from '../../navigation/types';
@@ -48,23 +48,25 @@ const Intro = () => {
   const navigation = useNavigation<ScreenProp>();
 
   return (
-    <View>
-      <IntroStep
-        step={introShow.step}
-        title={introShow.title}
-        description={introShow.description}
-        image={introShow.image}
-        buttonLabel={introShow.buttonLabel}
-        buttonAction={async () => {
-          if (step < 3) {
-            await setStep(step + 1);
-            setIntroShow(introInfo[step]);
-          } else {
-            navigation.navigate('Login');
-          }
-        }}
-      />
-    </View>
+    <SafeAreaView style={{flex: 1}}>
+      <ScrollView contentContainerStyle={{flexGrow: 1}}>
+        <IntroStep
+          step={introShow.step}
+          title={introShow.title}
+          description={introShow.description}
+          image={introShow.image}
+          buttonLabel={introShow.buttonLabel}
+          buttonAction={async () => {
+            if (step < 3) {
+              await setStep(step + 1);
+              setIntroShow(introInfo[step]);
+            } else {
+              navigation.navigate('Login');
+            }
+          }}
+        />
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 

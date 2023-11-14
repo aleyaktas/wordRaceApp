@@ -21,6 +21,7 @@ import AwesomeAlert from 'react-native-awesome-alerts';
 import ProfileItem from '../../components/ProfileItem';
 import Divider from '../../components/Divider';
 import colors from '../../themes/colors';
+import {ScrollView} from 'react-native';
 
 const Profile = () => {
   const navigation = useNavigation<ScreenProp>();
@@ -83,7 +84,7 @@ const Profile = () => {
   );
 
   return (
-    <DefaultTemplate title="Profile">
+    <DefaultTemplate title="Profile" scroll>
       <View className="justify-center items-center p-5">
         <View className="my-6">
           <View className="w-[120px] h-[120px] rounded-full overflow-hidden">

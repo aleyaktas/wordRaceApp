@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, TouchableOpacity, View} from 'react-native';
+import {ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import Icon from '../../themes/icon';
 import StepCounter from '../StepCounter';
 import LinearGradient from 'react-native-linear-gradient';
@@ -14,7 +14,7 @@ const IntroStep = ({
   buttonAction,
 }: IntroStepProps) => {
   return (
-    <View className="flex w-full items-center justify-center h-full p-5">
+    <View className="flex flex-1 w-full items-center justify-center h-full p-5">
       <Icon name={image} width={300} height={260} />
       <Text className="font-poppinsBold text-2xl text-textPrimary mt-16">
         {title}
