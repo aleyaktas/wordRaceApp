@@ -16,7 +16,7 @@ import {StateProps} from '../../navigation/bottomTabNavigator';
 const PrivacyPolicy = () => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
-  const {username} = useAppSelector((state: StateProps) => state.auth.user);
+  const {token} = useAppSelector((state: StateProps) => state.auth);
 
   return (
     <DefaultTemplate backIcon bgColor="white">
@@ -317,7 +317,7 @@ const PrivacyPolicy = () => {
           If you have any questions about this Privacy Policy, You can contact
           us: By email: aleynaaktas627@gmail.com
         </Text>
-        {!username && (
+        {!token && (
           <LinearGradient
             start={{x: 0, y: 0}}
             end={{x: 1, y: 0}}

@@ -38,7 +38,7 @@ const stackNavigator = () => {
         },
       };
     },
-    gestureEnabled: true,
+    gestureEnabled: false,
     header: () => null,
   };
 

@@ -13,4 +13,8 @@ export default {
   iconBorder: '#E1E1E1',
   black: '#000',
   shadowColor: '#C1c1c1',
+  lightText: '#9A9BB2',
+  border: '#C5C5C5',
+  lightGray: '#f7f7f7',
+  dimGray: '#6C6C6C',
 };

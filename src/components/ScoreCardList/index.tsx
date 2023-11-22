@@ -8,7 +8,7 @@ import {ScoreProps} from './types';
 const ScoreCardList = ({topScores}: {topScores: ScoreProps[]}) => {
   return (
     <FlatList
-      data={topScores}
+      data={topScores.filter(item => item.score > 0)}
       renderItem={({item, index}) => (
         <ScoreCard
           index={index + 1}

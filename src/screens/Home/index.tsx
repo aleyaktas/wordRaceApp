@@ -99,85 +99,6 @@ const Home = () => {
     });
   }, []);
 
-  const CustomComponent = memo(() => (
-    <View className="flex flex-col justify-center items-center w-full">
-      <Icon name="CreateRoom" width={100} height={100} />
-      <Text className="text-base font-poppinsBold text-textPrimary my-3">
-        Create Room
-      </Text>
-      <View className="bg-textInput rounded-xl h-12 px-3 w-full">
-        <TextInput
-          className="flex-1 font-poppinsLight text-textPrimary"
-          placeholder="Room Name"
-          placeholderTextColor={'gray'}
-          value={roomName}
-          onChangeText={setRoomName}
-        />
-      </View>
-      <View className="flex-row justify-between w-full gap-x-2">
-        <View className="flex-1 text-black placeholder:text-black  bg-textInput rounded-xl h-12 mt-4">
-          <RNPickerSelect
-            onValueChange={value => setSelectedTimer(value)}
-            items={[
-              {label: '20s', value: 20},
-              {label: '15s', value: 15},
-              {label: '10s', value: 10},
-            ]}
-            value={selectedTimer}
-            placeholder={{}}
-          />
-        </View>
-        <View className="flex-1 text-black placeholder:text-black  bg-textInput rounded-xl h-12 mt-4">
-          <RNPickerSelect
-            onValueChange={value => setSelectedRoomStatus(value)}
-            items={[
-              {label: 'Public', value: true},
-              {label: 'Private', value: false},
-            ]}
-            value={selectedRoomStatus}
-            placeholder={{}}
-          />
-        </View>
-      </View>
-      <View className="flex-row mt-6">
-        <TouchableOpacity
-          onPress={() => setShowAlert(false)}
-          className="w-[48%] h-12 flex justify-center items-center"
-          activeOpacity={0.9}>
-          <Text className="text-textPrimary text-base font-poppinsMedium shadow">
-            Cancel
-          </Text>
-        </TouchableOpacity>
-        <LinearGradient
-          start={{x: 0, y: 0}}
-          end={{x: 1, y: 0}}
-          className="w-[48%] rounded-xl"
-          colors={['#5BB9CA', '#1D7483']}>
-          <TouchableOpacity
-            onPress={async () =>
-              await handleCreateRoom({
-                roomName,
-                rooms,
-                username,
-                token,
-                profileImage,
-                selectedTimer,
-                selectedRoomStatus,
-                setShowAlert,
-                navigation,
-              })
-            }
-            className="w-full h-12 flex justify-center items-center"
-            activeOpacity={0.9}>
-            <Text className="text-white text-base font-poppinsMedium shadow">
-              Create
-            </Text>
-          </TouchableOpacity>
-        </LinearGradient>
-      </View>
-    </View>
-  ));
-
   return (
     <HomePageTemplate setShowAlert={setShowAlert}>
       <KeyboardView style={{flex: 1}}>
@@ -225,7 +146,84 @@ const Home = () => {
         <AwesomeAlert
           show={showAlert}
           showProgress={false}
-          customView={<CustomComponent />}
+          customView={
+            <View className="flex flex-col justify-center items-center w-full">
+              <Icon name="CreateRoom" width={100} height={100} />
+              <Text className="text-base font-poppinsBold text-textPrimary my-3">
+                Create Room
+              </Text>
+              <View className="bg-textInput rounded-xl h-12 px-3 w-full">
+                <TextInput
+                  className="flex-1 font-poppinsLight text-textPrimary"
+                  placeholder="Room Name"
+                  placeholderTextColor={'gray'}
+                  value={roomName}
+                  onChangeText={setRoomName}
+                />
+              </View>
+              <View className="flex-row justify-between w-full gap-x-2">
+                <View className="flex-1 text-black placeholder:text-black  bg-textInput rounded-xl h-12 mt-4">
+                  <RNPickerSelect
+                    onValueChange={value => setSelectedTimer(value)}
+                    items={[
+                      {label: '20s', value: 20},
+                      {label: '15s', value: 15},
+                      {label: '10s', value: 10},
+                    ]}
+                    value={selectedTimer}
+                    placeholder={{}}
+                  />
+                </View>
+                <View className="flex-1 text-black placeholder:text-black  bg-textInput rounded-xl h-12 mt-4">
+                  <RNPickerSelect
+                    onValueChange={value => setSelectedRoomStatus(value)}
+                    items={[
+                      {label: 'Public', value: true},
+                      {label: 'Private', value: false},
+                    ]}
+                    value={selectedRoomStatus}
+                    placeholder={{}}
+                  />
+                </View>
+              </View>
+              <View className="flex-row mt-6">
+                <TouchableOpacity
+                  onPress={() => setShowAlert(false)}
+                  className="w-[48%] h-12 flex justify-center items-center"
+                  activeOpacity={0.9}>
+                  <Text className="text-textPrimary text-base font-poppinsMedium shadow">
+                    Cancel
+                  </Text>
+                </TouchableOpacity>
+                <LinearGradient
+                  start={{x: 0, y: 0}}
+                  end={{x: 1, y: 0}}
+                  className="w-[48%] rounded-xl"
+                  colors={['#5BB9CA', '#1D7483']}>
+                  <TouchableOpacity
+                    onPress={async () =>
+                      await handleCreateRoom({
+                        roomName,
+                        rooms,
+                        username,
+                        token,
+                        profileImage,
+                        selectedTimer,
+                        selectedRoomStatus,
+                        setShowAlert,
+                        navigation,
+                      })
+                    }
+                    className="w-full h-12 flex justify-center items-center"
+                    activeOpacity={0.9}>
+                    <Text className="text-white text-base font-poppinsMedium shadow">
+                      Create
+                    </Text>
+                  </TouchableOpacity>
+                </LinearGradient>
+              </View>
+            </View>
+          }
           contentContainerStyle={{
             width: Dimensions.get('window').width - 50,
             borderRadius: 12,
@@ -234,12 +232,15 @@ const Home = () => {
           closeOnHardwareBackPress={false}
           onCancelPressed={() => {
             setShowAlert(false);
+            setRoomName('');
           }}
           onConfirmPressed={() => {
             setShowAlert(false);
+            setRoomName('');
           }}
           onDismiss={() => {
             setShowAlert(false);
+            setRoomName('');
           }}
         />
       </KeyboardView>
